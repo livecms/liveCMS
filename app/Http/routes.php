@@ -15,17 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function() {
-	Route::get('/', function() {
-		return view('admin.home');
-	});
-
-	Route::controller('user', 'UserController');
-	Route::controller('categories', 'CategoryController');
-	Route::controller('tags', 'TagController');
-	Route::controller('articles', 'ArticleController');
-});
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -38,5 +27,15 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function() {
 */
 
 Route::group(['middleware' => ['web']], function () {
-    //
+    Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function() {
+		Route::get('/', function() {
+			return view('admin.home');
+		});
+
+		Route::controller('user', 'UserController');
+		Route::controller('kategori', 'KategoriController');
+		Route::controller('tag', 'TagController');
+		Route::controller('artikel', 'ArtikelController');
+	});
+
 });

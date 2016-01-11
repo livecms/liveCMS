@@ -7,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>{{ $judul or 'Judul'}} | {{ $global_params['nama_toko'] or 'nama_toko' }}</title>
+  <title>{{ $judul or 'Judul' }} | {{ $namaApp or 'LiveCMS' }}</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- CSRF -->
@@ -18,23 +18,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{ asset('backend/plugins/font-awesome/4.4.0/css/font-awesome.min.css') }}">
   <!-- Ionicons -->
   <link rel="stylesheet" href="{{ asset('backend/plugins/ionicons/2.0.1/css/ionicons.min.css') }}">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="{{ asset('backend/plugins/select2/select2.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('backend/plugins/select2/select2-bootstrap.min.css') }}">
+  <!-- Datepicker -->
+  <link rel="stylesheet" href="{{ asset('backend/plugins/datepicker/datepicker3.css') }}">
   <!-- datatables -->
   <link rel="stylesheet" href="{{ asset('backend/plugins/datatables/dataTables.bootstrap.css') }}">
-  <!-- select2 -->
-  <link rel="stylesheet" href="{{ asset('backend/plugins/select2/select2.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('backend/dist/css/AdminLTE.min.css') }}">
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect.
   -->
-
-  <style>
-    figure img {
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-  </style>
   <link rel="stylesheet" href="{{ asset('backend/dist/css/skins/skin-blue.min.css') }}">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -73,9 +69,9 @@ desired effect
     <!-- Logo -->
     <a href="index2.html" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini">{!! $namaAppMini or '<b>L</b>CM' !!}</span>
+      <span class="logo-mini">@yield('nama.app.mini', '<b>L</b>CMS')</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg">{!! $namaAppFull or '<b>Live</b>Commerce' !!}</span>
+      <span class="logo-lg">@yield('nama.app.full', '<b>Live</b>CMS')</span>
     </a>
 
     <!-- Header Navbar -->
@@ -155,16 +151,7 @@ desired effect
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
-        <!-- Optionally, you can add icons to the links -->
-        <li class="@if(request()->is('admin'))active @endif"><a href="{{ asset('admin') }}"><i class="fa fa-home"></i> <span>Home</span></a></li>
-        <li class="@if(request()->is('admin/customer*'))active @endif treeview">
-          <a href="{{ asset('admin/customer') }}"><i class="fa fa-male"></i> <span>Customer</span> <i class="fa fa-angle-left pull-right"></i></a>
-          <ul class="treeview-menu">
-            <li class="@if(request()->is('admin/customer'))active @endif"><a href="{{ asset('admin/customer') }}"><i class="fa fa-list"></i>List</a></li>
-            <li class="@if(request()->is('admin/customer/create'))active @endif"><a href="{{ asset('admin/customer/create') }}"><i class="fa fa-plus"></i>Tambah</a></li>
-          </ul>
-        </li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
+        @include('partials.adminmenus')
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -181,9 +168,9 @@ desired effect
       </h1>
       <ol class="breadcrumb">
       @if(isset($breadcrumbLevel))
-        <li><a href="{{ $breadcrumb1Url or '#' }}"><i class="fa {{ $breadcrumb1Icon or 'fa-dashboard' }}"></i> {{ $breadcrumb1 or 'Home Admin' }}</a></li>
-        @if($breadcrumbLevel >= 2)<li class="{{ $breadcrumb2Class or 'active' }}"><a href="{{ $breadcrumb2Url or 'javascript:;' }}" ><i class="fa {{ $breadcrumb2Icon or 'fa-dashboard' }}"></i> {{ $breadcrumb2 or 'Here' }}</a></li>@endif
-        @if($breadcrumbLevel >= 3)<li class="{{ $breadcrumb3Class or 'active' }}"><a href="{{ $breadcrumb3Url or 'javascript:;' }}" >{{ $breadcrumb3 or 'Here' }}</a></li>@endif
+        <li><a href="{{ $breadcrumb1Url or '/' }}"><i class="fa fa-{{ $breadcrumb1Icon or 'dashboard' }}"></i> {{ $breadcrumb1 or 'Menu' }}</a></li>
+        @if($breadcrumbLevel >= 2)<li class="{{ $breadcrumb2Class or 'active' }}"><a href="{{ $breadcrumb2Url or 'javascript:;' }}" ><i class="fa fa-{{ $breadcrumb2Icon or '' }}"></i> {{ $breadcrumb2 or 'Here' }}</a></li>@endif
+        @if($breadcrumbLevel >= 3)<li class="{{ $breadcrumb3Class or 'active' }}"><a href="{{ $breadcrumb3Url or 'javascript:;' }}" ><i class="fa fa-{{ $breadcrumb3Icon or '' }}"></i> {{ $breadcrumb3 or 'Here' }}</a></li>@endif
       @endif
       </ol>
     </section>
@@ -221,6 +208,10 @@ desired effect
 <script src="{{ asset('backend/plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
 <!-- Bootstrap 3.3.5 -->
 <script src="{{ asset('backend/bootstrap/js/bootstrap.min.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('backend/dist/js/app.min.js') }}"></script>
+<!-- date js -->
+<script src="{{ asset('backend/plugins/datejs/date.js') }}"></script>
 <!-- date-range-picker -->
 <script src="{{ asset('backend/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
 <script src="{{ asset('backend/plugins/datepicker/locales/bootstrap-datepicker.id.js') }}" charset="UTF-8"></script>
@@ -233,6 +224,8 @@ desired effect
 <script src="{{ asset('backend/plugins/select2/select2.full.min.js') }}"></script>
 <!-- autonumeric -->
 <script src="{{ asset('backend/plugins/autoNumeric/autoNumeric-min.js') }}"></script>
+<!-- CK Editor -->
+<script src="{{ asset('backend/plugins/ckeditor/light/ckeditor.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('backend/dist/js/app.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
@@ -244,9 +237,13 @@ desired effect
     e=function(f){return f.split('').reverse().join('')};b=e(parseInt(this,10).toString());for(c=0,d='';c<b.length;c++){d+=b[c];if((c+1)%3===0&&c!==(b.length-1)){d+='.';}}return(a?a:'Rp.\t')+e(d);
   }
   $(function() {
-    $.fn.datepicker.defaults.format = "{{ config('livepos.dateformat') }}";
-    $.fn.datepicker.defaults.language = "id";
+    $.fn.datepicker.defaults.format = "{{ config('liveapp.dateformat', 'dd-MM-yyyy') }}";
+    $.fn.datepicker.defaults.language = "en";
     $.fn.datepicker.defaults.todayHighlight = true;
+    $.fn.datepicker.defaults.autoclose = true;
+    $.fn.datepicker.defaults.forceParse = false;
+
+    $('.datepicker').datepicker();          
 
     $.ajaxSetup({
       headers: {
@@ -256,16 +253,34 @@ desired effect
 
     $.fn.modal.Constructor.DEFAULTS.backdrop = 'static';
 
-    $.fn.liveCommerceCurrency = {aSep: '.', aDec: ',', aSign: 'Rp. ', lZero: 'deny', mDec: 0};
-    $.fn.liveCommerceNumeric = {aSep: '.', aDec: ',', aSign: '', lZero: 'deny', mDec: 0};
-    $.fn.liveCommerceDecimal = {aSep: '.', aDec: ',', aSign: '', lZero: 'deny'};
+    $.fn.liveposCurrency = {aSep: '.', aDec: ',', aSign: 'Rp. ', lZero: 'deny'};
+    $.fn.liveposNumeric = {aSep: '.', aDec: ',', aSign: '', lZero: 'deny'};
 
-    $('select').select2({width: '100%'});              
+    $('select').select2({windowdth: '100%'});    
     
-    $('.input-mask-currency').autoNumeric('init', $.fn.liveCommerceCurrency);
-    $('.input-mask-numeric').autoNumeric('init', $.fn.liveCommerceNumeric);
-    $('.input-mask-decimal').autoNumeric('init', $.fn.liveCommerceDecimal);
+    $('.input-mask.input-mask-currency').autoNumeric('init', $.fn.liveposCurrency);
+    $('.input-mask.input-mask-numeric').autoNumeric('init', $.fn.liveposNumeric);
 
+    $('form').submit(function(e) {
+
+      var form = $(this);
+      console.log(form);
+      form.find('.btn-primary').prop('disabled', true); 
+      form.find('.input-mask').each(function(i, e) {
+        var v = $(this).autoNumeric('get');
+        console.log(v)
+        $(this).val(v);
+      })
+      form.find('.datepicker').each(function(i, e) {
+        var v = $(this).val();
+        console.log(v)
+        console.log($.fn.datepicker.defaults.format)
+        d = Date.parseExact(v, [$.fn.datepicker.defaults.format, 'dd-MMM-yyyy']);
+        newDate = d.toString('yyyy-M-dd');
+        $(this).val(newDate);
+      })
+      return true;
+    })
 
       var slideToTop = $("<div />");
       slideToTop.html('<i class="fa fa-chevron-up"></i>');
@@ -308,7 +323,25 @@ desired effect
         }, 500);
       });
 
+  @if(isset($base))
+    $('.datatables').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '{{ action($baseClass.'@anyData') }}',
+        columns: [
+          @foreach($fields as $field) { name: '{{ $field }}'}, @endforeach
+          { name: 'menu', sortable: false },
+        ],
+    });
+  @endif
+
+  @if(isset($useCKEditor))
+    CKEDITOR.replace('{{ $useCKEditor }}')
+  @endif
+  
   })
+
+
 </script>
 
 @yield('script.footer')

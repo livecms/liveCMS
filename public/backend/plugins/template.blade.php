@@ -254,6 +254,8 @@ desired effect
 <script src="{{ asset('backend/dist/js/app.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('backend/dist/js/demo.js') }}"></script>
+<!-- CK Editor -->
+<script src="backend/plugins/ckeditor/light/ckeditor.js"></script>
 
 
 <script>
@@ -322,6 +324,10 @@ desired effect
           scrollTop: 0
         }, 500);
       });
+
+      // @if(isset($useCKEditor))
+      CKEditor.replace('{{ $useCKEditor }}')
+      // @endif
 
   })
 </script>
