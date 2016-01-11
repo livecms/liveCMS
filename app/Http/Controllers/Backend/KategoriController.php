@@ -14,9 +14,7 @@ class KategoriController extends BackendController
     {
     	$slug = $request->input('slug', $request->input('kategori'));
 
-    	dd($request->slug);
-
-    	// if (empty(trim($slug))) $slug = $request->get('kategori'); 
+    	if (empty(trim($slug))) $slug = $request->get('kategori'); 
 
     	$slug = str_slug($slug);
 
