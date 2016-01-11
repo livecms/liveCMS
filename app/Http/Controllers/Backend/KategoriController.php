@@ -10,6 +10,22 @@ use App\Kategori as Model;
 
 class KategoriController extends BackendController
 {
+	protected function processRequest($request)
+    {
+    	$slug = $request->input('slug', $request->input('kategori'));
+
+    	dd($request->slug);
+
+    	// if (empty(trim($slug))) $slug = $request->get('kategori'); 
+
+    	$slug = str_slug($slug);
+
+    	$request->merge(compact('slug'));
+    	
+    	return $request;
+    }
+
+
     public function __construct(Model $model, $base = 'kategori')
 	{
 		parent::__construct($model, $base);

@@ -116,7 +116,7 @@ class BackendController extends Controller
 
         if ($created)
         {
-            return redirect($this->base);
+            return redirect()->action($this->baseClass.'@getIndex');
         }
     }
 
@@ -129,8 +129,8 @@ class BackendController extends Controller
     public function getEdit($id)
     {
         $model = $this->model->where($this->model->getKeyName(), $id)->first();
-        if ($model == null) abort('404', 'Data not found');
-        // $model = $this->model->findOrFail($id);
+        // if ($model == null) abort('404', 'Data not found');
+        $model = $this->model->findOrFail($id);
         ${$this->base} = $model;
 
         view()->share('judul', ($this->judulEdit) ? $this->judulEdit : 'Edit '.ucwords($this->base));
@@ -153,18 +153,18 @@ class BackendController extends Controller
     public function postEdit(Request $request, $id)
     {
         $model = $this->model->where($this->model->getKeyName(), $id)->first();
-        if ($model == null) abort('404', 'Data not found');
-        // $model = $this->model->findOrFail($id);
+        // if ($model == null) abort('404', 'Data not found');
+        $model = $this->model->findOrFail($id);
 
         $request = $this->processRequest($request);
-    	
+
         $this->validate($request, $model->rules());
 
         $updated = $model->update($request->all());
 
         if ($updated)
         {
-            return redirect($this->base);
+            return redirect()->action($this->baseClass.'@getIndex');
         }
     }
 
@@ -177,8 +177,8 @@ class BackendController extends Controller
     public function deleteHapus($id)
     {
         $model = $this->model->where($this->model->getKeyName(), $id)->first();
-        if ($model == null) abort('404', 'Data not found');
-        // $model = $this->model->findOrFail($id);
+        // if ($model == null) abort('404', 'Data not found');
+        $model = $this->model->findOrFail($id);
 
         $deleted = $model->delete();
         return redirect($this->base);

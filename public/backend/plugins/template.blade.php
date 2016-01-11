@@ -325,9 +325,9 @@ desired effect
         }, 500);
       });
 
-      // @if(isset($useCKEditor))
+      @if(isset($useCKEditor))
       CKEditor.replace('{{ $useCKEditor }}')
-      // @endif
+      @endif
 
   })
 </script>
