@@ -181,7 +181,7 @@ class BackendController extends Controller
         $model = $this->model->findOrFail($id);
 
         $deleted = $model->delete();
-        return redirect($this->base);
+        return redirect()->action($this->baseClass.'@getIndex');
     }
 
 }
