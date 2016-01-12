@@ -12,9 +12,9 @@ class TagController extends BackendController
 {	
     protected function processRequest($request)
     {
-    	$slug = $request->input('slug', $request->input('kategori'));
+    	$slug = $request->input('slug', $request->input('tag'));
 
-    	if (empty(trim($slug))) $slug = $request->get('kategori'); 
+    	if (empty(trim($slug))) $slug = $request->get('tag'); 
 
     	$slug = str_slug($slug);
 
