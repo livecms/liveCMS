@@ -36,6 +36,7 @@ Route::group(['middleware' => ['web']], function () {
 		Route::controller('kategori', 'KategoriController');
 		Route::controller('tag', 'TagController');
 		Route::controller('artikel', 'ArtikelController');
+		Route::controller('setting', 'SettingController');
 	});
 
 });
