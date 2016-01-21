@@ -8,14 +8,9 @@ php:
 
 services: mysql
 
-env:
-- DB_HOST=127.0.0.1
-- DB_DATABASE=livecms
-- DB_USERNAME=root
-- DB_PASSWORD=
-
 before_script: 
 - mysql -e 'create database livecms;'
+- /home/travis/.phpenv/versions/5.5/bin/composer self-update
 - cp .env.example .env
 - composer install --dev --prefer-source --no-interaction
 - php artisan key:generate
