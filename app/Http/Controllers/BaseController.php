@@ -20,8 +20,6 @@ class BaseController extends Controller
             return Param::lists('value', 'key');
         });
 
-        View::share('global_params', $global_params);
-
         $this->global_params = $global_params;
     }
 }
