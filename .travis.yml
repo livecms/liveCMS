@@ -6,8 +6,18 @@ php:
 - 7
 - hhvm
 
+services: mysql
+
+env:
+- DB_HOST=127.0.0.1
+- DB_DATABASE=livecms
+- DB_USERNAME=root
+- DB_PASSWORD=
+
 before_script: 
 - cp .env.example .env
 - composer install --dev --prefer-source --no-interaction
+- php artisan key:generate
+- php artisan migrate --seed --force
 
 scripts: phpunit
