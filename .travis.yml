@@ -8,6 +8,6 @@ php:
 
 before_script: 
 - cp .env.example .env
-- composer install
+- composer install --dev --prefer-source --no-interaction
 
 scripts: phpunit

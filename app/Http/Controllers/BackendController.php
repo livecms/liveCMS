@@ -9,7 +9,7 @@ use App\Http\Requests;
 
 use App\BaseModel as Model;
 
-class BackendController extends Controller
+class BackendController extends BaseController
 {
     const CLASS_NAMESPACE = 'Backend\\';
 	protected $model;
@@ -26,6 +26,8 @@ class BackendController extends Controller
 
     public function __construct(Model $model, $base = '')
     {
+        parent::__construct();
+
     	$this->model = $model;
     	$this->base = $base;
     	$this->baseClass = static::CLASS_NAMESPACE.(new \ReflectionClass($this))->getShortName();
