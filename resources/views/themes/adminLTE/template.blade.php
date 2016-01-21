@@ -192,7 +192,7 @@ desired effect
       Anything you want
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2015 <a href="#">Company</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2015 <a href="#">{{ $global_params['site_name'] or 'Company' }}</a>.</strong> All rights reserved.
   </footer>
 
   <!-- /.control-sidebar -->
