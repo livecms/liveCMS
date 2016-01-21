@@ -6,4 +6,8 @@ php:
 - 7
 - hhvm
 
+before_script: 
+- cp .env.example .env
+- composer install
+
 scripts: phpunit
