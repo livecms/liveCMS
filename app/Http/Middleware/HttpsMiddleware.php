@@ -16,6 +16,7 @@ class HttpsMiddleware
     public function handle($request, Closure $next)
     {
         if (!$request->secure() && app()->environment('production')) {
+                $request->setTrustedProxies( [ $request->getClientIp() ] );
                 return redirect()->secure($request->getRequestUri());
         }
 
