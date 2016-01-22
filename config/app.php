@@ -147,7 +147,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        'Barryvdh\Debugbar\ServiceProvider',
+        Barryvdh\Debugbar\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -206,7 +206,7 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
-        'Debugbar' => 'Barryvdh\Debugbar\Facade',
+        'Debugbar'  => Barryvdh\Debugbar\Facade::class,
 
         'Datatables' => Yajra\Datatables\Datatables::class,
         'Form' => Collective\Html\FormFacade::class,
