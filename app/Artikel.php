@@ -12,7 +12,7 @@ class Artikel extends BaseModel
 
     	return [
     		'judul' => 'required|unique:artikels,judul'.(($this->id != null) ? ','.$this->id : ''),
-    		'slug' => 'required|unique:juduls,slug'.(($this->id != null) ? ','.$this->id : ''),
+    		'slug' => 'required|unique:artikels,slug'.(($this->id != null) ? ','.$this->id : ''),
     		'isi' => 'required',
     	];
     }
