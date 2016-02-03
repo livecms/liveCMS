@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use Cache;
 use Closure;
 use App\Setting as Param;
 
@@ -17,11 +16,7 @@ class GlobalParamsMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $global_params = Cache::rememberForever('global_params', function() {
-            return Param::lists('value', 'key');
-        });
-
-        view()->share('global_params', $global_params);
+        view()->share('global_params', globalParams());
         
         return $next($request);
     }
