@@ -69,9 +69,9 @@ desired effect
     <!-- Logo -->
     <a href="index2.html" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini">@yield('nama.app.mini', '<b>L</b>CMS')</span>
+      <span class="logo-mini">{{ globalParams('site_initial') }}</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg">@yield('nama.app.full', '<b>Live</b>CMS')</span>
+      <span class="logo-lg">{{ globalParams('site_name') }}</span>
     </a>
 
     <!-- Header Navbar -->
@@ -138,7 +138,7 @@ desired effect
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       <!-- search form (Optional) -->
-      <form action="#" method="get" class="sidebar-form">
+     <!--  <form action="#" method="get" class="sidebar-form">
         <div class="input-group">
           <input type="text" name="q" class="form-control" placeholder="Search...">
               <span class="input-group-btn">
@@ -146,7 +146,7 @@ desired effect
                 </button>
               </span>
         </div>
-      </form>
+      </form> -->
       <!-- /.search form -->
 
       <!-- Sidebar Menu -->
@@ -226,8 +226,6 @@ desired effect
 <script src="{{ url('backend/plugins/autoNumeric/autoNumeric-min.js') }}"></script>
 <!-- CK Editor -->
 <script src="{{ url('backend/plugins/ckeditor/light/ckeditor.js') }}"></script>
-<!-- AdminLTE App -->
-<script src="{{ url('backend/dist/js/app.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ url('backend/dist/js/demo.js') }}"></script>
 
