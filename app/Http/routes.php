@@ -12,7 +12,18 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $launchingDateTime = globalParams('launching_datetime') ? globalParams('launching_datetime') : Carbon\Carbon::now();
+
+    if ((new Carbon\Carbon($launchingDateTime))->isFuture()) {
+        return redirect('coming-soon');
+    } 
+
+    return redirect('admin');
+
+});
+
+Route::get('coming-soon', function () {
+    return view('coming-soon');
 });
 
 /*
