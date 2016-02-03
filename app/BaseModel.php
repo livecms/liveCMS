@@ -10,6 +10,13 @@ class BaseModel extends Model
 
     protected $rules = [];
 	
+    public function newQuery()
+    {
+        $defaultScope = parent::newQuery();
+
+        return $defaultScope->orderBy($this->getKeyName(), 'DESC');
+    }
+
 	public function dependencies()
     {
         return $this->dependencies;
