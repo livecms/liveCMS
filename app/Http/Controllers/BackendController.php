@@ -17,6 +17,7 @@ class BackendController extends BaseController
     protected $baseClass;
     protected $fields;
     protected $unsortables = [];
+    protected $orders = ['desc'];
     protected $judulIndex;
     protected $judulTambah;
     protected $judulEdit;
@@ -34,6 +35,7 @@ class BackendController extends BaseController
         $this->baseClass = static::CLASS_NAMESPACE.(new \ReflectionClass($this))->getShortName();
 
         view()->share('unsortables', $this->unsortables);
+        view()->share('orders', $this->orders);
         view()->share('model', $this->model);
         view()->share('baseClass', $this->baseClass);
         view()->share('fields', $this->fields ? $this->fields : $this->model->getFields());

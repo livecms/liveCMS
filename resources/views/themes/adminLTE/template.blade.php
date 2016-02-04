@@ -330,6 +330,7 @@ desired effect
           @foreach(array_keys($fields) as $field) { name: '{{ $field }}', data: '{{ $field }}', sortable: {{ in_array($field, $unsortables) ? 'false' : 'true'}}}, @endforeach
           { name: 'menu', data: 'menu', sortable: false },
         ],
+        order: [@foreach($orders as $key => $order) [{{ $key }}, '{{ $order }}']@endforeach],
     });
   @endif
 

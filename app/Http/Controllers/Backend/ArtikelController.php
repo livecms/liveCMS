@@ -14,7 +14,7 @@ class ArtikelController extends BackendController
 {
     protected $kategori;
     protected $tag;
-    protected $unsortered = ['tag', 'kategori'];
+    protected $unsortables = ['tag', 'kategori'];
 
     public function __construct(Model $model, $base = 'artikel', Kategori $kategori, Tag $tag)
     {
@@ -48,8 +48,8 @@ class ArtikelController extends BackendController
 
     protected function afterSaving($model, $request)
     {
-        $model->kategoris()->sync($request->get('kategoris'));
-        $model->tags()->sync($request->get('tags'));
+        $model->kategoris()->sync($request->get('kategoris', []));
+        $model->tags()->sync($request->get('tags', []));
 
         return $model;
     }

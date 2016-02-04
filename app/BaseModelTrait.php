@@ -32,13 +32,6 @@ trait BaseModelTrait
 
     }
 
-    public function newQuery()
-    {
-        $defaultScope = parent::newQuery();
-
-        return $defaultScope->orderBy($this->getKeyName(), 'DESC');
-    }
-
     protected function buildFields()
     {
         return array_flip(array_except(array_flip($this->getFillable()), $this->getHidden()));
