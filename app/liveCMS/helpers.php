@@ -1,13 +1,13 @@
 <?php
 
-use App\Param;
+use App\Setting;
 
 if (! function_exists('globalParams')) {
 
     function globalParams($key = null)
     {
         $global_params = Cache::rememberForever('global_params', function() {
-            return Param::lists('value', 'key');
+            return Setting::lists('value', 'key');
         });
         
         if ($key == null) {
