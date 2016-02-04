@@ -35,7 +35,7 @@
 			{!! Form::label('kategori', 'Kategori', ['class' => 'control-label']) !!}
 		</div>
 		<div class="col-md-9">
-			{!! Form::text('kategori', $artikel->kategori, ['class' => 'form-control']) !!}
+			{!! Form::select('kategoris[]', $kategoris, $artikel->kategoris->lists('id')->all(), ['class' => 'form-control', 'multiple' => true]) !!}
 		</div>
 	</div>
 
@@ -44,7 +44,7 @@
 			{!! Form::label('tag', 'Tag', ['class' => 'control-label']) !!}
 		</div>
 		<div class="col-md-9">
-			{!! Form::text('tag', $artikel->tag, ['class' => 'form-control']) !!}
+			{!! Form::select('tags[]', $tags, $artikel->tags->lists('id')->all(), ['class' => 'form-control', 'multiple' => true]) !!}
 		</div>
 	</div>
 
