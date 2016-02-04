@@ -12,10 +12,12 @@ before_script:
 - mysql -e 'create database livecms;'
 - /home/travis/.phpenv/versions/5.5/bin/composer self-update
 - cp .env.example .env
+- composer self-update
 - composer install --dev --prefer-source --no-interaction
 - php artisan clear-compiled
 - php artisan optimize
 - php artisan key:generate
 - php artisan migrate --seed --force
+- php artisan serve
 
 scripts: phpunit
