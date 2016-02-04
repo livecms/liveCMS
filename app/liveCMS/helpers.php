@@ -14,6 +14,6 @@ if (! function_exists('globalParams')) {
             return $global_params;
         }
         
-        return !isset($global_params[$key]) ?: $global_params[$key];
+        return isset($global_params[$key]) ? $global_params[$key] : false;
     }
 }
