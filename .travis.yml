@@ -18,6 +18,5 @@ before_script:
 - php artisan optimize
 - php artisan key:generate
 - php artisan migrate --seed --force
-- php artisan serve
 
 scripts: phpunit
