@@ -14,7 +14,7 @@
 Route::get('/', function () {
     $launchingDateTime = globalParams('launching_datetime') ? globalParams('launching_datetime') : Carbon\Carbon::now();
 
-    if ((new Carbon\Carbon($launchingDateTime))->isFuture()) {
+    if (Carbon\Carbon::createFromTimestamp($launchingDateTime)->isFuture()) {
         return redirect('coming-soon');
     } 
 
