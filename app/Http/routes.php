@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    $launchingDateTime = globalParams('launching_datetime') != null ? new Carbon\Carbon(globalParams('launching_datetime')) : Carbon\Carbon::now();
+    $launchingDateTime = globalParams('launching_datetime') ? new Carbon\Carbon(globalParams('launching_datetime')) : Carbon\Carbon::now();
 
     if ($launchingDateTime->isFuture()) {
         return redirect('coming-soon');
