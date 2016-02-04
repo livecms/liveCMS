@@ -12,37 +12,36 @@ use App\BaseModel as Model;
 class BackendController extends BaseController
 {
     const CLASS_NAMESPACE = 'Backend\\';
-	protected $model;
-	protected $base;
-	protected $baseClass;
-	protected $fields;
+    protected $model;
+    protected $base;
+    protected $baseClass;
+    protected $fields;
     protected $unsortables = [];
-	protected $judulIndex;
-	protected $judulTambah;
-	protected $judulEdit;
-	protected $deskripsiIndex;
-	protected $deskripsiTambah;
-	protected $deskripsiEdit;
+    protected $judulIndex;
+    protected $judulTambah;
+    protected $judulEdit;
+    protected $deskripsiIndex;
+    protected $deskripsiTambah;
+    protected $deskripsiEdit;
 
 
     public function __construct(Model $model, $base = '')
     {
         parent::__construct();
 
-    	$this->model = $model;
+        $this->model = $model;
         $this->base = $base;
         $this->baseClass = static::CLASS_NAMESPACE.(new \ReflectionClass($this))->getShortName();
-        $fields = $this->model->getFields();
 
         view()->share('unsortables', $this->unsortables);
         view()->share('model', $this->model);
         view()->share('baseClass', $this->baseClass);
         view()->share('fields', $this->fields ? $this->fields : $this->model->getFields());
         view()->share('base', $this->base);
-    	view()->share('breadcrumbLevel', 3);	
-    	view()->share('breadcrumb1', 'App');
-    	view()->share('breadcrumb2', ucwords($this->base));
-		view()->share('breadcrumb2Url', action($this->baseClass.'@getIndex'));
+        view()->share('breadcrumbLevel', 3);
+        view()->share('breadcrumb1', 'App');
+        view()->share('breadcrumb2', ucwords($this->base));
+        view()->share('breadcrumb2Url', action($this->baseClass.'@getIndex'));
     }
 
     protected function processDatatables($datatables)
@@ -52,35 +51,47 @@ class BackendController extends BaseController
 
     protected function processRequest($request)
     {
-    	return $request;
+        return $request;
+    }
+
+    protected function loadFormClasses()
+    {
+        //
+    }
+
+    protected function afterSaving($model, $request)
+    {
+        return $model;
     }
 
     public function getIndex()
     {
-    	view()->share('judul', ($this->judulIndex) ? $this->judulIndex : ucwords($this->base));	
-    	view()->share('deskripsi', ($this->deskripsiIndex) ? $this->deskripsiIndex : 'Semua Daftar '.ucwords($this->base));	
-    	view()->share('breadcrumb3', 'Lihat Semua');
+        view()->share('judul', ($this->judulIndex) ? $this->judulIndex : ucwords($this->base));
+        view()->share('deskripsi', ($this->deskripsiIndex) ? $this->deskripsiIndex : 'Semua Daftar '.ucwords($this->base));
+        view()->share('breadcrumb3', 'Lihat Semua');
 
-    	return view('partials.appIndex');
+        return view('partials.appIndex');
     }
 
     public function anyData()
     {
         $datas = $this->model->select([null => $this->model->getKeyName()]+$this->model->getFillable());
 
-        if ($dependencies = $this->model->dependencies()) $datas = $datas->with($dependencies);
+        if ($dependencies = $this->model->dependencies()) {
+            $datas = $datas->with($dependencies);
+        }
 
-        $datatables = Datatables::of($datas);
-        $datatables = $this->processDatatables($datatables);
-        $result = $datatables
-            ->addColumn('menu', function($data) {
-                return 
+        $datatables = Datatables::of($datas)
+            ->addColumn('menu', function ($data) {
+                return
                 '<a href="'.action($this->baseClass.'@getEdit', [$data->{$this->model->getKeyName()}]).'" class="btn btn-small btn-link"><i class="fa fa-xs fa-pencil"></i> Edit</a> '.
                 Form::open(['style' => 'display: inline!important', 'method' => 'delete', 'action' => [$this->baseClass.'@deleteHapus', $data->{$this->model->getKeyName()}]]).'  <button type="submit" onClick="return confirm(\'Yakin mau menghapus?\');" class="btn btn-small btn-link"><i class="fa fa-xs fa-trash-o"></i> Delete</button></form>';
-            })
+            });
+        $datatables = $this->processDatatables($datatables);
+        $result = $datatables
             ->make(true);
 
-    	return $result;
+        return $result;
     }
 
     /**
@@ -95,9 +106,9 @@ class BackendController extends BaseController
 
         view()->share('judul', ($this->judulTambah) ? $this->judulTambah : 'Tambah Data '.ucwords($this->base));
         view()->share('deskripsi', ($this->deskripsiTambah) ? $this->deskripsiTambah : 'Untuk menambahkan data '.$this->base);
-        view()->share('breadcrumb3', 'Tambah' );
+        view()->share('breadcrumb3', 'Tambah');
         view()->share('action', 'postTambah');
-
+        $this->loadFormClasses();
 
         return view("admin.{$this->base}.form", compact($this->base));
     }
@@ -110,14 +121,15 @@ class BackendController extends BaseController
      */
     public function postTambah(Request $request)
     {
-    	$request = $this->processRequest($request);
+        $request = $this->processRequest($request);
 
         $this->validate($request, $this->model->rules());
 
         $created = $this->model->create($request->all());
 
-        if ($created)
-        {
+        $saved = $this->afterSaving($created, $request);
+
+        if ($saved) {
             return redirect()->action($this->baseClass.'@getIndex');
         }
     }
@@ -130,17 +142,17 @@ class BackendController extends BaseController
      */
     public function getEdit($id)
     {
-        $model = $this->model->where($this->model->getKeyName(), $id)->first();
+        // $model = $this->model->where($this->model->getKeyName(), $id)->first();
         // if ($model == null) abort('404', 'Data not found');
-        $model = $this->model->findOrFail($id);
+        $model = $this->model->with($this->model->dependencies())->findOrFail($id);
         ${$this->base} = $model;
 
         view()->share('judul', ($this->judulEdit) ? $this->judulEdit : 'Edit '.ucwords($this->base));
         view()->share('deskripsi', ($this->deskripsiEdit) ? $this->deskripsiEdit : 'Mengedit data '.$this->base);
-        view()->share('breadcrumb3', 'Edit' );
+        view()->share('breadcrumb3', 'Edit');
         view()->share('action', 'postEdit');
         view()->share('params', compact('id'));
-
+        $this->loadFormClasses();
 
         return view("admin.{$this->base}.form", compact($this->base));
     }
@@ -164,8 +176,9 @@ class BackendController extends BaseController
 
         $updated = $model->update($request->all());
 
-        if ($updated)
-        {
+        $saved = $this->afterSaving($model, $request);
+
+        if ($saved) {
             return redirect()->action($this->baseClass.'@getIndex');
         }
     }
@@ -183,6 +196,10 @@ class BackendController extends BaseController
         $model = $this->model->findOrFail($id);
 
         $deleted = $model->delete();
+
+        if ($deleted) {
+            return redirect()->action($this->baseClass.'@getIndex');
+        }
     }
 
 }
