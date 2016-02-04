@@ -28,6 +28,7 @@ class KategoriController extends BackendController
 	{
 		parent::__construct($model, $base);
     	view()->share('breadcrumb2Icon', 'list');
+        view()->share('fields', array_except($this->model->getFields(), ['id']));
 	}
 
 }

@@ -16,6 +16,7 @@ class BackendController extends BaseController
 	protected $base;
 	protected $baseClass;
 	protected $fields;
+    protected $unsortables = [];
 	protected $judulIndex;
 	protected $judulTambah;
 	protected $judulEdit;
@@ -29,16 +30,15 @@ class BackendController extends BaseController
         parent::__construct();
 
     	$this->model = $model;
-    	$this->base = $base;
-    	$this->baseClass = static::CLASS_NAMESPACE.(new \ReflectionClass($this))->getShortName();
-    	$fields = $this->model->getFillable();
-    	$primaryKey = $this->model->getKeyName();
-    	$this->fields = ( in_array($primaryKey, $fields) ? [] : [null => $primaryKey] ) + $this->model->getFillable();
+        $this->base = $base;
+        $this->baseClass = static::CLASS_NAMESPACE.(new \ReflectionClass($this))->getShortName();
+        $fields = $this->model->getFields();
 
+        view()->share('unsortables', $this->unsortables);
         view()->share('model', $this->model);
         view()->share('baseClass', $this->baseClass);
-    	view()->share('fields', $this->fields);	
-    	view()->share('base', $this->base);	
+        view()->share('fields', $this->fields ? $this->fields : $this->model->getFields());
+        view()->share('base', $this->base);
     	view()->share('breadcrumbLevel', 3);	
     	view()->share('breadcrumb1', 'App');
     	view()->share('breadcrumb2', ucwords($this->base));
@@ -78,7 +78,7 @@ class BackendController extends BaseController
                 '<a href="'.action($this->baseClass.'@getEdit', [$data->{$this->model->getKeyName()}]).'" class="btn btn-small btn-link"><i class="fa fa-xs fa-pencil"></i> Edit</a> '.
                 Form::open(['style' => 'display: inline!important', 'method' => 'delete', 'action' => [$this->baseClass.'@deleteHapus', $data->{$this->model->getKeyName()}]]).'  <button type="submit" onClick="return confirm(\'Yakin mau menghapus?\');" class="btn btn-small btn-link"><i class="fa fa-xs fa-trash-o"></i> Delete</button></form>';
             })
-            ->make();
+            ->make(true);
 
     	return $result;
     }

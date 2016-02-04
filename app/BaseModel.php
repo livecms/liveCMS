@@ -4,26 +4,17 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BaseModel extends Model
+class BaseModel extends Model implements BaseModelInterface
 {
+    use BaseModelTrait;
+
     protected $dependencies = [];
 
     protected $rules = [];
-	
-    public function newQuery()
-    {
-        $defaultScope = parent::newQuery();
 
-        return $defaultScope->orderBy($this->getKeyName(), 'DESC');
-    }
+    protected $aliases = [];
 
-	public function dependencies()
-    {
-        return $this->dependencies;
-    }
+    protected $addition = [];
 
-    public function rules()
-    {
-        return $this->rules;
-    }
+    protected $deletion = [];
 }

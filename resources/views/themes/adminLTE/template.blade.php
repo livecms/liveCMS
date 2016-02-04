@@ -327,8 +327,8 @@ desired effect
         serverSide: true,
         ajax: '{{ action($baseClass.'@anyData') }}',
         columns: [
-          @foreach($fields as $field) { name: '{{ $field }}'}, @endforeach
-          { name: 'menu', sortable: false },
+          @foreach(array_keys($fields) as $field) { name: '{{ $field }}', data: '{{ $field }}', sortable: {{ in_array($field, $unsortables) ? 'false' : 'true'}}}, @endforeach
+          { name: 'menu', data: 'menu', sortable: false },
         ],
     });
   @endif

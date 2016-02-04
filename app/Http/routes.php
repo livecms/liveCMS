@@ -43,11 +43,11 @@ Route::group(['middleware' => ['web']], function () {
 			return view('admin.home');
 		});
 
+        Route::controller('kategori', 'KategoriController');
+        Route::controller('tag', 'TagController');
+        Route::controller('artikel', 'ArtikelController');
+        Route::controller('setting', 'SettingController');
 		Route::controller('user', 'UserController');
-		Route::controller('kategori', 'KategoriController');
-		Route::controller('tag', 'TagController');
-		Route::controller('artikel', 'ArtikelController');
-		Route::controller('setting', 'SettingController');
 	});
 
 });
