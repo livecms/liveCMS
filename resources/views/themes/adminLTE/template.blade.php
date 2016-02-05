@@ -7,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>{{ $judul or 'Judul' }} | {{ $namaApp or 'LiveCMS' }}</title>
+  <title>{{ $judul or 'Judul' }} | {{ globalParams('site_name') }}</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- CSRF -->
@@ -25,6 +25,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{ url('backend/plugins/datepicker/datepicker3.css') }}">
   <!-- datatables -->
   <link rel="stylesheet" href="{{ url('backend/plugins/datatables/dataTables.bootstrap.css') }}">
+  <!-- I Check -->
+  <link rel="stylesheet" href="{{ url('backend/plugins/iCheck/square/blue.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ url('backend/dist/css/AdminLTE.min.css') }}">
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
@@ -32,6 +34,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
         apply the skin class to the body tag so the changes take effect.
   -->
   <link rel="stylesheet" href="{{ url('backend/dist/css/skins/skin-blue.min.css') }}">
+
+  <style type="text/css">
+    .user-label {
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        background-color: rgba(85, 85, 85, 0.25);
+        border-radius: 50%;
+        margin-top: -5px;
+        margin-bottom: -5px;
+        padding: 5px;
+    }
+  </style>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -60,6 +75,8 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
+@if(auth()->user())
+@section('templateBody')
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -87,10 +104,13 @@ desired effect
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <div class="user-label">
+                <span>{{ auth()->user()->getInitial() }}</span>
+              </div>
               <!-- The user image in the navbar-->
-              <img src="{{ url('backend/dist/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
+              <!-- <img src="{{ url('backend/dist/img/user2-160x160.jpg') }}" class="user-image" alt="User Image"> -->
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">Alexander Pierce</span>
+              <!-- <span class="hidden-xs">Alexander Pierce</span> -->
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
@@ -98,12 +118,12 @@ desired effect
                 <img src="{{ url('backend/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
 
                 <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2012</small>
+                  {{ str_limit(auth()->user()->name, 20) }}
+                  <small>Since {{ auth()->user()->created_at->diffForHumans() }}</small>
                 </p>
               </li>
               <!-- Menu Body -->
-              <li class="user-body">
+<!--               <li class="user-body">
                 <div class="row">
                   <div class="col-xs-4 text-center">
                     <a href="#">Followers</a>
@@ -115,19 +135,19 @@ desired effect
                     <a href="#">Friends</a>
                   </div>
                 </div>
-                <!-- /.row -->
-              </li>
+              </li> -->
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="/me" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="/logout" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
           </li>
+          <li><a href="/logout"><i class="fa fa-lock"></i> <span class="hidden-sm">Logout</span></a></li>
         </ul>
       </div>
     </nav>
@@ -350,4 +370,7 @@ desired effect
      user experience. Slimscroll is required when using the
      fixed layout. -->
 </body>
+@stop
+@endif
+@yield('templateBody')
 </html>

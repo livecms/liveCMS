@@ -26,6 +26,10 @@ Route::get('coming-soon', function () {
     return view('coming-soon');
 });
 
+Route::get('/home', function () {
+    return redirect('admin');
+});
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -38,16 +42,18 @@ Route::get('coming-soon', function () {
 */
 
 Route::group(['middleware' => ['web']], function () {
-    Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function() {
-		Route::get('/', function() {
-			return view('admin.home');
-		});
+    Route::group(['prefix' => 'admin', 'namespace' => 'Backend', 'middleware' => 'auth'], function() {
+        Route::get('/', function() {
+            return view('admin.home');
+        });
 
         Route::controller('kategori', 'KategoriController');
         Route::controller('tag', 'TagController');
         Route::controller('artikel', 'ArtikelController');
         Route::controller('setting', 'SettingController');
-		Route::controller('user', 'UserController');
-	});
+        Route::controller('user', 'UserController');
+    });
 
+    Route::auth();
+    
 });
