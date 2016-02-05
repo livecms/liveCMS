@@ -310,7 +310,7 @@
         <!-- Footer Section -->
         <footer id="footer-section">
             <p class="copyright">
-                &copy; <a href="/">{{ $global_params['site_name'] or 'liveCMS' }}</a> 2015-2016, All Rights Reserved. Developed with <i class="fa fa-heart" style="color: #FA503A"></i> in Jakarta by <a target="_blank" href="http://hiret.web.id">Hiret Web Indonesia</a> <br>
+                &copy; <a href="/">{{ $global_params['site_name'] or 'liveCMS' }}</a> 2015-2016, All Rights Reserved. Developed with <i class="fa fa-heart" style="color: #FA503A"></i> in Jakarta by <a target="_blank" href="http://blog.hiret.web.id">Mokhamad Rofiudin</a> <br>
                 Template : Kite Coming Soon Template. Desinged by <a target="_blank" href="http://www.jeweltheme.com">Jewel Theme</a>
             </p>
         </footer>
