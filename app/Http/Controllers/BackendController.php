@@ -176,7 +176,7 @@ class BackendController extends BaseController
 
         $this->validate($request, $model->rules());
 
-        $updated = $model->update($request->all());
+        $model->update($request->all());
 
         $saved = $this->afterSaving($model, $request);
 
@@ -203,5 +203,4 @@ class BackendController extends BaseController
             return redirect()->action($this->baseClass.'@getIndex');
         }
     }
-
 }
