@@ -2,8 +2,40 @@
 
 namespace App\liveCMS\Models;
 
+use Illuminate\Auth\Access\AuthorizationException;
+
 trait BaseModelTrait
 {
+    public static function bootBaseModelTrait()
+    {
+        if (app(static::class)->authorize('read') === false) {
+            throw new AuthorizationException('This action is unauthorized.');
+        }
+
+        static::creating(function ($model) {
+            if ($model->authorize('create') === false) {
+                throw new AuthorizationException('This action is unauthorized.');
+            }
+        });
+
+        static::updating(function ($model) {
+            if ($model->authorize('update') === false) {
+                throw new AuthorizationException('This action is unauthorized.');
+            }
+        });
+
+        static::deleting(function ($model) {
+            if ($model->authorize('delete') === false) {
+                throw new AuthorizationException('This action is unauthorized.');
+            }
+        });
+    }
+
+    public function authorize($method = null)
+    {
+        return true;
+    }
+
     public function dependencies()
     {
         return $this->dependencies;
