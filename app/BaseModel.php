@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\liveCMS\Models\BaseModelInterface;
+use App\liveCMS\Models\BaseModelTrait;
 
 class BaseModel extends Model implements BaseModelInterface
 {

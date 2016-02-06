@@ -2,11 +2,20 @@
 
 namespace App;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class User extends Authenticatable implements BaseModelInterface
+class User extends BaseModel implements
+    AuthenticatableContract,
+    AuthorizableContract,
+    CanResetPasswordContract
 {
-    use BaseModelTrait;
+    use Authenticatable, Authorizable, CanResetPassword;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -37,7 +46,7 @@ class User extends Authenticatable implements BaseModelInterface
 
         $words = count($names = explode(' ', $name));
 
-        $inits = array_map(function($value) {
+        $inits = array_map(function ($value) {
             return substr($value, 0, 1);
         }, $names);
 
