@@ -8,11 +8,13 @@ class Tag extends BaseModel
 
     public function rules()
     {
-    	if (!request()->has('slug')) request()->merge(['slug' => str_slug(request()->get('tag'))]);
+        $slug = str_slug(request()->has('slug') ? request()->get('slug') : request()->get('tag'));
 
-    	return [
-    		'tag' => 'required|unique:tags,tag'.(($this->id != null) ? ','.$this->id : ''),
-    		'slug' => 'required|unique:tags,slug'.(($this->id != null) ? ','.$this->id : ''),
-    	];
+        request()->merge(compact('slug'));
+
+        return [
+            'tag' => 'required|unique:tags,tag'.(($this->id != null) ? ','.$this->id : ''),
+            'slug' => 'required|unique:tags,slug'.(($this->id != null) ? ','.$this->id : ''),
+        ];
     }
 }

@@ -8,11 +8,13 @@ class Kategori extends BaseModel
 
     public function rules()
     {
-    	if (!request()->has('slug')) request()->merge(['slug' => str_slug(request()->get('kategori'))]);
+        $slug = str_slug(request()->has('slug') ? request()->get('slug') : request()->get('kategori'));
 
-    	return [
-    		'kategori' => 'required|unique:kategoris,kategori'.(($this->id != null) ? ','.$this->id : ''),
-    		'slug' => 'required|unique:kategoris,slug'.(($this->id != null) ? ','.$this->id : ''),
-    	];
+        request()->merge(compact('slug'));
+
+        return [
+            'kategori' => 'required|unique:kategoris,kategori'.(($this->id != null) ? ','.$this->id : ''),
+            'slug' => 'required|unique:kategoris,slug'.(($this->id != null) ? ','.$this->id : ''),
+        ];
     }
 }
