@@ -22,7 +22,7 @@ class User extends BaseModel implements
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'username', 'email', 'password',
     ];
 
     /**
@@ -34,7 +34,7 @@ class User extends BaseModel implements
         'password', 'remember_token',
     ];
 
-    protected $dependencies = [];
+    protected $dependencies = ['roles'];
 
     protected $rules = [];
 
@@ -53,5 +53,20 @@ class User extends BaseModel implements
         $initials = $inits[0]. ($words > 1 ?  last($inits) : '');
 
         return $initials;
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'role_users');
+    }
+
+    public function getIsBannedAttribute()
+    {
+        return $this->roles->where('role', 'banned')->count() > 0;
+    }
+
+    public function getIsAdminAttribute()
+    {
+        return $this->roles->where('role', 'admin')->count() > 0;
     }
 }
