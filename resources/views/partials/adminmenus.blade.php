@@ -8,7 +8,6 @@
         <li class="@if(request()->is('admin/tag*'))active @endif"><a href="{{ asset('admin/tag') }}"><i class="fa fa-tag"></i> <span>Tag</span></a></li>
     </ul>
 </li>
-
 <li class="@if(request()->is('admin/user*'))active @endif"><a href="{{ asset('admin/user') }}"><i class="fa fa-users"></i> <span>User</span></a></li>
 <li class="@if(request()->is('admin/setting*'))active @endif"><a href="{{ asset('admin/setting') }}"><i class="fa fa-cog"></i> <span>Setting</span></a></li>
 <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
