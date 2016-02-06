@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Cache;
 
@@ -10,31 +10,29 @@ class Setting extends BaseModel
 
     public function rules()
     {
-    	return [
-    		'key' => 'required|unique:settings,key'.(($this->id != null) ? ','.$this->id : ''),
-    	];
+        return [
+            'key' => 'required|unique:settings,key'.(($this->id != null) ? ','.$this->id : ''),
+        ];
     }
 
     protected static function boot()
     {
         parent::boot();
 
-        static::saved(function ($model)
-        {
+        static::saved(function ($model) {
             $model->process();
         });
 
-        static::deleted(function ($model)
-        {
+        static::deleted(function ($model) {
             $model->process();
         });
     }
 
     protected function process()
     {
-    	Cache::forget('global_params');
+        Cache::forget('global_params');
 
-    	$global_params = static::lists('value', 'key');
+        $global_params = static::lists('value', 'key');
 
         Cache::forever('global_params', $global_params);
     }

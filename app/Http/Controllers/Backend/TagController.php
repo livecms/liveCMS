@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\BackendController;
-use App\Tag as Model;
+use App\Models\Tag as Model;
 
 class TagController extends BackendController
 {

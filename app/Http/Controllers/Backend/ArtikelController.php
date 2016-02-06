@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\BackendController;
-use App\Artikel as Model;
-use App\Kategori;
-use App\Tag;
+use App\Models\Artikel as Model;
+use App\Models\Kategori;
+use App\Models\Tag;
 
 class ArtikelController extends BackendController
 {
@@ -16,7 +16,7 @@ class ArtikelController extends BackendController
     protected $tag;
     protected $unsortables = ['tag', 'kategori'];
 
-    public function __construct(Model $model, $base = 'artikel', Kategori $kategori, Tag $tag)
+    public function __construct(Model $model, Kategori $kategori, Tag $tag, $base = 'artikel')
     {
         parent::__construct($model, $base);
         $this->kategori = $kategori;
