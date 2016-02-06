@@ -7,7 +7,7 @@ use Datatables;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 
-use App\BaseModel as Model;
+use App\liveCMS\Models\BaseModelInterface as Model;
 
 class BackendController extends BaseController
 {

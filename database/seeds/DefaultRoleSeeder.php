@@ -11,11 +11,11 @@ class DefaultRoleSeeder extends Seeder
      */
     public function run()
     {
-        foreach (['admin', 'banned', 'author'] as $role) {
+        foreach (['super', 'admin', 'banned', 'author'] as $role) {
             if (DB::table('roles')->where(compact('role'))->get()) {
                 continue;
             }
-            
+
             DB::table('roles')->insert(compact('role'));
         }
     }

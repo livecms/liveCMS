@@ -3,18 +3,22 @@
 namespace App;
 
 use Illuminate\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Model;
+use App\liveCMS\Models\BaseModelTrait;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Foundation\Auth\Access\Authorizable;
+use App\liveCMS\Models\BaseModelInterface as BaseModelContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class User extends BaseModel implements
+class User extends Model implements
+    BaseModelContract,
     AuthenticatableContract,
     AuthorizableContract,
     CanResetPasswordContract
 {
-    use Authenticatable, Authorizable, CanResetPassword;
+    use BaseModelTrait, Authenticatable, Authorizable, CanResetPassword;
 
     /**
      * The attributes that are mass assignable.
@@ -67,6 +71,10 @@ class User extends BaseModel implements
 
     public function getIsAdminAttribute()
     {
-        return $this->roles->where('role', 'admin')->count() > 0;
+        $roles = ['super', 'admin'];
+
+        return $this->roles->filter(function ($item) use ($roles) {
+            return in_array(data_get($item, 'role'), $roles);
+        })->count() > 0;
     }
 }
