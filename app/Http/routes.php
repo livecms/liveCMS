@@ -16,7 +16,7 @@ Route::get('/', function () {
 
     if ($launchingDateTime->isFuture()) {
         return redirect('coming-soon');
-    } 
+    }
 
     return redirect('admin');
 
@@ -42,8 +42,8 @@ Route::get('/home', function () {
 */
 
 Route::group(['middleware' => ['web']], function () {
-    Route::group(['prefix' => 'admin', 'namespace' => 'Backend', 'middleware' => 'auth'], function() {
-        Route::get('/', function() {
+    Route::group(['prefix' => 'admin', 'namespace' => 'Backend', 'middleware' => 'auth'], function () {
+        Route::get('/', function () {
             return view('admin.home');
         });
 
@@ -52,8 +52,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::controller('artikel', 'ArtikelController');
         Route::controller('setting', 'SettingController');
         Route::controller('user', 'UserController');
+        Route::controller('kecamatan', 'KecamatanController');
     });
 
     Route::auth();
-    
 });
