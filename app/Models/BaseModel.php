@@ -8,7 +8,7 @@ use App\liveCMS\Models\ModelAuthorizationTrait;
 use App\liveCMS\Models\BaseModelInterface as BaseModelContract;
 use App\liveCMS\Models\ModelAuthorizationInterface as ModelAuthorizationContract;
 
-class BaseModel extends Model implements BaseModelContract, ModelAuthorizationContract
+abstract class BaseModel extends Model implements BaseModelContract, ModelAuthorizationContract
 {
     use BaseModelTrait, ModelAuthorizationTrait;
 
