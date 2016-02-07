@@ -16,8 +16,8 @@ class TabelOngkir extends Migration
             $table->increments('id');
             $table->integer('kurir_id')->unsigned();
             $table->string('tipe'); // kota / kecamatan / kelurahan
-            $table->string('origin', 20); // kode origin
-            $table->string('destination', 20); // kode destination
+            $table->integer('origin')->unsigned(); // id origin
+            $table->integer('destination')->unsigned(); // id destination
             $table->integer('weight')->unsigned(); // weight in gram
             $table->integer('ongkir')->unsigned(); // ongkir in currency
             $table->timestamps();

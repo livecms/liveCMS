@@ -20,10 +20,15 @@ class TabelCustomer extends Migration
             $table->integer('propinsi_id')->unsigned()->nullable();
             $table->integer('kota_id')->unsigned()->nullable();
             $table->integer('kecamatan_id')->unsigned()->nullable();
+            $table->integer('kelurahan_id')->unsigned()->nullable();
             $table->string('kodepos', 5);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('propinsi_id')->references('id')->on('propinsis')->onDelete('set null');
+            $table->foreign('kota_id')->references('id')->on('kotas')->onDelete('set null');
+            $table->foreign('kecamatan_id')->references('id')->on('kecamatans')->onDelete('set null');
+            $table->foreign('kelurahan_id')->references('id')->on('kelurahans')->onDelete('set null');
         });
     }
 

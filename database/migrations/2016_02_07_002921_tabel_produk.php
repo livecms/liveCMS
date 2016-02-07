@@ -17,6 +17,7 @@ class TabelProduk extends Migration
             $table->string('produk');
             $table->string('slug')->unique();
             $table->integer('produk_kategori_id')->unsigned()->nullable();
+            $table->integer('produk_tag_id')->unsigned()->nullable();
             $table->integer('harga')->unsigned();
             $table->integer('harga_diskon')->unsigned();
             $table->text('deskripsi');
@@ -27,6 +28,7 @@ class TabelProduk extends Migration
             $table->timestamps();
 
             $table->foreign('produk_kategori_id')->references('id')->on('produk_kategoris')->onDelete('set null');
+            $table->foreign('produk_tag_id')->references('id')->on('produk_tags')->onDelete('set null');
             $table->foreign('produk_brand_id')->references('id')->on('produk_brands')->onDelete('set null');
         });
     }

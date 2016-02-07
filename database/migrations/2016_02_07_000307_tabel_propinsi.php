@@ -14,7 +14,6 @@ class TabelPropinsi extends Migration
     {
         Schema::create('propinsis', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('kode', 20)->unique();
             $table->string('propinsi');
             $table->timestamps();
         });

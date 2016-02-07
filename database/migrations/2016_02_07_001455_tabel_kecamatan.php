@@ -14,7 +14,6 @@ class TabelKecamatan extends Migration
     {
         Schema::create('kecamatans', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('kode', 20)->unique();
             $table->string('kecamatan');
             $table->string('kode_pos', 5);
             $table->integer('kota_id')->unsigned();

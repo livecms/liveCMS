@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class TabelKelurahan extends Migration
+class TabelProdukFoto extends Migration
 {
     /**
      * Run the migrations.
@@ -12,16 +12,15 @@ class TabelKelurahan extends Migration
      */
     public function up()
     {
-        Schema::create('kelurahans', function (Blueprint $table) {
+        Schema::create('produk_fotos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('kelurahan');
-            $table->string('tipe', 20);
-            $table->string('kode_pos', 5);
-            $table->integer('kecamatan_id')->unsigned();
+            $table->string('foto');
+            $table->string('keterangan');
+            $table->integer('produk_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('kecamatan_id')
-              ->references('id')->on('kecamatans')
+            $table->foreign('produk_id')
+              ->references('id')->on('produks')
               ->onDelete('cascade');
         });
     }
@@ -33,6 +32,6 @@ class TabelKelurahan extends Migration
      */
     public function down()
     {
-        Schema::drop('kelurahans');
+        Schema::drop('produk_fotos');
     }
 }

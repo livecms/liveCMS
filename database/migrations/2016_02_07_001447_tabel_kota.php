@@ -14,7 +14,6 @@ class TabelKota extends Migration
     {
         Schema::create('kotas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('kode', 20)->unique();
             $table->string('kota');
             $table->string('tipe', 20);
             $table->string('kode_pos', 5);
