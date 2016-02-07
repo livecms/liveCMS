@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\liveCommerce\Models\LiveCommerceBaseModel as BaseModel;
 
-class Pembayaran extends Model
+class Pembayaran extends BaseModel
 {
     //
 }

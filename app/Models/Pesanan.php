@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\liveCommerce\Models\LiveCommerceBaseModel as BaseModel;
 
-class Pesanan extends Model
+class Pesanan extends BaseModel
 {
     //
 }

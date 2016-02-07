@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class ProdukBrand extends Model
+class ProdukBrand extends BseModel
 {
     //
 }
