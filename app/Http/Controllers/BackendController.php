@@ -79,9 +79,9 @@ class BackendController extends BaseController
     {
         $datas = $this->model->select([null => $this->model->getKeyName()]+$this->model->getFillable());
 
-        if ($dependencies = $this->model->dependencies()) {
-            $datas = $datas->with($dependencies);
-        }
+        // if ($dependencies = $this->model->dependencies()) {
+        //     $datas = $datas->with($dependencies);
+        // }
 
         $datatables = Datatables::of($datas)
             ->addColumn('menu', function ($data) {
