@@ -15,8 +15,8 @@ class Artikel extends BaseModel
         request()->merge(compact('slug'));
 
         return [
-            'judul' => 'required|unique:artikels,judul'.(($this->id != null) ? ','.$this->id : ''),
-            'slug' => 'required|unique:artikels,slug'.(($this->id != null) ? ','.$this->id : ''),
+            'judul' => 'required|unique:'.$this->getTable().',judul'.(($this->id != null) ? ','.$this->id : ''),
+            'slug' => 'required|unique:'.$this->getTable().',slug'.(($this->id != null) ? ','.$this->id : ''),
             'isi' => 'required',
         ];
     }
@@ -30,5 +30,4 @@ class Artikel extends BaseModel
     {
         return $this->belongsToMany(Tag::class, 'artikel_tags');
     }
-    
 }

@@ -13,8 +13,8 @@ class Kategori extends BaseModel
         request()->merge(compact('slug'));
 
         return [
-            'kategori' => 'required|unique:kategoris,kategori'.(($this->id != null) ? ','.$this->id : ''),
-            'slug' => 'required|unique:kategoris,slug'.(($this->id != null) ? ','.$this->id : ''),
+            'kategori' => 'required|unique:'.$this->getTable().',kategori'.(($this->id != null) ? ','.$this->id : ''),
+            'slug' => 'required|unique:'.$this->getTable().',slug'.(($this->id != null) ? ','.$this->id : ''),
         ];
     }
 }

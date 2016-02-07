@@ -11,7 +11,7 @@ class Setting extends BaseModel
     public function rules()
     {
         return [
-            'key' => 'required|unique:settings,key'.(($this->id != null) ? ','.$this->id : ''),
+            'key' => 'required|unique:'.$this->getTable().',key'.(($this->id != null) ? ','.$this->id : ''),
         ];
     }
 
