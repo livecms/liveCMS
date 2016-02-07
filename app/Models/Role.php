@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
-class Role extends BaseModel
+use Illuminate\Database\Eloquent\Model;
+
+class Role extends Model
 {
     //
 }
