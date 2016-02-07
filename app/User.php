@@ -18,5 +18,5 @@ class User extends Model implements
     CanResetPasswordContract,
     UserModelContract
 {
-    use UserModelTrait, Authenticatable, Authorizable, CanResetPassword;
+    use Authenticatable, Authorizable, CanResetPassword, UserModelTrait;
 }
