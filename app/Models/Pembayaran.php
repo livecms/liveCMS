@@ -8,7 +8,15 @@ class Pembayaran extends BaseModel
 {
     protected $fillable = ['pesanan_id', 'metode_pembayaran_id', 'jumlah', 'bukti', 'verified_at'];
 
-    protected $dependencies = [];
+    protected $dependencies = ['pesanan', 'metodePembayaran'];
+
+    public function rules()
+    {
+        return [
+            'jumlah' => 'required|numeric',
+            'bukti' => 'required',
+        ];
+    }
 
     public function pesanan()
     {

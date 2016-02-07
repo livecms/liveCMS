@@ -17,8 +17,8 @@ class ProdukTag extends Model
         request()->merge(compact('slug'));
 
         return [
-            'tag' => 'required|unique:produk_tags,tag'.(($this->id != null) ? ','.$this->id : ''),
-            'slug' => 'required|unique:produk_tags,slug'.(($this->id != null) ? ','.$this->id : ''),
+            'tag' => 'required|unique:'.$this->getTable().',tag'.(($this->id != null) ? ','.$this->id : ''),
+            'slug' => 'required|unique:'.$this->getTable().',slug'.(($this->id != null) ? ','.$this->id : ''),
         ];
     }
 

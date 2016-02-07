@@ -8,8 +8,12 @@ class Kurir extends BaseModel
 
     protected $dependencies = [];
 
-    public function ongkirs()
+    public function rules()
     {
-        return $this->hasMany(Ongkir::class);
+        return [
+            'kode' => 'required|unique:'.$this->getTable().',kode'.(($this->id != null) ? ','.$this->id : ''),
+            'kurir' => 'required|unique:'.$this->getTable().',kurir'.(($this->id != null) ? ','.$this->id : ''),
+            'logo' => 'required',
+        ];
     }
 }

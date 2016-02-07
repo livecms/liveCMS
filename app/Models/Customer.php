@@ -25,7 +25,7 @@ class Customer extends BaseModel
         'kodepos' => 'required',
     ];
 
-    protected $dependencies = ['pesanan'];
+    protected $dependencies = ['user', 'propinsi', 'kota', 'kecamatan', 'kelurahan'];
 
     public function user()
     {

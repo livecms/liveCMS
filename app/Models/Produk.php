@@ -8,7 +8,21 @@ class Produk extends BaseModel
 {
     protected $fillable = ['produk', 'slug', 'produk_kategori_id', 'harga', 'harga_diskon', 'deskripsi', 'netto', 'foto', 'produk_brand_id', 'stock'];
 
-    protected $dependencies = ['produkFotos'];
+    protected $dependencies = ['produkKategori', 'produkBrand'];
+
+    public function rules()
+    {
+        $slug = str_slug(request()->has('slug') ? request()->get('slug') : request()->get('produk'));
+
+        request()->merge(compact('slug'));
+
+        return [
+            'produk' => 'required|unique:'.$this->getTable().',produk'.(($this->id != null) ? ','.$this->id : ''),
+            'slug' => 'required|unique:'.$this->getTable().',slug'.(($this->id != null) ? ','.$this->id : ''),
+            'harga' => 'required|numeric',
+            'netto' => 'required|numeric',
+        ];
+    }
 
     public function produkFotos()
     {

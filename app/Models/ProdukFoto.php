@@ -8,7 +8,7 @@ class ProdukFoto extends Model
 {
     protected $fillable = ['foto', 'keterangan', 'produk_id'];
 
-    protected $dependencies = [];
+    protected $dependencies = ['produk'];
 
     public function rules()
     {

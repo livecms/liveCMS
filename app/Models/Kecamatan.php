@@ -6,7 +6,14 @@ class Kecamatan extends BaseModel
 {
     protected $fillable = ['kecamatan', 'kota_id'];
 
-    protected $dependencies = ['kelurahans'];
+    protected $dependencies = ['kota'];
+
+    public function rules()
+    {
+        return [
+            'kecamatan' => 'required',
+        ];
+    }
 
     public function kota()
     {

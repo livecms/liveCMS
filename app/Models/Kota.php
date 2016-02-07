@@ -6,7 +6,15 @@ class Kota extends BaseModel
 {
     protected $fillable = ['kota', 'tipe', 'propinsi_id'];
 
-    protected $dependencies = ['kecamatans'];
+    protected $dependencies = ['propinsi'];
+
+    public function rules()
+    {
+        return [
+            'kota' => 'required',
+            'tipe' => 'required',
+        ];
+    }
 
     public function propinsi()
     {
