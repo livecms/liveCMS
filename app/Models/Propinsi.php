@@ -6,7 +6,7 @@ class Propinsi extends BaseModel
 {
     protected $fillable = ['propinsi'];
 
-    protected $dependencies = ['kota'];
+    protected $dependencies = [];
 
     public function rules()
     {

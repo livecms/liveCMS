@@ -4,6 +4,11 @@ namespace App\Models;
 
 class Kota extends BaseModel
 {
+    const TIPE_KOTA = 'Kota';
+    const TIPE_KABUPATEN = 'Kabupaten';
+
+    public $defTipe = [self::TIPE_KOTA => self::TIPE_KOTA, self::TIPE_KABUPATEN => self::TIPE_KABUPATEN];
+
     protected $fillable = ['kota', 'tipe', 'propinsi_id'];
 
     protected $dependencies = ['propinsi'];

@@ -52,7 +52,10 @@ Route::group(['middleware' => ['web']], function () {
         Route::controller('artikel', 'ArtikelController');
         Route::controller('setting', 'SettingController');
         Route::controller('user', 'UserController');
+        Route::controller('propinsi', 'PropinsiController');
+        Route::controller('kota', 'KotaController');
         Route::controller('kecamatan', 'KecamatanController');
+        Route::controller('kelurahan', 'KelurahanController');
     });
 
     Route::auth();
