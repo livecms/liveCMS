@@ -13,7 +13,8 @@ class KategoriController extends BackendController
     public function __construct(Model $model, $base = 'kategori')
     {
         parent::__construct($model, $base);
-        view()->share('breadcrumb2Icon', 'list');
-        view()->share('fields', array_except($this->model->getFields(), ['id']));
+        $this->breadcrumb2Icon  = 'list';
+        $this->fields           = array_except($this->model->getFields(), ['id']);
+        $this->view->share(get_object_vars($this));
     }
 }

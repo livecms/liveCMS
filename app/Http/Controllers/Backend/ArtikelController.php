@@ -21,8 +21,11 @@ class ArtikelController extends BackendController
         parent::__construct($model, $base);
         $this->kategori = $kategori;
         $this->tag = $tag;
-        view()->share('breadcrumb2Icon', 'file-o');
-        view()->share('fields', array_merge($this->model->getFields(), ['kategori' => 'Kategori', 'tag' => 'Tag']));
+        
+        $this->breadcrumb2Icon  = 'file-o';
+        $this->fields           = array_merge($this->model->getFields(), ['kategori' => 'Kategori', 'tag' => 'Tag']);
+        
+        $this->view->share(get_object_vars($this));
     }
 
     protected function processDatatables($datatables)
@@ -41,9 +44,11 @@ class ArtikelController extends BackendController
 
     protected function loadFormClasses()
     {
-        view()->share('kategoris', $this->kategori->lists('kategori', 'id')->toArray());
-        view()->share('tags', $this->tag->lists('tag', 'id')->toArray());
-        view()->share('useCKEditor', 'isi');
+        $this->kategoris    = $this->kategori->lists('kategori', 'id')->toArray();
+        $this->tags         = $this->tag->lists('tag', 'id')->toArray();
+        $this->useCKEditor  = 'isi';
+     
+        $this->view->share(get_object_vars($this));
     }
 
     protected function afterSaving($model, $request)
