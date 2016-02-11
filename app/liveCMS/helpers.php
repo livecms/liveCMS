@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Setting;
+use App\Setting;
 
 if (! function_exists('globalParams')) {
 
