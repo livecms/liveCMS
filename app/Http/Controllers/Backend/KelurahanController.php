@@ -18,8 +18,11 @@ class KelurahanController extends BackendController
     {
         parent::__construct($model, $base);
         $this->kecamatan = $kecamatan;
-        view()->share('breadcrumb2Icon', 'map');
-        view()->share('fields', array_merge(array_except($this->model->getFields(), ['id']), ['kecamatan_id' => 'Kecamatan']));
+     
+        $this->breadcrumb2Icon  = 'map';
+        $this->fields           = array_merge(array_except($this->model->getFields(), ['id']), ['kecamatan_id' => 'Kecamatan']);
+     
+        $this->view->share(get_object_vars($this));
     }
 
     protected function processDatatables($datatables)
@@ -34,16 +37,19 @@ class KelurahanController extends BackendController
     {
         $kecamatan_id = $request->get('kecamatan');
         $request->merge(compact('kecamatan_id'));
+     
         return $request;
     }
 
     protected function loadFormClasses()
     {
         $kecamatans = [];
+     
         foreach ($this->kecamatan->get()->keyBy('id') as $id => $kecamatan) {
             $kecamatans[$id] = $kecamatan->kecamatan.', '.$kecamatan->kota->kota.' - '.$kecamatan->kota->propinsi->propinsi;
         };
-        view()->share('kecamatans', $kecamatans);
-
+     
+        $this->kecamatans = $kecamatans;
+        $this->view->share(get_object_vars($this));
     }
 }

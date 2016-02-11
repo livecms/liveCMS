@@ -18,8 +18,11 @@ class KotaController extends BackendController
     {
         parent::__construct($model, $base);
         $this->propinsi = $propinsi;
-        view()->share('breadcrumb2Icon', 'map');
-        view()->share('fields', array_merge(array_except($this->model->getFields(), ['id']), ['propinsi_id' => 'Propinsi']));
+
+        $this->breadcrumb2Icon  = 'map';
+        $this->fields           = array_merge(array_except($this->model->getFields(), ['id']), ['propinsi_id' => 'Propinsi']);
+     
+        $this->view->share(get_object_vars($this));
     }
 
     protected function processDatatables($datatables)
@@ -34,11 +37,13 @@ class KotaController extends BackendController
     {
         $propinsi_id = $request->get('propinsi');
         $request->merge(compact('propinsi_id'));
+     
         return $request;
     }
 
     protected function loadFormClasses()
     {
-        view()->share('propinsis', $this->propinsi->lists('propinsi', 'id')->toArray());
+        $this->propinsis = $this->propinsi->lists('propinsi', 'id')->toArray();
+        $this->view->share(get_object_vars($this));
     }
 }

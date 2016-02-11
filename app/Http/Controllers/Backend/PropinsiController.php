@@ -13,7 +13,9 @@ class PropinsiController extends BackendController
     public function __construct(Model $model, $base = 'propinsi')
     {
         parent::__construct($model, $base);
-        view()->share('breadcrumb2Icon', 'map');
-        view()->share('fields', array_except($this->model->getFields(), ['id']));
+        $this->breadcrumb2Icon  = 'map';
+        $this->fields           = array_except($this->model->getFields(), ['id']);
+        
+        $this->view->share(get_object_vars($this));
     }
 }

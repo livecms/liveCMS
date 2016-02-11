@@ -17,9 +17,13 @@ class KecamatanController extends BackendController
     public function __construct(Model $model, Kota $kota, $base = 'kecamatan')
     {
         parent::__construct($model, $base);
+     
         $this->kota = $kota;
-        view()->share('breadcrumb2Icon', 'map');
-        view()->share('fields', array_merge(array_except($this->model->getFields(), ['id']), ['kota_id' => 'Kota']));
+     
+        $this->breadcrumb2Icon  = 'map';
+        $this->fields           = array_merge(array_except($this->model->getFields(), ['id']), ['kota_id' => 'Kota']);
+     
+        $this->view->share(get_object_vars($this));
     }
 
     protected function processDatatables($datatables)
@@ -34,16 +38,19 @@ class KecamatanController extends BackendController
     {
         $kota_id = $request->get('kota');
         $request->merge(compact('kota_id'));
+     
         return $request;
     }
 
     protected function loadFormClasses()
     {
         $kotas = [];
+
         foreach ($this->kota->get()->keyBy('id') as $id => $kota) {
             $kotas[$id] = $kota->kota.' - '.$kota->propinsi->propinsi;
         };
-        view()->share('kotas', $kotas);
 
+        $this->kotas = $kotas;
+        $this->view->share(get_object_vars($this));
     }
 }
