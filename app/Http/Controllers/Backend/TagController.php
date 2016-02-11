@@ -13,7 +13,8 @@ class TagController extends BackendController
     public function __construct(Model $model, $base = 'tag')
     {
         parent::__construct($model, $base);
-        view()->share('breadcrumb2Icon', 'tag');
-        view()->share('fields', array_except($this->model->getFields(), ['id']));
+        $this->breadcrumb2Icon  = 'tag';
+        $this->fields           = array_except($this->model->getFields(), ['id']);
+        $this->view->share(get_object_vars($this));
     }
 }

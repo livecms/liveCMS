@@ -13,6 +13,8 @@ class SettingController extends BackendController
     public function __construct(Model $model, $base = 'setting')
     {
         parent::__construct($model, $base);
-        view()->share('breadcrumb2Icon', 'cog');
+        $this->breadcrumb2Icon  = 'cog';
+        $this->fields           = array_except($this->model->getFields(), ['id']);
+        $this->view->share(get_object_vars($this));
     }
 }
