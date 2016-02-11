@@ -56,6 +56,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::controller('kota', 'KotaController');
         Route::controller('kecamatan', 'KecamatanController');
         Route::controller('kelurahan', 'KelurahanController');
+        Route::controller('kurir', 'KurirController');
     });
 
     Route::auth();
