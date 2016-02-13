@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', function () {
+$router->get('/', function () {
     $launchingDateTime = globalParams('launching_datetime') ? new Carbon\Carbon(globalParams('launching_datetime')) : Carbon\Carbon::now();
 
     if ($launchingDateTime->isFuture()) {
@@ -22,11 +22,11 @@ Route::get('/', function () {
 
 });
 
-Route::get('coming-soon', function () {
+$router->get('coming-soon', function () {
     return view('coming-soon');
 });
 
-Route::get('/home', function () {
+$router->get('/home', function () {
     return redirect('admin');
 });
 
@@ -41,19 +41,24 @@ Route::get('/home', function () {
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
-    Route::group(['prefix' => 'admin', 'namespace' => 'Backend', 'middleware' => 'auth'], function() {
-        Route::get('/', function() {
+$router->group(['middleware' => ['web']], function ($router) {     
+
+    $router->group(['prefix' => 'admin', 'namespace' => 'Backend', 'middleware' => 'auth'], function ($router) {
+        $router->get('/', function () {
             return view('admin.home');
         });
 
-        Route::controller('kategori', 'KategoriController');
-        Route::controller('tag', 'TagController');
-        Route::controller('artikel', 'ArtikelController');
-        Route::controller('setting', 'SettingController');
-        Route::controller('user', 'UserController');
+        $router->controller('kategori', 'KategoriController');
+        $router->controller('tag', 'TagController');
+        $router->controller('artikel', 'ArtikelController');
+        $router->controller('setting', 'SettingController');
+        $router->controller('user', 'UserController');
     });
 
-    Route::auth();
+    $router->auth();
+   
+    $router->group(['prefix' => '/', 'namespace' => 'Frontend'], function ($router) {
+        $router->get('{arg0?}/{arg1?}/{arg2?}/{arg3?}/{arg4?}/{arg5?}', 'PageController@__call');
+    });
     
 });
