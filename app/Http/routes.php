@@ -16,7 +16,7 @@ $router->get('/', function () {
 
     if ($launchingDateTime->isFuture()) {
         return redirect('coming-soon');
-    } 
+    }
 
     return redirect('admin');
 
@@ -41,7 +41,7 @@ $router->get('/home', function () {
 |
 */
 
-$router->group(['middleware' => ['web']], function ($router) {     
+$router->group(['middleware' => ['web']], function ($router) {
 
     $router->group(['prefix' => 'admin', 'namespace' => 'Backend', 'middleware' => 'auth'], function ($router) {
         $router->get('/', function () {
@@ -56,9 +56,9 @@ $router->group(['middleware' => ['web']], function ($router) {
     });
 
     $router->auth();
-   
+
     $router->group(['prefix' => '/', 'namespace' => 'Frontend'], function ($router) {
         $router->get('{arg0?}/{arg1?}/{arg2?}/{arg3?}/{arg4?}/{arg5?}', 'PageController@__call');
     });
-    
+
 });
