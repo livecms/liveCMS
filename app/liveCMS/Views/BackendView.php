@@ -46,13 +46,6 @@ class BackendView
         $this->view = app(ViewFactory::class);
     }
 
-    protected function setDefaultSettings()
-    {
-        $this->share([
-            // 
-        ]);
-    }
-
     public function share()
     {
         $settings = $this->calledObject->getAllProperties();
