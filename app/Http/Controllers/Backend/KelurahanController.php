@@ -22,7 +22,7 @@ class KelurahanController extends BackendController
         $this->breadcrumb2Icon  = 'map';
         $this->fields           = array_merge(array_except($this->model->getFields(), ['id']), ['kecamatan_id' => 'Kecamatan']);
      
-        $this->view->share(get_object_vars($this));
+        $this->view->share();
     }
 
     protected function processDatatables($datatables)
@@ -50,6 +50,6 @@ class KelurahanController extends BackendController
         };
      
         $this->kecamatans = $kecamatans;
-        $this->view->share(get_object_vars($this));
+        $this->view->share();
     }
 }

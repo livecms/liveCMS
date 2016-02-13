@@ -22,7 +22,7 @@ class KotaController extends BackendController
         $this->breadcrumb2Icon  = 'map';
         $this->fields           = array_merge(array_except($this->model->getFields(), ['id']), ['propinsi_id' => 'Propinsi']);
      
-        $this->view->share(get_object_vars($this));
+        $this->view->share();
     }
 
     protected function processDatatables($datatables)
@@ -44,6 +44,6 @@ class KotaController extends BackendController
     protected function loadFormClasses()
     {
         $this->propinsis = $this->propinsi->lists('propinsi', 'id')->toArray();
-        $this->view->share(get_object_vars($this));
+        $this->view->share();
     }
 }

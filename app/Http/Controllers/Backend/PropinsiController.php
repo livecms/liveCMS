@@ -16,6 +16,6 @@ class PropinsiController extends BackendController
         $this->breadcrumb2Icon  = 'map';
         $this->fields           = array_except($this->model->getFields(), ['id']);
         
-        $this->view->share(get_object_vars($this));
+        $this->view->share();
     }
 }

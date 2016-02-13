@@ -23,7 +23,7 @@ class KecamatanController extends BackendController
         $this->breadcrumb2Icon  = 'map';
         $this->fields           = array_merge(array_except($this->model->getFields(), ['id']), ['kota_id' => 'Kota']);
      
-        $this->view->share(get_object_vars($this));
+        $this->view->share();
     }
 
     protected function processDatatables($datatables)
@@ -51,6 +51,6 @@ class KecamatanController extends BackendController
         };
 
         $this->kotas = $kotas;
-        $this->view->share(get_object_vars($this));
+        $this->view->share();
     }
 }
