@@ -3,47 +3,29 @@
 namespace App\liveCMS\Models;
 
 use Auth;
+use Gate;
+use App\Policies\ModelPolicy;
 use Illuminate\Auth\Access\AuthorizationException;
 
 trait ModelAuthorizationTrait
 {
     public static function bootModelAuthorizationTrait()
     {
-        if (app(static::class)->authorize('read') === false) {
-            throw new AuthorizationException('This action is unauthorized.');
-        }
+        Gate::policy(static::class, ModelPolicy::class);
+
+        Gate::authorize('read', app(static::class));
 
         static::creating(function ($model) {
-            if ($model->authorize('create') === false) {
-                throw new AuthorizationException('This action is unauthorized.');
-            }
+            Gate::authorize('create', $model);
         });
 
         static::updating(function ($model) {
-            if ($model->authorize('update') === false) {
-                throw new AuthorizationException('This action is unauthorized.');
-            }
+            Gate::authorize('update', $model);
         });
 
         static::deleting(function ($model) {
-            if ($model->authorize('delete') === false) {
-                throw new AuthorizationException('This action is unauthorized.');
-            }
+            Gate::authorize('delete', $model);
         });
     }
 
-    public function authorize($method = null)
-    {
-        $user = Auth::user();
-        
-        if ($user != null && $user->isBanned) {
-            return false;
-        }
-
-        if ($user != null && $user->isAdmin) {
-            return true;
-        }
-
-        return false;
-    }
 }

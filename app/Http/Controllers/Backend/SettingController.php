@@ -16,6 +16,6 @@ class SettingController extends BackendController
         $this->breadcrumb2Icon  = 'cog';
         $this->fields           = array_except($this->model->getFields(), ['id']);
         
-        $this->view->share(get_object_vars($this));
+        $this->view->share();
     }
 }

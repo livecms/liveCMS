@@ -7,6 +7,8 @@ use Illuminate\Contracts\View\Factory as ViewFactory;
 
 class BackendView 
 {
+    protected $calledObject;
+
     protected $model;
     
     protected $base;
@@ -35,15 +37,13 @@ class BackendView
 
     protected $breadcrumb3;
  
-    private $protectedFields = ['view'];
+    private $protectedFields = ['calledObject', 'view'];
 
-    public function __construct($settings = [])
+    public function __construct($calledObject)
     {
+        $this->calledObject = $calledObject;
+
         $this->view = app(ViewFactory::class);
-
-        $this->setDefaultSettings();
-
-        return $this->share($settings);            
     }
 
     protected function setDefaultSettings()
@@ -53,8 +53,10 @@ class BackendView
         ]);
     }
 
-    public function share($settings = [])
+    public function share()
     {
+        $settings = $this->calledObject->getAllProperties();
+
         foreach ($settings as $key => $value) {
             if (! in_array($key, $this->protectedFields)) {
                 $this->$key = $value;
