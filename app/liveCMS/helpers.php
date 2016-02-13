@@ -4,7 +4,7 @@ use App\Setting;
 
 if (! function_exists('globalParams')) {
 
-    function globalParams($key = null, $fallback = false)
+    function globalParams($key = null, $default = false)
     {
         $global_params = Cache::rememberForever('global_params', function() {
             return Setting::lists('value', 'key');
@@ -14,6 +14,6 @@ if (! function_exists('globalParams')) {
             return $global_params;
         }
         
-        return isset($global_params[$key]) ? $global_params[$key] : $fallback;
+        return isset($global_params[$key]) ? $global_params[$key] : $default;
     }
 }
