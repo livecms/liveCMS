@@ -51,6 +51,7 @@ $router->group(['middleware' => ['web']], function ($router) {
         $router->controller('kategori', 'KategoriController');
         $router->controller('tag', 'TagController');
         $router->controller('artikel', 'ArtikelController');
+        $router->controller('staticpage', 'StaticPageController');
         $router->controller('setting', 'SettingController');
         $router->controller('user', 'UserController');
     });
