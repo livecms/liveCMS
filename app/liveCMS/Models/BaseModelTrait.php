@@ -44,6 +44,6 @@ trait BaseModelTrait
 
     public function snakeToStr($snake)
     {
-        return ucwords(implode(' ', explode('_', $snake)));
+        return snakeToStr($snake);
     }
 }

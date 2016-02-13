@@ -17,3 +17,11 @@ if (! function_exists('globalParams')) {
         return isset($global_params[$key]) ? $global_params[$key] : $default;
     }
 }
+
+if (! function_exists('snakeToStr')) {
+    
+    function snakeToStr($snake)
+    {
+        return ucwords(implode(' ', explode('_', $snake)));
+    }
+}
