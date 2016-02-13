@@ -17,6 +17,11 @@ class BaseController extends Controller
     public function __construct()
     {
         $this->global_params = globalParams();
-        $this->view = new BackendView;
+        $this->view = new BackendView($this);
+    }
+
+    public function getAllProperties()
+    {
+        return get_object_vars($this);
     }
 }

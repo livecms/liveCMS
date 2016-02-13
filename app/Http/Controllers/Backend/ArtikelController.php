@@ -25,7 +25,7 @@ class ArtikelController extends BackendController
         $this->breadcrumb2Icon  = 'file-o';
         $this->fields           = array_merge($this->model->getFields(), ['kategori' => 'Kategori', 'tag' => 'Tag']);
         
-        $this->view->share(get_object_vars($this));
+        $this->view->share();
     }
 
     protected function processDatatables($datatables)
@@ -48,7 +48,7 @@ class ArtikelController extends BackendController
         $this->tags         = $this->tag->lists('tag', 'id')->toArray();
         $this->useCKEditor  = 'isi';
      
-        $this->view->share(get_object_vars($this));
+        $this->view->share();
     }
 
     protected function afterSaving($model, $request)

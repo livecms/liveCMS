@@ -29,7 +29,7 @@ class BackendController extends BaseController
         $this->breadcrumb2      = ucwords($this->base);
         $this->breadcrumb2Url   = action($this->baseClass.'@getIndex');
         
-        $this->view->share(get_object_vars($this));
+        $this->view->share();
     }
 
     protected function processDatatables($datatables)
@@ -58,7 +58,7 @@ class BackendController extends BaseController
         $this->deskripsi    = 'Semua Daftar '.ucwords($this->base);
         $this->breadcrumb3  = 'Lihat Semua';
 
-        $this->view->share(get_object_vars($this));
+        $this->view->share();
 
         return view('partials.appIndex');
     }
@@ -111,7 +111,7 @@ class BackendController extends BaseController
         $this->breadcrumb3  = 'Tambah';
         $this->action       = 'postTambah';
 
-        $this->view->share(get_object_vars($this));
+        $this->view->share();
 
         $this->loadFormClasses();
 
@@ -156,7 +156,7 @@ class BackendController extends BaseController
         $this->action       = 'postEdit';
         $this->params       = compact('id');
         
-        $this->view->share(get_object_vars($this));
+        $this->view->share();
         
         $this->loadFormClasses();
 
