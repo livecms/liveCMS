@@ -11,7 +11,7 @@ class SetupSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('settings')->create([
+        DB::table('settings')->insert([
             ['key' => 'site_name', 'value' => 'Live CMS'],
         ]);
     }
