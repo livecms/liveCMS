@@ -16,7 +16,7 @@ class StaticPageController extends BackendController
     {
         parent::__construct($model, $base);
         
-        $this->breadcrumb2Icon  = 'files-o';        
+        $this->breadcrumb2Icon  = 'file-o';        
         $this->view->share();
     }
 

@@ -22,7 +22,7 @@ class ArtikelController extends BackendController
         $this->kategori = $kategori;
         $this->tag = $tag;
         
-        $this->breadcrumb2Icon  = 'file-o';
+        $this->breadcrumb2Icon  = 'files-o';
         $this->fields           = array_merge($this->model->getFields(), ['kategori' => 'Kategori', 'tag' => 'Tag']);
         
         $this->view->share();

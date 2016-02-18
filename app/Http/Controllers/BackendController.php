@@ -107,7 +107,7 @@ class BackendController extends BaseController
         ${$this->base} = $model;
 
         $this->judul        = 'Tambah Data '.ucwords(snakeToStr($this->base));
-        $this->deskripsi    = 'Untuk menambahkan data '.$this->base;
+        $this->deskripsi    = 'Untuk menambahkan data '.snakeToStr($this->base);
         $this->breadcrumb3  = 'Tambah';
         $this->action       = 'postTambah';
 
@@ -151,7 +151,7 @@ class BackendController extends BaseController
         ${$this->base} = $model;
 
         $this->judul        = 'Edit '.ucwords(snakeToStr($this->base));
-        $this->deskripsi    = 'Mengedit data '.$this->base;
+        $this->deskripsi    = 'Mengedit data '.snakeToStr($this->base);
         $this->breadcrumb3  = 'Edit';
         $this->action       = 'postEdit';
         $this->params       = compact('id');

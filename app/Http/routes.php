@@ -43,7 +43,9 @@ $router->get('/home', function () {
 
 $router->group(['middleware' => ['web']], function ($router) {
 
-    $router->group(['prefix' => 'admin', 'namespace' => 'Backend', 'middleware' => 'auth'], function ($router) {
+    $adminSlug = globalParams('slug_admin', config('livecms.slugs.admin'));
+
+    $router->group(['prefix' => $adminSlug, 'namespace' => 'Backend', 'middleware' => 'auth'], function ($router) {
         $router->get('/', function () {
             return view('admin.home');
         });

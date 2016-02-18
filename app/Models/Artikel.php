@@ -7,7 +7,7 @@ class Artikel extends BaseModel
     protected $fillable = ['judul', 'slug', 'isi'];
 
     protected $dependencies = ['kategoris', 'tags'];
-
+    
     public function rules()
     {
         $slug = str_slug(request()->has('slug') ? request()->get('slug') : request()->get('judul'));

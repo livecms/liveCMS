@@ -6,6 +6,11 @@ class StaticPage extends BaseModel
 {
     protected $fillable = ['judul', 'slug', 'isi'];
 
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+    }
+
     public function rules()
     {
         $slug = str_slug(request()->has('slug') ? request()->get('slug') : request()->get('judul'));

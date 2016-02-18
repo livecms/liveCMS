@@ -22,7 +22,7 @@ class ModelPolicy
 
     public function before(User $user)
     {
-        return $user->is_super;
+        return $user->is_admin;
     }
 
     public function read(User $user, Model $model)
