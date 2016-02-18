@@ -8,7 +8,7 @@ if (! function_exists('globalParams')) {
     {
         $globalParams = Cache::rememberForever('global_params', function() {
             if (!Schema::hasTable('settings')) {
-                return $default;
+                return [];
             };
      
             return Setting::lists('value', 'key');
