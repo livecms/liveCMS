@@ -26,6 +26,6 @@ if (! function_exists('snakeToStr')) {
     
     function snakeToStr($snake)
     {
-        return ucwords(implode(' ', explode('_', $snake)));
+        return title_case(implode(' ', explode('_', $snake)));
     }
 }
