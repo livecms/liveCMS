@@ -6,15 +6,19 @@ if (! function_exists('globalParams')) {
 
     function globalParams($key = null, $default = false)
     {
-        $global_params = Cache::rememberForever('global_params', function() {
+        if (!Schema::hasTable('settings')) {
+            return $default;
+        };
+
+        $globalParams = Cache::rememberForever('global_params', function() {
             return Setting::lists('value', 'key');
         });
         
         if ($key == null) {
-            return $global_params;
+            return $globalParams;
         }
         
-        return isset($global_params[$key]) ? $global_params[$key] : $default;
+        return isset($globalParams[$key]) ? $globalParams[$key] : $default;
     }
 }
 
