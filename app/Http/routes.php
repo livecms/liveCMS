@@ -10,15 +10,16 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+$adminSlug = globalParams('slug_admin', config('livecms.slugs.admin'));
 
-$router->get('/', function () {
+$router->get('/', function () use ($adminSlug) {
     $launchingDateTime = globalParams('launching_datetime') ? new Carbon\Carbon(globalParams('launching_datetime')) : Carbon\Carbon::now();
 
     if ($launchingDateTime->isFuture()) {
         return redirect('coming-soon');
     }
 
-    return redirect('admin');
+    return redirect($adminSlug);
 
 });
 
@@ -26,8 +27,8 @@ $router->get('coming-soon', function () {
     return view('coming-soon');
 });
 
-$router->get('/home', function () {
-    return redirect('admin');
+$router->get('/home', function () use ($adminSlug) {
+    return redirect($adminSlug);
 });
 
 /*
@@ -41,9 +42,7 @@ $router->get('/home', function () {
 |
 */
 
-$router->group(['middleware' => ['web']], function ($router) {
-
-    $adminSlug = globalParams('slug_admin', config('livecms.slugs.admin'));
+$router->group(['middleware' => ['web']], function ($router) use ($adminSlug) {
 
     $router->group(['prefix' => $adminSlug, 'namespace' => 'Backend', 'middleware' => 'auth'], function ($router) {
         $router->get('/', function () {
