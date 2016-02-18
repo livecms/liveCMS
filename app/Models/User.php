@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Auth;
+use Gate;
+use App\Policies\UserPolicy;
 use App\liveCMS\Models\UserModelTrait;
 use App\liveCMS\Models\UserModelInterface as UserModelContract;
 
@@ -35,14 +37,25 @@ class User extends BaseModel implements UserModelContract
 
     protected $aliases = [];
 
-    public function authorize($method = null)
+    public static function boot()
     {
-        $user = Auth::user();
-        
-        if ($user != null && $user->isSuper) {
-            return true;
-        }
+        if (auth()->check()) {
+            
+            Gate::policy(static::class, UserPolicy::class);
 
-        return false;
+            Gate::authorize('read', app(static::class));
+
+            static::creating(function ($model) {
+                Gate::authorize('create', $model);
+            });
+
+            static::updating(function ($model) {
+                Gate::authorize('update', $model);
+            });
+
+            static::deleting(function ($model) {
+                Gate::authorize('delete', $model);
+            });
+        }
     }
 }

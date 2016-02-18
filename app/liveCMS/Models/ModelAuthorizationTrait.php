@@ -11,21 +11,24 @@ trait ModelAuthorizationTrait
 {
     public static function bootModelAuthorizationTrait()
     {
-        Gate::policy(static::class, ModelPolicy::class);
+        if (auth()->check()) {
+            
+            Gate::policy(static::class, ModelPolicy::class);
 
-        Gate::authorize('read', app(static::class));
+            Gate::authorize('read', app(static::class));
 
-        static::creating(function ($model) {
-            Gate::authorize('create', $model);
-        });
+            static::creating(function ($model) {
+                Gate::authorize('create', $model);
+            });
 
-        static::updating(function ($model) {
-            Gate::authorize('update', $model);
-        });
+            static::updating(function ($model) {
+                Gate::authorize('update', $model);
+            });
 
-        static::deleting(function ($model) {
-            Gate::authorize('delete', $model);
-        });
+            static::deleting(function ($model) {
+                Gate::authorize('delete', $model);
+            });
+        }
     }
 
 }
