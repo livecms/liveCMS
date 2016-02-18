@@ -11,7 +11,7 @@ $menus = [
     ], 
     ['uri' => 'staticpage', 'title' => 'Halaman Statis', 'icon' => 'file-o'],
     ['uri' => 'user', 'title' => 'User', 'icon' => 'users'],
-    ['uri' => 'user', 'title' => 'User', 'icon' => 'users'],
+    ['uri' => 'setting', 'title' => 'Setting', 'icon' => 'cog'],
 ];
 ?>
 
