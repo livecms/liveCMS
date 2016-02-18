@@ -26,7 +26,7 @@ class BackendController extends BaseController
         $this->baseClass = static::CLASS_NAMESPACE.(new \ReflectionClass($this))->getShortName();
 
         $this->fields           = $this->model->getFields();
-        $this->breadcrumb2      = ucwords(snakeToStr($this->base));
+        $this->breadcrumb2      = title_case(snakeToStr($this->base));
         $this->breadcrumb2Url   = action($this->baseClass.'@getIndex');
         
         $this->view->share();
@@ -54,8 +54,8 @@ class BackendController extends BaseController
 
     public function getIndex()
     {
-        $this->judul        = ucwords(snakeToStr($this->base));
-        $this->deskripsi    = 'Semua Daftar '.ucwords(snakeToStr($this->base));
+        $this->judul        = title_case(snakeToStr($this->base));
+        $this->deskripsi    = 'Semua Daftar '.title_case(snakeToStr($this->base));
         $this->breadcrumb3  = 'Lihat Semua';
 
         $this->view->share();
@@ -106,7 +106,7 @@ class BackendController extends BaseController
         $model = $this->model;
         ${$this->base} = $model;
 
-        $this->judul        = 'Tambah Data '.ucwords(snakeToStr($this->base));
+        $this->judul        = 'Tambah Data '.title_case(snakeToStr($this->base));
         $this->deskripsi    = 'Untuk menambahkan data '.snakeToStr($this->base);
         $this->breadcrumb3  = 'Tambah';
         $this->action       = 'postTambah';
@@ -150,7 +150,7 @@ class BackendController extends BaseController
         $model = $this->model->findOrFail($id);
         ${$this->base} = $model;
 
-        $this->judul        = 'Edit '.ucwords(snakeToStr($this->base));
+        $this->judul        = 'Edit '.title_case(snakeToStr($this->base));
         $this->deskripsi    = 'Mengedit data '.snakeToStr($this->base);
         $this->breadcrumb3  = 'Edit';
         $this->action       = 'postEdit';

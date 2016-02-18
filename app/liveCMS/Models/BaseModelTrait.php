@@ -23,7 +23,7 @@ trait BaseModelTrait
         $theFields = [];
 
         foreach ($fields as $field) {
-            $theFields[$field] = isset($alias[$field]) ?  $alias[$field] : $this->snakeToStr($field);
+            $theFields[$field] = isset($alias[$field]) ?  $alias[$field] : title_case($this->snakeToStr($field));
         }
 
         $keyName = $this->getKeyName();
