@@ -6,7 +6,7 @@ if (! function_exists('globalParams')) {
 
     function globalParams($key = null, $default = false)
     {
-        $globalParams = Cache::rememberForever('global_params', function() {
+        $globalParams = Cache::rememberForever('global_params', function () {
             if (!Schema::hasTable('settings')) {
                 return [];
             };
