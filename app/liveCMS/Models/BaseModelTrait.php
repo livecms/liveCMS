@@ -32,11 +32,6 @@ trait BaseModelTrait
 
     }
 
-    public function newQuery()
-    {
-        return parent::newQuery()->with($this->dependencies());
-    }
-
     protected function buildFields()
     {
         return array_flip(array_except(array_flip($this->getFillable()), $this->getHidden()));

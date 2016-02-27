@@ -55,6 +55,7 @@ $router->group(['middleware' => ['web']], function ($router) use ($adminSlug) {
         $router->controller('staticpage', 'StaticPageController');
         $router->controller('setting', 'SettingController');
         $router->controller('user', 'UserController');
+        $router->controller('permalink', 'PermalinkController');
     });
 
     $router->auth();

@@ -8,8 +8,9 @@ $menus = [
             ['uri' => 'kategori', 'title' => 'Kategori', 'icon' => 'list'],
             ['uri' => 'tag', 'title' => 'Tag', 'icon' => 'tag'],
         ],
-    ], 
+    ],
     ['uri' => 'staticpage', 'title' => 'Halaman Statis', 'icon' => 'file-o'],
+    ['uri' => 'permalink', 'title' => 'Permalink', 'icon' => 'link'],
     ['uri' => 'user', 'title' => 'User', 'icon' => 'users'],
     ['uri' => 'setting', 'title' => 'Setting', 'icon' => 'cog'],
 ];
@@ -19,7 +20,7 @@ $menus = [
 <li class="@if(request()->is($adminPrefix))active @endif"><a href="{{ asset($adminPrefix) }}"><i class="fa fa-home"></i> <span>Home</span></a></li>
 @foreach($menus as $menu)
 @if(is_array($uri = $menu['uri']))
-<?php  
+<?php
     $activeMenu = false;
     foreach (collect($uri)->pluck('uri')->toArray() as $uri) {
         $activeMenu = $activeMenu || request()->is($adminPrefix.'/'.$uri.'*');

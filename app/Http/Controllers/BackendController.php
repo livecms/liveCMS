@@ -47,9 +47,9 @@ class BackendController extends BaseController
         //
     }
 
-    protected function afterSaving($model, $request)
+    protected function afterSaving($request)
     {
-        return $model;
+        return $this->model;
     }
 
     public function getIndex()
@@ -63,13 +63,26 @@ class BackendController extends BaseController
         return view('partials.appIndex');
     }
 
+    protected function getDataFields()
+    {
+        return [null => $this->model->getKeyName()]+$this->model->getFillable();
+    }
+
+    protected function beforeDatatables($datas)
+    {
+        return $datas;
+    }
+
     public function anyData()
     {
-        $datas = $this->model->select([null => $this->model->getKeyName()]+$this->model->getFillable());
+        $datas = $this->model->select($this->getDataFields());
 
         // if ($dependencies = $this->model->dependencies()) {
         //     $datas = $datas->with($dependencies);
         // }
+        // 
+        
+        $datas = $this->beforeDatatables($datas);
 
         $datatables = Datatables::of($datas)
             ->addColumn('menu', function ($data) {
@@ -82,7 +95,7 @@ class BackendController extends BaseController
                     Form::open(['style' => 'display: inline!important', 'method' => 'delete', 
                         'action' => [$this->baseClass.'@deleteHapus', $data->{$this->model->getKeyName()}]
                     ]).
-                    '  <button type="submit" onClick="return confirm(\'Yakin mau menghapus?\');" 
+                    '  <button type="submit" onClik="return confirm(\'Yakin mau menghapus?\');" 
                         class="btn btn-small btn-link">
                             <i class="fa fa-xs fa-trash-o"></i> 
                             Delete
@@ -104,7 +117,7 @@ class BackendController extends BaseController
     public function getTambah()
     {
         $model = $this->model;
-        ${$this->base} = $model;
+        ${camel_case($this->base)} = $model;
 
         $this->judul        = 'Tambah Data '.title_case(snakeToStr($this->base));
         $this->deskripsi    = 'Untuk menambahkan data '.snakeToStr($this->base);
@@ -115,7 +128,7 @@ class BackendController extends BaseController
 
         $this->loadFormClasses();
 
-        return view("admin.{$this->base}.form", compact($this->base));
+        return view("admin.".camel_case($this->base).".form", compact(camel_case($this->base)));
     }
 
     /**
@@ -130,9 +143,9 @@ class BackendController extends BaseController
 
         $this->validate($request, $this->model->rules());
 
-        $created = $this->model->create($request->all());
+        $this->model = $this->model->create($request->all());
 
-        $saved = $this->afterSaving($created, $request);
+        $saved = $this->afterSaving($request);
 
         if ($saved) {
             return redirect()->action($this->baseClass.'@getIndex');
@@ -148,7 +161,7 @@ class BackendController extends BaseController
     public function getEdit($id)
     {
         $model = $this->model->findOrFail($id);
-        ${$this->base} = $model;
+        ${camel_case($this->base)} = $model;
 
         $this->judul        = 'Edit '.title_case(snakeToStr($this->base));
         $this->deskripsi    = 'Mengedit data '.snakeToStr($this->base);
@@ -160,7 +173,7 @@ class BackendController extends BaseController
         
         $this->loadFormClasses();
 
-        return view("admin.{$this->base}.form", compact($this->base));
+        return view("admin.".camel_case($this->base).".form", compact(camel_case($this->base)));
     }
 
     /**
@@ -172,17 +185,15 @@ class BackendController extends BaseController
      */
     public function postEdit(Request $request, $id)
     {
-        $model = $this->model->where($this->model->getKeyName(), $id)->first();
-
-        $model = $this->model->findOrFail($id);
+        $this->model = $this->model->findOrFail($id);
 
         $request = $this->processRequest($request);
 
-        $this->validate($request, $model->rules());
+        $this->validate($request, $this->model->rules());
 
-        $model->update($request->all());
+        $this->model->update($request->all());
 
-        $saved = $this->afterSaving($model, $request);
+        $saved = $this->afterSaving($request);
 
         if ($saved) {
             return redirect()->action($this->baseClass.'@getIndex');
@@ -197,11 +208,9 @@ class BackendController extends BaseController
      */
     public function deleteHapus($id)
     {
-        $model = $this->model->where($this->model->getKeyName(), $id)->first();
+        $this->model = $this->model->findOrFail($id);
 
-        $model = $this->model->findOrFail($id);
-
-        $deleted = $model->delete();
+        $deleted = $this->model->delete();
 
         if ($deleted) {
             return redirect()->action($this->baseClass.'@getIndex');

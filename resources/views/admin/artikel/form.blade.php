@@ -23,6 +23,24 @@
 
 	<div class="row form-group">
 		<div class="col-md-2">
+			{!! Form::label('permalink', 'Permalink', ['class' => 'control-label']) !!}
+		</div>
+		<div class="col-md-10">
+			{!! Form::text('permalink', $artikel->permalink ? $artikel->permalink->permalink : '', ['class' => 'form-control', 'placeholder' => url('path/sebagai/permalink')]) !!}
+		</div>
+	</div>
+
+	<div class="row form-group">
+		<div class="col-md-2">
+			{!! Form::label('url', 'Url', ['class' => 'control-label']) !!}
+		</div>
+		<div class="col-md-10">
+			<p class="form-static"><a href="{{$artikel->url}}">{{$artikel->url}}</a></p>
+		</div>
+	</div>
+
+	<div class="row form-group">
+		<div class="col-md-2">
 			{!! Form::label('isi', 'Isi', ['class' => 'control-label']) !!}
 		</div>
 		<div class="col-md-10">
