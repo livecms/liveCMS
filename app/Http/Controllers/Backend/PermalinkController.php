@@ -26,6 +26,11 @@ class PermalinkController extends BackendController
 
     }
 
+    protected function beforeDatatables($datas)
+    {
+        return $datas->with($this->model->dependencies());
+    }
+
     protected function processDatatables($datatables)
     {
         return $datatables
@@ -33,7 +38,10 @@ class PermalinkController extends BackendController
                 return $data->type;
             })
             ->addColumn('title', function ($data) {
-                return $data->postable->judul;
+                return
+                    $data->postable->judul.
+                    ' <a href="'.action('Backend\\'.$data->type.'Controller@getEdit', ['id' => $data->postable->id]).
+                    '"><i class="fa fa-pencil"></i></a>';
             });
     }
 }
