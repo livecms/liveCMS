@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Models\Artikel;
+use App\Models\Permalink;
+use App\Models\StaticPage;
 use App\Http\Controllers\FrontendController;
 use Illuminate\Http\Request;
 
@@ -15,7 +17,21 @@ class PageController extends FrontendController
         return $artikel;
     }
 
-    public function __call($method, $parameters = null)
+    public function getStatis($slug)
+    {
+        $statis = StaticPage::where('slug', $slug)->firstOrFail();
+
+        return $statis;
+    }
+
+    public function getByPermalink($permalink)
+    {
+        $page = Permalink::where('permalink', $permalink)->firstOrFail();
+
+        return $page->postable;
+    }
+
+    public function routes()
     {
         $parameters = func_get_args();
 
@@ -32,6 +48,8 @@ class PageController extends FrontendController
             return $this->getStatis($parameters[1]);
         }
 
-        return parent::__call($method, $parameters);
+        $permalink = implode('/', $parameters);
+
+        return $this->getByPermalink($permalink);
     }
 }

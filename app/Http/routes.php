@@ -13,7 +13,8 @@
 $adminSlug = globalParams('slug_admin', config('livecms.slugs.admin'));
 
 $router->get('/', function () use ($adminSlug) {
-    $launchingDateTime = globalParams('launching_datetime') ? new Carbon\Carbon(globalParams('launching_datetime')) : Carbon\Carbon::now();
+    $launchingDateTime = globalParams('launching_datetime') ?
+        new Carbon\Carbon(globalParams('launching_datetime')) : Carbon\Carbon::now();
 
     if ($launchingDateTime->isFuture()) {
         return redirect('coming-soon');
@@ -61,7 +62,7 @@ $router->group(['middleware' => ['web']], function ($router) use ($adminSlug) {
     $router->auth();
 
     $router->group(['prefix' => '/', 'namespace' => 'Frontend'], function ($router) {
-        $router->get('{arg0?}/{arg1?}/{arg2?}/{arg3?}/{arg4?}/{arg5?}', 'PageController@__call');
+        $router->get('{arg0?}/{arg1?}/{arg2?}/{arg3?}/{arg4?}/{arg5?}', 'PageController@routes');
     });
 
 });
