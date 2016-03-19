@@ -1,6 +1,7 @@
 <?php
 
 use App\Setting;
+use App\Models\Site;
 
 if (! function_exists('globalParams')) {
 
@@ -27,5 +28,13 @@ if (! function_exists('snakeToStr')) {
     function snakeToStr($snake)
     {
         return implode(' ', explode('_', $snake));
+    }
+}
+
+if (! function_exists('site')) {
+
+    function site()
+    {
+        return app(Site::class);
     }
 }

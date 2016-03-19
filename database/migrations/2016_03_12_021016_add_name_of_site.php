@@ -59,6 +59,14 @@ class AddNameOfSite extends Migration
                   ->references('id')->on('sites')
                   ->onDelete('cascade');
         });
+
+        Schema::table('users', function ($table) {
+            $table->integer('site_id')->unsigned()->nullable()->after('id');
+
+            $table->foreign('site_id')
+                  ->references('id')->on('sites')
+                  ->onDelete('cascade');
+        });
     }
 
     /**
@@ -95,6 +103,11 @@ class AddNameOfSite extends Migration
 
         Schema::table('settings', function ($table) {
             $table->dropForeign('settings_site_id_foreign');
+            $table->dropColumn('site_id');
+        });
+
+        Schema::table('users', function ($table) {
+            $table->dropForeign('users_site_id_foreign');
             $table->dropColumn('site_id');
         });
     }

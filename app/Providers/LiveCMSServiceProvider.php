@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+use App;
 use Illuminate\Support\ServiceProvider;
+use App\liveCMS\Illuminate\Routing\UrlGenerator;
+use App\liveCMS\Illuminate\Routing\Redirector;
+use App\Models\Site;
 
 class LiveCMSServiceProvider extends ServiceProvider
 {
@@ -13,7 +17,45 @@ class LiveCMSServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Site::init();
+
+        // Extends Url Generator
+        $url = new UrlGenerator(
+            App::make('router')->getRoutes(),
+            App::make('request')
+        );
+     
+        App::bind('url', function () use ($url) {
+            return $url;
+        });
+
+        // DEBUG BAR
+        $routeConfig = [
+            'namespace' => 'Barryvdh\Debugbar\Controllers',
+            'prefix' => site()->getCurrent()->subfolder.'/'.$this->app['config']->get('debugbar.route_prefix'),
+        ];
+
+        $this->app['router']->group($routeConfig, function ($router) {
+            $router->get('open', [
+                'uses' => 'OpenHandlerController@handle',
+                'as' => 'debugbar.openhandler',
+            ]);
+
+            $router->get('clockwork/{id}', [
+                'uses' => 'OpenHandlerController@clockwork',
+                'as' => 'debugbar.clockwork',
+            ]);
+
+            $router->get('assets/stylesheets', [
+                'uses' => 'AssetController@css',
+                'as' => 'debugbar.assets.css',
+            ]);
+
+            $router->get('assets/javascript', [
+                'uses' => 'AssetController@js',
+                'as' => 'debugbar.assets.js',
+            ]);
+        });
     }
 
     /**

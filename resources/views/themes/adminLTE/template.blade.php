@@ -13,27 +13,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- CSRF -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Bootstrap 3.3.5 -->
-  <link rel="stylesheet" href="{{ url('backend/bootstrap/css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="/backend/bootstrap/css/bootstrap.min.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{ url('backend/plugins/font-awesome/4.4.0/css/font-awesome.min.css') }}">
+  <link rel="stylesheet" href="/backend/plugins/font-awesome/4.4.0/css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="{{ url('backend/plugins/ionicons/2.0.1/css/ionicons.min.css') }}">
+  <link rel="stylesheet" href="/backend/plugins/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Select2 -->
-  <link rel="stylesheet" href="{{ url('backend/plugins/select2/select2.min.css') }}">
-  <link rel="stylesheet" href="{{ url('backend/plugins/select2/select2-bootstrap.min.css') }}">
+  <link rel="stylesheet" href="/backend/plugins/select2/select2.min.css">
+  <link rel="stylesheet" href="/backend/plugins/select2/select2-bootstrap.min.css">
   <!-- Datepicker -->
-  <link rel="stylesheet" href="{{ url('backend/plugins/datepicker/datepicker3.css') }}">
+  <link rel="stylesheet" href="/backend/plugins/datepicker/datepicker3.css">
   <!-- datatables -->
-  <link rel="stylesheet" href="{{ url('backend/plugins/datatables/dataTables.bootstrap.css') }}">
+  <link rel="stylesheet" href="/backend/plugins/datatables/dataTables.bootstrap.css">
   <!-- I Check -->
-  <link rel="stylesheet" href="{{ url('backend/plugins/iCheck/square/blue.css') }}">
+  <link rel="stylesheet" href="/backend/plugins/iCheck/square/blue.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{ url('backend/dist/css/AdminLTE.min.css') }}">
+  <link rel="stylesheet" href="/backend/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect.
   -->
-  <link rel="stylesheet" href="{{ url('backend/dist/css/skins/skin-blue.min.css') }}">
+  <link rel="stylesheet" href="/backend/dist/css/skins/skin-blue.min.css">
 
   <style type="text/css">
     .user-label {
@@ -108,14 +108,14 @@ desired effect
                 <span>{{ auth()->user()->getInitial() }}</span>
               </div>
               <!-- The user image in the navbar-->
-              <!-- <img src="{{ url('backend/dist/img/user2-160x160.jpg') }}" class="user-image" alt="User Image"> -->
+              <!-- <img src="/backend/dist/img/user2-160x160.jpg" class="user-image" alt="User Image"> -->
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <!-- <span class="hidden-xs">Alexander Pierce</span> -->
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="{{ url('backend/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+                <img src="/backend/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
                   {{ str_limit(auth()->user()->name, 20) }}
@@ -139,10 +139,10 @@ desired effect
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="/me" class="btn btn-default btn-flat">Profile</a>
+                  <a href="{{ asset('/me') }}" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="/logout" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="{{ asset('/logout') }}" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -225,29 +225,29 @@ desired effect
 <!-- REQUIRED JS SCRIPTS -->
 
 <!-- jQuery 2.1.4 -->
-<script src="{{ url('backend/plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
+<script src="/backend/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <!-- Bootstrap 3.3.5 -->
-<script src="{{ url('backend/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="/backend/bootstrap/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
-<script src="{{ url('backend/dist/js/app.min.js') }}"></script>
+<script src="/backend/dist/js/app.min.js"></script>
 <!-- date js -->
-<script src="{{ url('backend/plugins/datejs/date.js') }}"></script>
+<script src="/backend/plugins/datejs/date.js"></script>
 <!-- date-range-picker -->
-<script src="{{ url('backend/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
-<script src="{{ url('backend/plugins/datepicker/locales/bootstrap-datepicker.id.js') }}" charset="UTF-8"></script>
+<script src="/backend/plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="/backend/plugins/datepicker/locales/bootstrap-datepicker.id.js" charset="UTF-8"></script>
 <!-- DataTables -->
-<script src="{{ url('backend/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ url('backend/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+<script src="/backend/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/backend/plugins/datatables/dataTables.bootstrap.min.js"></script>
 <!-- Bootstrap Typeahead -->
-<script src="{{ url('backend/plugins/bootstrap-typeahead/bootstrap3-typeahead.min.js') }}"></script>
+<script src="/backend/plugins/bootstrap-typeahead/bootstrap3-typeahead.min.js"></script>
 <!-- Select2 -->
-<script src="{{ url('backend/plugins/select2/select2.full.min.js') }}"></script>
+<script src="/backend/plugins/select2/select2.full.min.js"></script>
 <!-- autonumeric -->
-<script src="{{ url('backend/plugins/autoNumeric/autoNumeric-min.js') }}"></script>
+<script src="/backend/plugins/autoNumeric/autoNumeric-min.js"></script>
 <!-- TinyMCE -->
-<script src="{{ url('backend/plugins/tinymce/js/tinymce/tinymce.min.js') }}"></script>
+<script src="/backend/plugins/tinymce/js/tinymce/tinymce.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="{{ url('backend/dist/js/demo.js') }}"></script>
+<script src="/backend/dist/js/demo.js"></script>
 
 
 <script>

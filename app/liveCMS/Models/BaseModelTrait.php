@@ -2,6 +2,8 @@
 
 namespace App\liveCMS\Models;
 
+use App\Models\Site;
+
 trait BaseModelTrait
 {
     public function dependencies()
@@ -40,5 +42,12 @@ trait BaseModelTrait
     public function snakeToStr($snake)
     {
         return snakeToStr($snake);
+    }
+
+    public function newQuery()
+    {
+        $query = parent::newQuery();
+
+        return $query->where('site_id', site()->getCurrent()->id);
     }
 }

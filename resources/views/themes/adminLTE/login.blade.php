@@ -53,11 +53,11 @@
 <!-- /.login-box -->
 
 <!-- jQuery 2.1.4 -->
-<script src="{{ asset('/backend/plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
+<script src="/backend/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <!-- Bootstrap 3.3.5 -->
-<script src="{{ asset('/backend/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="/backend/bootstrap/js/bootstrap.min.js"></script>
 <!-- iCheck -->
-<script src="{{ asset('/backend/plugins/iCheck/icheck.min.js') }}"></script>
+<script src="/backend/plugins/iCheck/icheck.min.js"></script>
 <script>
   $(function () {
     $('input').iCheck({
