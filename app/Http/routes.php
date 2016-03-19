@@ -41,7 +41,7 @@ $router->group(
                 return redirect('coming-soon');
             }
 
-            return 'home '.$subDomain.' '.$subFolder;
+            return 'LiveCMS '.$subDomain.' '.$subFolder;
 
         });
 
