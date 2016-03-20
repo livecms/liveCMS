@@ -29,7 +29,7 @@ class BackendView
 
     protected $breadcrumbLevel = 3;
     
-    protected $breadcrumb1 = 'App';
+    protected $breadcrumb1 = 'Admin';
 
     protected $breadcrumb2;
     

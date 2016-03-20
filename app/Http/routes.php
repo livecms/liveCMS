@@ -53,9 +53,9 @@ $router->group(
         // ADMIN AREA
 
         $router->group(['prefix' => $adminSlug, 'namespace' => 'Backend', 'middleware' => 'auth'], function ($router) {
-            $router->get('/', function () {
+            $router->get('/', ['as' => 'admin.home', function () {
                 return view('admin.home');
-            });
+            }]);
 
             $router->controller('kategori', 'KategoriController');
             $router->controller('tag', 'TagController');

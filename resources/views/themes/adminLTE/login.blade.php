@@ -40,8 +40,8 @@
 
     <!-- /.social-auth-links -->
 
-    <a href="/password/reset">I forgot my password</a><br>
-    <a href="/register" class="text-center">Register a new membership</a>
+    <a href="{{ url('/password/reset') }}">I forgot my password</a><br>
+    <a href="{{ url('/register') }}" class="text-center">Register a new membership</a>
 
 
   </div>
