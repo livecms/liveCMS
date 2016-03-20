@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\liveCMS\Controllers;
 
 use Form;
 use Datatables;

@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\liveCMS\Controllers;
 
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use App\liveCMS\Views\BackendView;
 
 class BaseController extends Controller

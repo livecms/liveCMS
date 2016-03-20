@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Backend;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Controllers\BackendController;
+use App\liveCMS\Controllers\BackendController;
 use App\Models\Artikel as Model;
 use App\Models\Kategori;
 use App\Models\Permalink;

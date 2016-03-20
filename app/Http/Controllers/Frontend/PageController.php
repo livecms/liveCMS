@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Models\Artikel;
 use App\Models\Permalink;
 use App\Models\StaticPage;
-use App\Http\Controllers\FrontendController;
+use App\liveCMS\Controllers\FrontendController;
 use Illuminate\Http\Request;
 
 class PageController extends FrontendController
