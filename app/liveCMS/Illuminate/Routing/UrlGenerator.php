@@ -23,12 +23,29 @@ class UrlGenerator extends BaseUrlGenerator
         $start = Str::startsWith($url, 'http://') ? 'http://' : 'https://';
 
         $site = site()->getCurrent();
-        info(request()->segment(2));
 
-        $this->cachedRoot = $this->forcedRoot = $start. $site->getHost().'/'.$site->subfolder;
+        $subfolder = ($subfolder = $site->subfolder) ? '/'.$subfolder : '';
 
+        $this->cachedRoot = $this->forcedRoot = $start. $site->getHost().$subfolder;
 
         return parent::getRootUrl($scheme, $root);
+    }
+
+    /**
+     * Remove the index.php file from a path.
+     *
+     * @param  string  $root
+     * @return string
+     */
+    protected function removeIndex($root)
+    {
+        $root = parent::removeIndex($root);
+
+        $site = site()->getCurrent();
+
+        $subfolder = $site->subfolder;
+
+        return Str::contains($root, $site->getDomain()) && $subfolder ? rtrim($root, '/'.$subfolder) : $root;
     }
 
     /**
