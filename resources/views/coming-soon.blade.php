@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Coming Soon | {{ $global_params['site_name'] or 'Your Website' }}</title>
+    <title>Coming Soon | {{ $global_params['site_name'] or 'LiveCMS' }}</title>
     <meta name="description" content="{{ $global_params['site_description'] or 'Your Website Description' }}" >
     <meta name="author" content="{{ $global_params['author'] or 'Live CMS' }}">
 

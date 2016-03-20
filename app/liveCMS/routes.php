@@ -13,15 +13,21 @@
 liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
 
     $router->get('/', function () use ($adminSlug, $subDomain, $subFolder) {
+        
+        // if set launching time
         $launchingDateTime = globalParams('launching_datetime') ?
             new Carbon\Carbon(globalParams('launching_datetime')) : Carbon\Carbon::now();
 
-        if ($launchingDateTime->isFuture()) {
+
+        // check if has home permalink
+        $permalink = \App\liveCMS\Models\Permalink::whereIn('permalink', ['/', ''])->first();
+
+        // if home exist or not yet launch
+        if ($permalink == null || $launchingDateTime->isFuture()) {
             return redirect('coming-soon');
         }
 
-        return 'LiveCMS '.$subDomain.' '.$subFolder;
-
+        return $permalink;
     });
 
     $router->get('coming-soon', function () {
