@@ -12,6 +12,23 @@
 */
 liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
 
+    $router->get('/', function () use ($adminSlug, $subDomain, $subFolder) {
+        $launchingDateTime = globalParams('launching_datetime') ?
+            new Carbon\Carbon(globalParams('launching_datetime')) : Carbon\Carbon::now();
+
+        if ($launchingDateTime->isFuture()) {
+            return redirect('coming-soon');
+        }
+
+        return 'LiveCMS '.$subDomain.' '.$subFolder;
+
+    });
+
+    $router->get('coming-soon', function () {
+        return view('coming-soon');
+    });
+    
+
     // ADMIN AREA
 
     $router->group(['prefix' => $adminSlug, 'namespace' => 'Backend', 'middleware' => 'auth'], function ($router) {
@@ -21,4 +38,9 @@ liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
         $router->controller('permalink', 'PermalinkController');
 
     });
+
+
+    // AUTH
+    $router->auth();
+
 });

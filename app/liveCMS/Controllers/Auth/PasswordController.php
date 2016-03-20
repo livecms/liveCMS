@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\liveCMS\Controllers\Auth;
 
 use App\liveCMS\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
