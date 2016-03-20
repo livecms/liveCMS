@@ -139,15 +139,15 @@ desired effect
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="{{ asset('/me') }}" class="btn btn-default btn-flat">Profile</a>
+                  <a href="{{ url('/me') }}" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="{{ asset('/logout') }}" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="{{ url('/logout') }}" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
           </li>
-          <li><a href="/logout"><i class="fa fa-lock"></i> <span class="hidden-sm">Logout</span></a></li>
+          <li><a href="{{ url('/logout') }}"><i class="fa fa-lock"></i> <span class="hidden-sm">Logout</span></a></li>
         </ul>
       </div>
     </nav>
