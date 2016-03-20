@@ -8,4 +8,9 @@ return [
         'artikel'   => 'artikel',
         'statis'    => 'statis',
     ],
+
+    'themes' => [
+        'admin' => 'adminLTE',
+        'front' => 'timer',
+    ],
 ];
