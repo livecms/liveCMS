@@ -27,7 +27,7 @@ liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
             return redirect('coming-soon');
         }
 
-        return $permalink;
+        return view('front.index', $permalink);
     });
 
     $router->get('coming-soon', function () {
