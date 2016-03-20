@@ -147,6 +147,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -161,7 +162,6 @@ return [
         App\liveCMS\Collective\Html\HtmlServiceProvider::class,
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
 
-        Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*

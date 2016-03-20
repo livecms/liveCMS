@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers\Backend;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\liveCMS\Controllers\BackendController;
+use App\liveCMS\Controllers\Backend\PostableController;
+use App\liveCMS\Models\Permalink;
 use App\Models\Artikel as Model;
 use App\Models\Kategori;
-use App\Models\Permalink;
 use App\Models\Tag;
 
-class ArtikelController extends BackendController
+class ArtikelController extends PostableController
 {
     protected $kategori;
     protected $tag;
@@ -28,11 +25,6 @@ class ArtikelController extends BackendController
         $this->fields           = array_merge($this->model->getFields(), ['kategori' => 'Kategori', 'tag' => 'Tag']);
         
         $this->view->share();
-    }
-
-    protected function beforeDatatables($datas)
-    {
-        return $datas->with($this->model->dependencies());
     }
 
     protected function processDatatables($datatables)
@@ -56,52 +48,7 @@ class ArtikelController extends BackendController
     {
         $this->kategoris    = $this->kategori->lists('kategori', 'id')->toArray();
         $this->tags         = $this->tag->lists('tag', 'id')->toArray();
-        $this->useCKEditor  = 'isi';
-     
-        $this->view->share();
-    }
-
-    public function processRequest($request)
-    {
-        if ($request->has('permalink')) {
-            
-            if ($this->model->permalink !== null) {
-            
-                $this->validate($request, $this->model->permalink->rules());
-            
-            } else {
-
-                $this->validate($request, (new Permalink)->rules());
-            }
-        }
-
-        return $request;
-    }
-
-    protected function afterSaving($request)
-    {
-        $this->model->kategoris()->sync($request->get('kategoris', []));
-        $this->model->tags()->sync($request->get('tags', []));
-
-        if ($request->has('permalink')) {
-            
-            $permalink = $this->model->permalink;
-
-            if ($permalink == null) {
-                $permalink = new Permalink();
-                $permalink->postable()->associate($this->model);
-                $permalink->save();
-            }
-
-            $permalink->update(['permalink' => $request->get('permalink')]);
         
-        } else {
-
-            if ($this->model->permalink) {
-                $this->model->permalink->delete();
-            }
-        }
-
-        return $this->model;
+        parent::loadFormClasses();
     }
 }

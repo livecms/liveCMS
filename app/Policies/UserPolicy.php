@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\User;
-use App\Models\User as Model;
+use App\liveCMS\Models\User as Model;
+use App\liveCMS\Models\Users\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class UserPolicy extends ModelPolicy
@@ -24,5 +24,4 @@ class UserPolicy extends ModelPolicy
     {
         return $user->is_super;
     }
-
 }

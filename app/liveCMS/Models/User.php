@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models;
+namespace App\liveCMS\Models;
 
 use Auth;
 use Gate;
 use App\Policies\UserPolicy;
-use App\liveCMS\Models\UserModelTrait;
-use App\liveCMS\Models\UserModelInterface as UserModelContract;
+use App\liveCMS\Models\Traits\UserModelTrait;
+use App\liveCMS\Models\Contracts\UserModelInterface as UserModelContract;
 
 class User extends BaseModel implements UserModelContract
 {

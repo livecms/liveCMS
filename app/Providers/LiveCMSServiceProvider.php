@@ -6,7 +6,7 @@ use App;
 use Illuminate\Support\ServiceProvider;
 use App\liveCMS\Illuminate\Routing\UrlGenerator;
 use App\liveCMS\Illuminate\Routing\Redirector;
-use App\Models\Site;
+use App\liveCMS\Models\Site;
 
 class LiveCMSServiceProvider extends ServiceProvider
 {
@@ -17,16 +17,22 @@ class LiveCMSServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Site::init();
+        site()->init();
 
         // Extends Url Generator
-        $url = new UrlGenerator(
-            App::make('router')->getRoutes(),
-            App::make('request')
+        $url = new UrlGenerator(    
+            app()->make('router')->getRoutes(),
+            app()->make('request')
         );
      
-        App::bind('url', function () use ($url) {
+        app()->bind('url', function () use ($url) {
             return $url;
+        });
+
+        // EXTEND ROUTER
+
+        $this->app['router']->group(['namespace' => 'App\liveCMS\Controllers'], function ($router) {
+            require app_path('liveCMS/routes.php');
         });
 
         // DEBUG BAR

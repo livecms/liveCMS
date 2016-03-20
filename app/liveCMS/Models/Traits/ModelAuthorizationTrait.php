@@ -1,6 +1,6 @@
 <?php
 
-namespace App\liveCMS\Models;
+namespace App\liveCMS\Models\Traits;
 
 use Auth;
 use Gate;

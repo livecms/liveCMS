@@ -1,7 +1,7 @@
 <?php
 
 use App\Setting;
-use App\Models\Site;
+use App\liveCMS\Models\Site;
 
 if (! function_exists('globalParams')) {
 
@@ -36,5 +36,37 @@ if (! function_exists('site')) {
     function site()
     {
         return app(Site::class);
+    }
+}
+
+if (! function_exists('liveCMSRouter')) {
+
+    function liveCMSRouter($router, callable $callback)
+    {
+        $adminSlug  = globalParams('slug_admin', config('livecms.slugs.admin'));
+        $site       = site()->getCurrent();
+        $host       = $site->getHost();
+        $path       = $site->getPath();
+        $domain     = $site->getDomain();
+        $subDomain  = $site->subdomain;
+        $subFolder  = $site->subfolder;
+
+        $notFound = $site->id == null && $host != $domain;
+        $redirectToIfNotFound = '//'.$domain.'/'.$path;
+
+        if ($notFound) {
+            $router->any($path, function () use ($redirectToIfNotFound) {
+                return redirect()->away($redirectToIfNotFound);
+            });
+        }
+
+        // ROUTING
+
+        $router->group(
+            ['domain' => $host, 'middleware' => 'web', 'prefix' => $subFolder],
+            function ($router) use ($adminSlug, $subDomain, $subFolder, $callback) {
+                $callback($router, $adminSlug, $subDomain, $subFolder);
+            }
+        );
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\User;
-use App\Models\BaseModel as Model;
+use App\liveCMS\Models\Users\User;
+use App\liveCMS\Models\BaseModel as Model;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ModelPolicy

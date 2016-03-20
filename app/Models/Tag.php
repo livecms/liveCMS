@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\liveCMS\Models\BaseModel;
+
 class Tag extends BaseModel
 {
     protected $fillable = ['tag', 'slug'];

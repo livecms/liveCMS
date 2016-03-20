@@ -4,14 +4,14 @@ namespace App\liveCMS\Controllers;
 
 use Form;
 use Datatables;
+use ReflectionClass;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
-use App\liveCMS\Models\BaseModelInterface as Model;
+use App\liveCMS\Models\Contracts\BaseModelInterface as Model;
 
 class BackendController extends BaseController
 {
-    const CLASS_NAMESPACE = 'Backend\\';
     protected $model;
     protected $base;
     protected $baseClass;
@@ -23,7 +23,8 @@ class BackendController extends BaseController
 
         $this->model = $model;
         $this->base = $base;
-        $this->baseClass = static::CLASS_NAMESPACE.(new \ReflectionClass($this))->getShortName();
+        $reflection = new ReflectionClass($this);
+        $this->baseClass = '\\'.$reflection->getName();
 
         $this->fields           = $this->model->getFields();
         $this->breadcrumb2      = title_case(snakeToStr($this->base));

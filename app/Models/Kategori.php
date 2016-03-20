@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\liveCMS\Models\BaseModel;
+
 class Kategori extends BaseModel
 {
     protected $fillable = ['kategori', 'slug'];

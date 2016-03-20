@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
-use Validator;
 use App\liveCMS\Controllers\Controller;
+use App\liveCMS\Models\Users\User;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Validator;
 
 class AuthController extends Controller
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\liveCMS\Models;
+namespace App\liveCMS\Models\Traits;
 
-use App\Role;
+use App\liveCMS\Models\Users\Role;
 
 trait UserModelTrait
 {

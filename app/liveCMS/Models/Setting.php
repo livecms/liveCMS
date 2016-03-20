@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\liveCMS\Models;
 
 use Cache;
 

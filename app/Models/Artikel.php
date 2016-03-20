@@ -2,23 +2,18 @@
 
 namespace App\Models;
 
-class Artikel extends BaseModel
+use App\liveCMS\Models\PostableModel;
+use App\liveCMS\Models\Permalink;
+
+class Artikel extends PostableModel
 {
-    protected $fillable = ['judul', 'slug', 'isi'];
-
     protected $dependencies = ['kategoris', 'tags', 'permalink'];
-    
-    public function rules()
+
+    public function __construct(array $attributes = [])
     {
-        $slug = str_slug(request()->has('slug') ? request()->get('slug') : request()->get('judul'));
-
-        request()->merge(compact('slug'));
-
-        return [
-            'judul' => 'required|unique:'.$this->getTable().',judul'.(($this->id != null) ? ','.$this->id : ''),
-            'slug' => 'required|unique:'.$this->getTable().',slug'.(($this->id != null) ? ','.$this->id : ''),
-            'isi' => 'required',
-        ];
+        parent::__construct($attributes);
+     
+        $this->prefixSlug = globalParams('slug_artikel', config('livecms.slugs.artikel'));
     }
 
     public function kategoris()
@@ -34,22 +29,5 @@ class Artikel extends BaseModel
     public function permalink()
     {
         return $this->morphOne(Permalink::class, 'postable');
-    }
-
-    public function getUrlAttribute()
-    {
-        if ($this->permalink && $this->permalink->permalink) {
-
-            return url($this->permalink->permalink);
-        }
-
-        if ($this->slug != null) {
-            
-            $prefix = globalParams('slug_artikel', config('livecms.slugs.artikel'));
-
-            return url($prefix.DIRECTORY_SEPARATOR.$this->slug);
-        }
-
-        return '';
     }
 }

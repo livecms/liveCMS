@@ -1,9 +1,6 @@
 <?php
 
-namespace App\Models;
-
-use App\Models\Artikel;
-use App\Models\StaticPage;
+namespace App\liveCMS\Models;
 
 class Permalink extends BaseModel
 {

@@ -10,66 +10,42 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-$adminSlug  = globalParams('slug_admin', config('livecms.slugs.admin'));
-$site       = site()->getCurrent();
-$host       = $site->getHost();
-$path       = $site->getPath();
-$domain     = $site->getDomain();
-$subDomain  = $site->subdomain;
-$subFolder  = $site->subfolder;
+liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
 
-$notFound = $site->id == null && $host != $domain;
-$redirectToIfNotFound = '//'.$domain.'/'.$path;
+    $router->get('/', function () use ($adminSlug, $subDomain, $subFolder) {
+        $launchingDateTime = globalParams('launching_datetime') ?
+            new Carbon\Carbon(globalParams('launching_datetime')) : Carbon\Carbon::now();
 
-if ($notFound) {
-    $router->any($path, function () use ($redirectToIfNotFound) {
-        return redirect()->away($redirectToIfNotFound);
+        if ($launchingDateTime->isFuture()) {
+            return redirect('coming-soon');
+        }
+
+        return 'LiveCMS '.$subDomain.' '.$subFolder;
+
     });
-}
 
-// ROUTING
-
-$router->group(
-    ['domain' => $host, 'middleware' => 'web', 'prefix' => $subFolder],
-    function ($router) use ($adminSlug, $subDomain, $subFolder) {
-
-        $router->get('/', function () use ($adminSlug, $subDomain, $subFolder) {
-            $launchingDateTime = globalParams('launching_datetime') ?
-                new Carbon\Carbon(globalParams('launching_datetime')) : Carbon\Carbon::now();
-
-            if ($launchingDateTime->isFuture()) {
-                return redirect('coming-soon');
-            }
-
-            return 'LiveCMS '.$subDomain.' '.$subFolder;
-
-        });
-
-        $router->get('coming-soon', function () {
-            return view('coming-soon');
-        });
+    $router->get('coming-soon', function () {
+        return view('coming-soon');
+    });
 
 
-        // ADMIN AREA
+    // ADMIN AREA
 
-        $router->group(['prefix' => $adminSlug, 'namespace' => 'Backend', 'middleware' => 'auth'], function ($router) {
-            $router->get('/', ['as' => 'admin.home', function () {
-                return view('admin.home');
-            }]);
+    $router->group(['prefix' => $adminSlug, 'namespace' => 'Backend', 'middleware' => 'auth'], function ($router) {
+        $router->get('/', ['as' => 'admin.home', function () {
+            return view('admin.home');
+        }]);
 
-            $router->controller('kategori', 'KategoriController');
-            $router->controller('tag', 'TagController');
-            $router->controller('artikel', 'ArtikelController');
-            $router->controller('staticpage', 'StaticPageController');
-            $router->controller('setting', 'SettingController');
-            $router->controller('user', 'UserController');
-            $router->controller('permalink', 'PermalinkController');
-        });
+        $router->controller('kategori', 'KategoriController');
+        $router->controller('tag', 'TagController');
+        $router->controller('artikel', 'ArtikelController');
+        $router->controller('staticpage', 'StaticPageController');
 
-        $router->auth();
+    });
+    
+    $router->auth();
 
-        $router->group(['prefix' => '/', 'namespace' => 'Frontend'], function ($router) {
-            $router->get('{arg0?}/{arg1?}/{arg2?}/{arg3?}/{arg4?}/{arg5?}', 'PageController@routes');
-        });
-    }
-);
+    $router->group(['prefix' => '/', 'namespace' => 'Frontend'], function ($router) {
+        $router->get('{arg0?}/{arg1?}/{arg2?}/{arg3?}/{arg4?}/{arg5?}', 'PageController@routes');
+    });
+});

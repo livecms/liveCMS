@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\liveCMS\Models\Users;
 
 use Illuminate\Database\Eloquent\Model;
 

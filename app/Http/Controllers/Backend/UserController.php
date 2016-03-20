@@ -2,20 +2,9 @@
 
 namespace App\Http\Controllers\Backend;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\liveCMS\Controllers\BackendController;
-use App\Models\User as Model;
+use App\liveCMS\Controllers\Backend\PermalinkController as BackendController;
 
 class UserController extends BackendController
 {
-    public function __construct(Model $model, $base = 'user')
-    {
-        parent::__construct($model, $base);
-        $this->breadcrumb2Icon  = 'users';
-        $this->fields           = array_except($this->model->getFields(), ['id']);
-        
-        $this->view->share();
-    }
+    //
 }
