@@ -28,7 +28,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new authentication controller instance.
@@ -38,6 +38,9 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);
+
+        $adminSlug  = globalParams('slug_admin', config('livecms.slugs.admin'));
+        $this->redirectTo = '/'.$adminSlug;
     }
 
     /**
