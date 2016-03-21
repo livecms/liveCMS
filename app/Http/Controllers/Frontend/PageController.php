@@ -14,21 +14,23 @@ class PageController extends FrontendController
     {
         $artikel = Artikel::where('slug', $slug)->firstOrFail();
 
-        return $artikel;
+        return view('artikel', $artikel);
     }
 
     public function getStatis($slug)
     {
         $statis = StaticPage::where('slug', $slug)->firstOrFail();
 
-        return $statis;
+        return view('staticpage', $statis);
     }
 
     public function getByPermalink($permalink)
     {
         $page = Permalink::where('permalink', $permalink)->firstOrFail();
 
-        return $page->postable;
+        $type = strtolower(basename($page->portable_type));
+
+        return view($type, $page->postable);
     }
 
     public function routes()
