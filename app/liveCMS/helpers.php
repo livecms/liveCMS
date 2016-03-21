@@ -70,3 +70,19 @@ if (! function_exists('liveCMSRouter')) {
         );
     }
 }
+
+if (! function_exists('theme')) {
+
+    function theme($type, $location = 'template') {
+
+        $types = 'themes.'.config('livecms.themes.'.$type);
+        $location = '.'.$location;
+
+        if (view()->exists($view = $type.$location)) {
+
+            return $view;
+        }
+
+        return $types.$location;
+    }
+}

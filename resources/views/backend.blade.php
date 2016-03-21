@@ -1,1 +1,1 @@
-@extends('themes.adminLTE.template')
+@extends(theme('admin'))
