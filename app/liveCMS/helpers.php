@@ -73,8 +73,8 @@ if (! function_exists('liveCMSRouter')) {
 
 if (! function_exists('theme')) {
 
-    function theme($type, $location = 'template') {
-
+    function theme($type, $location = 'template')
+    {
         $types = 'themes.'.config('livecms.themes.'.$type);
         $location = '.'.$location;
 
