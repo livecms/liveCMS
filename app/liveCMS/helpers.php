@@ -7,19 +7,22 @@ if (! function_exists('globalParams')) {
 
     function globalParams($key = null, $default = false)
     {
-        $globalParams = Cache::rememberForever('global_params', function () {
+        $params = Cache::rememberForever('global_params', function () {
             if (!Schema::hasTable('settings')) {
                 return [];
             };
      
-            return Setting::lists('value', 'key');
+            return Setting::get()->groupBy('site_id');
         });
         
+        $siteId = site()->id;
+        $params = collect($params[$siteId])->pluck('value', 'key');
+
         if ($key == null) {
-            return $globalParams;
+            return $params;
         }
         
-        return isset($globalParams[$key]) ? $globalParams[$key] : $default;
+        return isset($params[$key]) ? $params[$key] : $default;
     }
 }
 

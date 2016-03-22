@@ -32,7 +32,7 @@ class Setting extends BaseModel
     {
         Cache::forget('global_params');
 
-        $global_params = static::lists('value', 'key');
+        $global_params = static::get()->groupBy('site_id');
 
         Cache::forever('global_params', $global_params);
     }
