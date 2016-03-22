@@ -4,7 +4,7 @@ namespace App\liveCMS\Models\Traits;
 
 use Auth;
 use Gate;
-use App\Policies\ModelPolicy;
+use App\liveCMS\Policies\ModelPolicy;
 use Illuminate\Auth\Access\AuthorizationException;
 
 trait ModelAuthorizationTrait
@@ -30,5 +30,4 @@ trait ModelAuthorizationTrait
             });
         }
     }
-
 }

@@ -4,7 +4,7 @@ namespace App\liveCMS\Models;
 
 use Auth;
 use Gate;
-use App\Policies\UserPolicy;
+use App\liveCMS\Policies\UserPolicy;
 use App\liveCMS\Models\Traits\UserModelTrait;
 use App\liveCMS\Models\Contracts\UserModelInterface as UserModelContract;
 
