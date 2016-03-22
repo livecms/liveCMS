@@ -17,7 +17,11 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->check()) {
+        $auth = Auth::guard($guard)->check();
+        $site = site()->getCurrent();
+        $userSiteId = $auth ? Auth::guard($guard)->user()->site_id : null;
+
+        if ($auth && ($site == null && $userSiteId == null || $site != null && $site->id == $userSiteId)) {
             $adminSlug  = globalParams('slug_admin', config('livecms.slugs.admin'));
             return redirect($adminSlug);
         }

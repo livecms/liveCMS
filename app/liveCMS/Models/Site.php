@@ -3,6 +3,7 @@
 namespace App\liveCMS\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Site extends Model
 {
@@ -74,9 +75,10 @@ class Site extends Model
 
     public function getRootUrl()
     {
+        $start = Str::startsWith(request()->root(), 'http://') ? 'http://' : 'https://';
         $subDomain = $this->subdomain ? $this->subdomain.'.' : '';
         $subFolder = $this->subfolder ? '/'.$this->subfolder : '';
-        return $subDomain.$this->getDomain().$subFolder;
+        return $start.$subDomain.$this->getDomain().$subFolder;
     }
 
     public function getPath()

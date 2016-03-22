@@ -1,6 +1,6 @@
 <?php
 
-namespace App\liveCMS\Illuminate\Routing;
+namespace App\liveCMS\Routing;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\RouteCollection;

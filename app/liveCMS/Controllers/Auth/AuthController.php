@@ -2,10 +2,11 @@
 
 namespace App\liveCMS\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\liveCMS\Controllers\Controller;
 use App\liveCMS\Models\Users\User;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Validator;
 
 class AuthController extends Controller
@@ -71,5 +72,30 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    /**
+     * Get the needed authorization credentials from the request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    protected function getCredentials(Request $request)
+    {
+        $credentials = $request->only($this->loginUsername(), 'password');
+        
+        return array_merge($credentials, ['site_id' => site()->getCurrent()->id]);
+    }
+
+    protected function authenticated($request, User $user)
+    {
+        if ($user->site_id != site()->getCurrent()->id) {
+            $this->logout();
+
+            $url = $user->site->getRootUrl().$this->redirectTo;
+            return redirect()->away($url);
+        }
+
+        return redirect($this->redirectTo);
     }
 }

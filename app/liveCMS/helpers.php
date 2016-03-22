@@ -35,7 +35,7 @@ if (! function_exists('site')) {
 
     function site()
     {
-        return app(Site::class);
+        return app(Site::class)->getCurrent();
     }
 }
 

@@ -2,6 +2,7 @@
 
 namespace App\liveCMS\Models\Traits;
 
+use App\liveCMS\Models\Site;
 use App\liveCMS\Models\Users\Role;
 
 trait UserModelTrait
@@ -24,6 +25,11 @@ trait UserModelTrait
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'role_users');
+    }
+
+    public function site()
+    {
+        return $this->belongsTo(Site::class);
     }
 
     public function getIsSuperAttribute()

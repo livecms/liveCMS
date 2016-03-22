@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Providers;
+namespace App\liveCMS\Providers;
 
 use App;
 use Illuminate\Support\ServiceProvider;
-use App\liveCMS\Illuminate\Routing\UrlGenerator;
-use App\liveCMS\Illuminate\Routing\Redirector;
+use App\liveCMS\Routing\UrlGenerator;
+use App\liveCMS\Routing\Redirector;
 use App\liveCMS\Models\Site;
 
 class LiveCMSServiceProvider extends ServiceProvider
@@ -17,7 +17,7 @@ class LiveCMSServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        site()->init();
+        Site::init();
 
         // Extends Url Generator
         $url = new UrlGenerator(    
