@@ -32,6 +32,11 @@ trait UserModelTrait
         return $this->belongsTo(Site::class);
     }
 
+    public function getSiteRootUrl()
+    {
+        return $this->site ? $this->site->getRootUrl() : site()->getRootUrl();
+    }
+
     public function getIsSuperAttribute()
     {
         return $this->roles->where('role', 'super')->count() > 0;

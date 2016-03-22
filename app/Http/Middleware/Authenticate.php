@@ -26,15 +26,12 @@ class Authenticate
             }
         }
 
-
-        $site = site()->getCurrent();
         $user = Auth::guard($guard)->user();
-        $userSiteId = $user->site_id;
+        $usid = $user->site ? $user->site->id : null;
 
-        if ($site == null && $userSiteId != null || $site != null && $site->id != $userSiteId) {
-
+        if (site()->id != $usid) {
             Auth::guard($guard)->logout();
-            $url = $user->site->getRootUrl().'/'.$request->path();
+            $url = $user->getSiteRootUrl().'/'.$request->path();
             return redirect()->away($url);
         }
 

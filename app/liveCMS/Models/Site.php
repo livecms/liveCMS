@@ -2,6 +2,7 @@
 
 namespace App\liveCMS\Models;
 
+use App\liveCMS\Models\Users\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
@@ -89,5 +90,10 @@ class Site extends Model
     public function getDomain()
     {
         return static::$domain;
+    }
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
     }
 }
