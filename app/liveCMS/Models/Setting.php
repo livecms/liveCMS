@@ -6,12 +6,16 @@ use Cache;
 
 class Setting extends BaseModel
 {
-    protected $fillable = ['key', 'value'];
+    protected $fillable = ['key', 'value', 'site_id'];
 
     public function rules()
     {
+        $site_id = site()->id;
+
+        request()->merge(compact('site_id'));
+
         return [
-            'key' => 'required|unique:'.$this->getTable().',key'.(($this->id != null) ? ','.$this->id : ''),
+            'key' => 'required|unique:'.$this->getTable().',key,'.((string) $this->id).',id,site_id,'.$site_id,
         ];
     }
 
@@ -32,7 +36,7 @@ class Setting extends BaseModel
     {
         Cache::forget('global_params');
 
-        $global_params = static::get()->groupBy('site_id');
+        $global_params = static::get();
 
         Cache::forever('global_params', $global_params);
     }
