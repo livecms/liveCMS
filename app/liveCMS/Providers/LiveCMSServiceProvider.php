@@ -4,8 +4,9 @@ namespace App\liveCMS\Providers;
 
 use App;
 use Illuminate\Support\ServiceProvider;
-use App\liveCMS\Routing\UrlGenerator;
 use App\liveCMS\Routing\Redirector;
+use App\liveCMS\Routing\ResourceRegistrar;
+use App\liveCMS\Routing\UrlGenerator;
 use App\liveCMS\Models\Site;
 
 class LiveCMSServiceProvider extends ServiceProvider
@@ -20,13 +21,19 @@ class LiveCMSServiceProvider extends ServiceProvider
         Site::init();
 
         // Extends Url Generator
-        $url = new UrlGenerator(    
+        $url = new UrlGenerator(
             app()->make('router')->getRoutes(),
             app()->make('request')
         );
      
-        app()->bind('url', function () use ($url) {
+        $this->app->bind('url', function () use ($url) {
             return $url;
+        });
+
+        $registrar = new ResourceRegistrar($this->app['router']);
+
+        $this->app->bind('Illuminate\Routing\ResourceRegistrar', function () use ($registrar) {
+            return $registrar;
         });
 
         // EXTEND ROUTER

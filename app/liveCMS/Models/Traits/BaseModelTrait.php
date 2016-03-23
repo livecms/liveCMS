@@ -50,4 +50,18 @@ trait BaseModelTrait
 
         return $query->where('site_id', site()->getCurrent()->id);
     }
+
+    protected function slugify($field)
+    {
+        $request = request();
+
+        $slug = str_slug($request->has('slug') ? $request->get('slug') : $request->get($field));
+
+        $request->merge(compact('slug'));
+    }
+
+    protected function uniqify($field)
+    {
+        return 'required|unique:'.$this->getTable().','.$field.','.((string) $this->id).',id,site_id,'.$site_id;
+    }
 }

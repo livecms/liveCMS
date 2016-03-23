@@ -12,9 +12,9 @@ class Permalink extends BaseModel
 
     public function rules()
     {
-        $uri = explode(DIRECTORY_SEPARATOR, request()->get('permalink'));
+        $uri = explode('/', request()->get('permalink'));
         $uri = array_splice($uri, 0, 5);
-        $permalink = implode(DIRECTORY_SEPARATOR, array_map('str_slug', $uri));
+        $permalink = implode('/', array_map('str_slug', $uri));
 
         request()->merge(compact('permalink'));
 

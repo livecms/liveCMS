@@ -5,10 +5,10 @@
 	@include('partials.error')
 	<div class="row form-group">
 		<div class="col-md-2">
-			{!! Form::label('judul', 'Judul', ['class' => 'control-label']) !!}
+			{!! Form::label('title', 'Judul', ['class' => 'control-label']) !!}
 		</div>
 		<div class="col-md-10">
-			{!! Form::text('judul', $staticPage->judul, ['class' => 'form-control']) !!}
+			{!! Form::text('title', $staticPage->title, ['class' => 'form-control']) !!}
 		</div>
 	</div>
 

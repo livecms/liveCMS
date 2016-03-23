@@ -64,7 +64,7 @@ if (! function_exists('liveCMSRouter')) {
         }
 
         // ROUTING
-
+        
         $router->group(
             ['domain' => $host, 'middleware' => 'web', 'prefix' => $subFolder],
             function ($router) use ($adminSlug, $subDomain, $subFolder, $callback) {

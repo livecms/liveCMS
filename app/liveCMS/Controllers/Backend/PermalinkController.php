@@ -34,7 +34,7 @@ class PermalinkController extends BackendController
             })
             ->addColumn('title', function ($data) {
                 return
-                    $data->postable->judul.
+                    $data->postable->title.
                     ' <a href="'.action('Backend\\'.$data->type.'Controller@getEdit', ['id' => $data->postable->id]).
                     '"><i class="fa fa-pencil"></i></a>';
             });

@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <link rel="icon" type="image/png" href="/frontend/timer/images/favicon.png">
-        <title>{{ $judul or 'Judul' }} | {{ globalParams('site_name') }}</title>
+        <title>{{ $title or 'Judul' }} | {{ globalParams('site_name') }}</title>
         <meta name="description" content="">
         <meta name="keywords" content="">
         <meta name="author" content="">

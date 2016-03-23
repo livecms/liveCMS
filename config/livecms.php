@@ -1,12 +1,12 @@
 <?php
 
 return [
-    'domain' => env('APP_DOMAIN', 'localhost'),
+    'domain' => env('APP_DOMAIN', 'livecms.dev'),
 
     'slugs' => [
         'admin'     => '@',
-        'artikel'   => 'artikel',
-        'statis'    => 'statis',
+        'article'   => 'article',
+        'staticpage'    => 'staticpage',
     ],
 
     'themes' => [

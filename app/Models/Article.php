@@ -5,25 +5,25 @@ namespace App\Models;
 use App\liveCMS\Models\PostableModel;
 use App\liveCMS\Models\Permalink;
 
-class Artikel extends PostableModel
+class Article extends PostableModel
 {
-    protected $dependencies = ['kategoris', 'tags', 'permalink'];
+    protected $dependencies = ['categoris', 'tags', 'permalink'];
 
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
      
-        $this->prefixSlug = globalParams('slug_artikel', config('livecms.slugs.artikel'));
+        $this->prefixSlug = globalParams('slug_article', config('livecms.slugs.article'));
     }
 
-    public function kategoris()
+    public function categoris()
     {
-        return $this->belongsToMany(Kategori::class, 'artikel_kategoris');
+        return $this->belongsToMany(Category::class, 'article_categoris');
     }
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'artikel_tags');
+        return $this->belongsToMany(Tag::class, 'article_tags');
     }
 
     public function permalink()

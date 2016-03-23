@@ -7,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>@yield('judul', 'Judul') | @yield('nama.app', 'LiveCommerce')</title>
+  <title>@yield('title', 'Judul') | @yield('nama.app', 'LiveCommerce')</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.5 -->
@@ -193,7 +193,7 @@ desired effect
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        @yield('judul', 'Page Header')
+        @yield('title', 'Page Header')
         <small>@yield('deskripsi', 'Optional description')</small>
       </h1>
       <ol class="breadcrumb">

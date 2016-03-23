@@ -7,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>{{ $judul or 'Judul' }} | {{ globalParams('site_name') }}</title>
+  <title>{{ $title or 'Judul' }} | {{ globalParams('site_name') }}</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- CSRF -->
@@ -183,7 +183,7 @@ desired effect
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        {{ $judul or 'Page Header' }}
+        {{ $title or 'Page Header' }}
         <small>{{ $deskripsi or 'Optional description' }}</small>
       </h1>
       <ol class="breadcrumb">
@@ -345,7 +345,10 @@ desired effect
     $('.datatables').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '{{ action($baseClass.'@anyData') }}',
+        ajax: {
+          url: '{{ action($baseClass.'@data') }}',
+          type: 'POST'
+        },
         columns: [
           @foreach(array_keys($fields) as $field) { name: '{{ $field }}', data: '{{ $field }}', sortable: {{ in_array($field, $unsortables) ? 'false' : 'true'}}}, @endforeach
           { name: 'menu', data: 'menu', sortable: false },

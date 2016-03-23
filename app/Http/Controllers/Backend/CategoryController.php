@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\liveCMS\Controllers\BackendController;
-use App\Models\Kategori as Model;
+use App\Models\Category as Model;
 
-class KategoriController extends BackendController
+class CategoryController extends BackendController
 {
-    public function __construct(Model $model, $base = 'kategori')
+    public function __construct(Model $model, $base = 'category')
     {
         parent::__construct($model, $base);
         $this->breadcrumb2Icon  = 'list';

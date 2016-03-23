@@ -14,10 +14,15 @@ class TabelPemalinks extends Migration
     {
         Schema::create('permalinks', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('permalink')->unique();
+            $table->integer('site_id')->unsigned()->nullable();
+            $table->string('permalink');
             $table->integer('postable_id')->unsigned();
             $table->string('postable_type');
             $table->timestamps();
+
+            $table->foreign('site_id')
+                  ->references('id')->on('sites')
+                  ->onDelete('cascade');
         });
     }
 

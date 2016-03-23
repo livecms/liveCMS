@@ -4,16 +4,16 @@ namespace App\Models;
 
 use App\liveCMS\Models\BaseModel;
 
-class Tag extends BaseModel
+class Category extends BaseModel
 {
-    protected $fillable = ['tag', 'slug'];
+    protected $fillable = ['category', 'slug'];
 
     public function rules()
     {
-        $this->slugify('tag');
+        $this->slugify('category');
 
         return [
-            'tag' => $this->uniqify('tag'),
+            'category' => $this->uniqify('category'),
             'slug' => $this->uniqify('slug'),
         ];
     }

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class TabelStaticPage extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,16 @@ class TabelStaticPage extends Migration
      */
     public function up()
     {
-        Schema::create('static_pages', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('judul');
+            $table->integer('site_id')->unsigned()->nullable();
+            $table->string('category');
             $table->string('slug');
-            $table->longText('isi');
             $table->timestamps();
+
+            $table->foreign('site_id')
+                  ->references('id')->on('sites')
+                  ->onDelete('cascade');
         });
     }
 
@@ -28,6 +32,6 @@ class TabelStaticPage extends Migration
      */
     public function down()
     {
-        Schema::drop('static_pages');
+        Schema::drop('categories');
     }
 }

@@ -12,9 +12,6 @@
 */
 liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
 
-    
-
-
     // ADMIN AREA
 
     $router->group(['prefix' => $adminSlug, 'namespace' => 'Backend', 'middleware' => 'auth'], function ($router) {
@@ -22,17 +19,20 @@ liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
             return view('admin.home');
         }]);
 
-        $router->controller('kategori', 'KategoriController');
-        $router->controller('tag', 'TagController');
-        $router->controller('artikel', 'ArtikelController');
-        $router->controller('staticpage', 'StaticPageController');
+        $articleSlug  = globalParams('slug_article', config('livecms.slugs.article'));
+        $staticpageSlug  = globalParams('slug_staticpage', config('livecms.slugs.staticpage'));
+
+        // dd($articleSlug);
+        $router->resource('category', 'CategoryController');
+        $router->resource('tag', 'TagController');
+        $router->resource($articleSlug, 'ArticleController');
+        $router->resource($staticpageSlug, 'StaticPageController');
 
     });
-
 
     // FRONTEND
-    $router->group(['prefix' => '/', 'namespace' => 'Frontend'], function ($router) {
+    $router->group(['namespace' => 'Frontend'], function ($router) {
         $router->get('{arg0?}/{arg1?}/{arg2?}/{arg3?}/{arg4?}/{arg5?}', 'PageController@routes');
     });
-    
+
 });

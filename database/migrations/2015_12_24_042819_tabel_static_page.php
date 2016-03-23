@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTagsTable extends Migration
+class TabelStaticPage extends Migration
 {
     /**
      * Run the migrations.
@@ -12,16 +12,24 @@ class CreateTagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tags', function (Blueprint $table) {
+        Schema::create('static_pages', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('site_id')->unsigned()->nullable();
-            $table->string('tag');
+            $table->string('title');
             $table->string('slug');
+            $table->longText('content');
+            $table->integer('author_id')->unsigned();
+            $table->string('picture')->nullable();
+            $table->date('published_at');
             $table->timestamps();
 
             $table->foreign('site_id')
                   ->references('id')->on('sites')
                   ->onDelete('cascade');
+
+            $table->foreign('author_id')
+                  ->references('id')->on('users')
+                  ->onDelete('restrict');
         });
     }
 
@@ -32,6 +40,6 @@ class CreateTagsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('tags');
+        Schema::drop('static_pages');
     }
 }

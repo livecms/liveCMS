@@ -23,7 +23,7 @@ class BackendView
     
     protected $orders = ['desc'];
     
-    protected $judul;
+    protected $title;
         
     protected $deskripsi;
 

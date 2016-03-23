@@ -10,6 +10,6 @@ class StaticPage extends PostableModel
     {
         parent::__construct($attributes);
      
-        $this->prefixSlug = globalParams('slug_statis', config('livecms.slugs.statis'));
+        $this->prefixSlug = globalParams('slug_staticpage', config('livecms.slugs.staticpage'));
     }
 }

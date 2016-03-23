@@ -37,14 +37,14 @@ class PageController extends FrontendController
     {
         $parameters = func_get_args();
 
-        $artikelSlug = globalParams('artikel_slug', config('livecms.slugs.artikel'));
+        $artikelSlug = globalParams('article_slug', config('livecms.slugs.article'));
 
         if ($parameters[0] == $artikelSlug) {
             return $this->getArtikel($parameters[1]);
         }
 
 
-        $statisSlug = globalParams('statis_slug', config('livecms.slugs.statis'));
+        $statisSlug = globalParams('staticpage_slug', config('livecms.slugs.staticpage'));
 
         if ($parameters[0] == $statisSlug) {
             return $this->getStatis($parameters[1]);

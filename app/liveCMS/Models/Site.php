@@ -2,6 +2,7 @@
 
 namespace App\liveCMS\Models;
 
+use Schema;
 use App\liveCMS\Models\Users\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -19,6 +20,10 @@ class Site extends Model
 
     public static function init()
     {
+        if (!Schema::hasTable('sites')) {
+            return static::setCurrent(new Site);
+        };
+        
         static::$domain = $domain = config('livecms.domain');
 
         static::$host = $host = request()->server('HTTP_HOST');

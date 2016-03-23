@@ -4,9 +4,11 @@ namespace App\liveCMS\Models;
 
 class PostableModel extends BaseModel
 {
-    protected $fillable = ['judul', 'slug', 'isi'];
+    protected $fillable = ['title', 'site_id', 'slug', 'content', 'author_id', 'picture', 'published_at'];
 
     protected $dependencies = ['permalink'];
+
+    protected $dates = ['published_at'];
 
     protected $prefixSlug = '';
 
@@ -17,15 +19,24 @@ class PostableModel extends BaseModel
 
     public function rules()
     {
-        $slug = str_slug(request()->has('slug') ? request()->get('slug') : request()->get('judul'));
+        $this->slugify('title');
 
-        request()->merge(compact('slug'));
+        $published_at = $this->published_at ?: Carbon::now();
+
+        $author_id = $this->author_id ?: auth()->user()->id;
 
         return [
-            'judul' => 'required|unique:'.$this->getTable().',judul'.(($this->id != null) ? ','.$this->id : ''),
-            'slug' => 'required|unique:'.$this->getTable().',slug'.(($this->id != null) ? ','.$this->id : ''),
-            'isi' => 'required',
+            'title' => $this->uniqify('title'),
+            'slug' => $this->uniqify('slug'),
+            'content' => 'required',
+            'picture' => 'image|max:5120',
+            'published_at' => 'required',
         ];
+    }
+
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'author_id');
     }
 
     public function permalink()
@@ -42,7 +53,7 @@ class PostableModel extends BaseModel
 
         if ($this->slug != null) {
             
-            return url($this->prefixSlug.DIRECTORY_SEPARATOR.$this->slug);
+            return url($this->prefixSlug.'/'.$this->slug);
         }
 
         return '';
