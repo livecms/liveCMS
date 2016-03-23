@@ -51,6 +51,13 @@ trait BaseModelTrait
         return $query->where('site_id', site()->getCurrent()->id);
     }
 
+    public function save(array $options = [])
+    {
+        $this->site_id = site()->id;
+
+        return parent::save($options);
+    }
+
     protected function slugify($field)
     {
         $request = request();

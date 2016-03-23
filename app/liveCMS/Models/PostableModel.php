@@ -60,6 +60,6 @@ class PostableModel extends BaseModel
             return url($this->prefixSlug.'/'.$this->slug);
         }
 
-        return '';
+        return url($this->prefixSlug);
     }
 }
