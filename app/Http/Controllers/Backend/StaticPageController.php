@@ -7,7 +7,7 @@ use App\liveCMS\Controllers\Backend\PostableController;
 
 class StaticPageController extends PostableController
 {
-    public function __construct(Model $model, $base = 'static_page')
+    public function __construct(Model $model, $base = 'staticpage')
     {
         parent::__construct($model, $base);
     }

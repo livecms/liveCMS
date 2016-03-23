@@ -1,6 +1,6 @@
 <?php
 
-use App\Setting;
+use App\liveCMS\Models\GenericSetting as Setting;
 use App\liveCMS\Models\Site;
 
 if (! function_exists('globalParams')) {

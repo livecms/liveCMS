@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\liveCMS\Models\GenericSetting as Setting;
 use Illuminate\Support\Facades\Auth;
 
 class RedirectIfAuthenticated
@@ -18,10 +19,16 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-     
             $user = Auth::guard($guard)->user();
-            $root = $user->getSiteRootUrl();
-            $adminSlug  = globalParams('slug_admin', config('livecms.slugs.admin'));
+            $site = $user->site;
+            $root = $site->getRootUrl();
+            $adminSlug  = config('livecms.slugs.admin');
+            $setting = $site->settings()->where('key', 'slug_admin')->first();
+            
+            if ($setting) {
+                $adminSlug = $setting->value;
+            }
+
             $url = $root.'/'.$adminSlug;
             return redirect()->away($url);
         }

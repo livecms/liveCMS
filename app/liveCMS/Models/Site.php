@@ -4,6 +4,7 @@ namespace App\liveCMS\Models;
 
 use Schema;
 use App\liveCMS\Models\Users\User;
+use App\liveCMS\Models\GenericSetting as Setting;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
@@ -100,5 +101,10 @@ class Site extends Model
     public function users()
     {
         return $this->hasMany(User::class);
+    }
+
+    public function settings()
+    {
+        return $this->hasMany(Setting::class);
     }
 }
