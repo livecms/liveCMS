@@ -62,6 +62,6 @@ trait BaseModelTrait
 
     protected function uniqify($field)
     {
-        return 'required|unique:'.$this->getTable().','.$field.','.((string) $this->id).',id,site_id,'.$site_id;
+        return 'required|unique:'.$this->getTable().','.$field.','.((string) $this->id).',id,site_id,'.site()->id;
     }
 }

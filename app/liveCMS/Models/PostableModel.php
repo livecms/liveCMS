@@ -2,6 +2,8 @@
 
 namespace App\liveCMS\Models;
 
+use Carbon\Carbon;
+
 class PostableModel extends BaseModel
 {
     protected $fillable = ['title', 'site_id', 'slug', 'content', 'author_id', 'picture', 'published_at'];

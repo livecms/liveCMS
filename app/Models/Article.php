@@ -16,9 +16,9 @@ class Article extends PostableModel
         $this->prefixSlug = globalParams('slug_article', config('livecms.slugs.article'));
     }
 
-    public function categoris()
+    public function categories()
     {
-        return $this->belongsToMany(Category::class, 'article_categoris');
+        return $this->belongsToMany(Category::class, 'article_categories');
     }
 
     public function tags()
