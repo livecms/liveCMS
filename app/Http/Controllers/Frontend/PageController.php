@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Models\Artikel;
+use App\Models\Article;
 use App\Models\StaticPage;
 use App\liveCMS\Models\Permalink;
 use App\liveCMS\Controllers\FrontendController;
@@ -10,11 +10,11 @@ use Illuminate\Http\Request;
 
 class PageController extends FrontendController
 {
-    public function getArtikel($slug)
+    public function getArticle($slug)
     {
-        $artikel = Artikel::where('slug', $slug)->firstOrFail();
+        $article = Article::where('slug', $slug)->firstOrFail();
 
-        return view('artikel', $artikel);
+        return view('article', $article);
     }
 
     public function getStatis($slug)
@@ -37,10 +37,10 @@ class PageController extends FrontendController
     {
         $parameters = func_get_args();
 
-        $artikelSlug = globalParams('article_slug', config('livecms.slugs.article'));
+        $articleSlug = globalParams('article_slug', config('livecms.slugs.article'));
 
-        if ($parameters[0] == $artikelSlug) {
-            return $this->getArtikel($parameters[1]);
+        if ($parameters[0] == $articleSlug) {
+            return $this->getArticle($parameters[1]);
         }
 
 

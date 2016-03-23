@@ -7,7 +7,7 @@ use App\liveCMS\Models\Permalink;
 
 class Article extends PostableModel
 {
-    protected $dependencies = ['categoris', 'tags', 'permalink'];
+    protected $dependencies = ['categories', 'tags', 'permalink'];
 
     public function __construct(array $attributes = [])
     {

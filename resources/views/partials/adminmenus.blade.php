@@ -1,15 +1,17 @@
 <?php
 $adminPrefix = globalParams('slug_admin', config('livecms.slugs.admin'));
+$articleSlug = globalParams('slug_article', config('livecms.slugs.article'));
+$staticpageSlug = globalParams('slug_staticpage', config('livecms.slugs.staticpage'));
 
 $menus = [
-    [   'title' => 'Tulisan', 'icon' => 'pencil',
+    [   'title' => 'Post', 'icon' => 'pencil',
         'uri' => [
-            ['uri' => 'artikel', 'title' => 'Artikel', 'icon' => 'files-o'],
-            ['uri' => 'kategori', 'title' => 'Kategori', 'icon' => 'list'],
+            ['uri' => $articleSlug, 'title' => 'Article', 'icon' => 'files-o'],
+            ['uri' => 'category', 'title' => 'Category', 'icon' => 'list'],
             ['uri' => 'tag', 'title' => 'Tag', 'icon' => 'tag'],
         ],
     ],
-    ['uri' => 'staticpage', 'title' => 'Halaman Statis', 'icon' => 'file-o'],
+    ['uri' => $staticpageSlug, 'title' => 'Static Page', 'icon' => 'file-o'],
     ['uri' => 'permalink', 'title' => 'Permalink', 'icon' => 'link'],
     ['uri' => 'user', 'title' => 'User', 'icon' => 'users'],
     ['uri' => 'setting', 'title' => 'Setting', 'icon' => 'cog'],

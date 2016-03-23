@@ -37,17 +37,17 @@ class ArticleController extends PostableController
                 return str_limit(strip_tags($data->content), 300);
             })
             ->addColumn('category', function ($data) {
-                return rtrim(implode(', ', $data->categories->lists('category')->toArray()), ', ');
+                return rtrim(implode(', ', $data->categories->pluck('category')->toArray()), ', ');
             })
             ->addColumn('tag', function ($data) {
-                return rtrim(implode(', ', $data->tags->lists('tag')->toArray()), ', ');
+                return rtrim(implode(', ', $data->tags->pluck('tag')->toArray()), ', ');
             });
     }
 
     protected function loadFormClasses()
     {
-        $this->categories   = $this->category->lists('category', 'id')->toArray();
-        $this->tags         = $this->tag->lists('tag', 'id')->toArray();
+        $this->categories   = $this->category->pluck('category', 'id')->toArray();
+        $this->tags         = $this->tag->pluck('tag', 'id')->toArray();
         
         parent::loadFormClasses();
     }

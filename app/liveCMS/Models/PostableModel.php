@@ -27,6 +27,8 @@ class PostableModel extends BaseModel
 
         $author_id = $this->author_id ?: auth()->user()->id;
 
+        request()->merge(compact('published_at', 'author_id'));
+
         return [
             'title' => $this->uniqify('title'),
             'slug' => $this->uniqify('slug'),
