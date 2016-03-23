@@ -21,13 +21,13 @@ class BackendController extends BaseController
     {
         parent::__construct();
 
-        $this->model = $model;
-        $this->base = $base;
-        $reflection = new ReflectionClass($this);
+        $this->model    = $model;
+        $this->base     = $base;
+        $reflection     = new ReflectionClass($this);
         $this->baseClass = '\\'.$reflection->getName();
 
         $this->fields           = $this->model->getFields();
-        $this->breadcrumb2      = title_case(snakeToStr($this->base));
+        $this->breadcrumb2      = title_case(trans('livecms.'.$this->base));
         // $this->breadcrumb2Url   = route($this->baseClass.'.index');
         
         $this->view->share();
@@ -55,9 +55,9 @@ class BackendController extends BaseController
 
     public function index()
     {
-        $this->title        = title_case(snakeToStr($this->base));
-        $this->description  = 'Semua Daftar '.title_case(snakeToStr($this->base));
-        $this->breadcrumb3  = 'Lihat Semua';
+        $this->title        = title_case(trans('livecms.'.$this->base));
+        $this->description  = trans('backend.alllist', ['list' => title_case(trans('livecms.'.$this->base))]);
+        $this->breadcrumb3  = trans('backend.seeall');
 
         $this->view->share();
 
@@ -91,7 +91,7 @@ class BackendController extends BaseController
                     Form::open(['style' => 'display: inline!important', 'method' => 'delete', 
                         'action' => [$this->baseClass.'@destroy', $data->{$this->model->getKeyName()}]
                     ]).
-                    '  <button type="submit" onClik="return confirm(\'Yakin mau menghapus?\');" 
+                    '  <button type="submit" onClik="return confirm(\''.trans('backend.deleteconfirmation').'\');" 
                         class="btn btn-small btn-link">
                             <i class="fa fa-xs fa-trash-o"></i> 
                             Delete
@@ -115,9 +115,9 @@ class BackendController extends BaseController
         $model = $this->model;
         ${camel_case($this->base)} = $model;
 
-        $this->title        = 'Tambah Data '.title_case(snakeToStr($this->base));
-        $this->description  = 'Untuk menambahkan data '.snakeToStr($this->base);
-        $this->breadcrumb3  = 'Tambah';
+        $this->title        = trans('backend.adddata', ['data' => title_case(trans('livecms.'.$this->base))]);
+        $this->description  = trans('backend.addingdata', ['data' => trans('livecms.'.$this->base)]);
+        $this->breadcrumb3  = trans('backend.add');
         $this->action       = 'store';
 
         $this->view->share();
@@ -159,9 +159,9 @@ class BackendController extends BaseController
         $model = $this->model->findOrFail($id);
         ${camel_case($this->base)} = $model;
 
-        $this->title        = 'Edit '.title_case(snakeToStr($this->base));
-        $this->description  = 'Mengedit data '.snakeToStr($this->base);
-        $this->breadcrumb3  = 'Edit';
+        $this->title        = trans('backend.editdata', ['data' => title_case(trans('livecms.'.$this->base))]);
+        $this->description  = trans('backend.editingdata', ['data' => trans('livecms.'.$this->base)]);
+        $this->breadcrumb3  = trans('backend.edit');
         $this->action       = 'update';
         $this->params       = compact('id');
         

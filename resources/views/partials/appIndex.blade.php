@@ -4,7 +4,7 @@
 <h4>
 @if(isset($withoutAddButton))
 @else
-	<a href="{{ action($baseClass.'@create') }}" class="btn btn-sm btn-success">Tambah</a> <small>Klik untuk menambah data {{ snakeToStr($base) }}.</small>
+	<a href="{{ action($baseClass.'@create') }}" class="btn btn-sm btn-success">Tambah</a> <small>Klik untuk menambah data {{ trans('livecms.'.$base) }}.</small>
 @endif
 </h4>
 <div class="box">

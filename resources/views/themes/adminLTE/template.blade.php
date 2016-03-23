@@ -184,7 +184,7 @@ desired effect
     <section class="content-header">
       <h1>
         {{ $title or 'Page Header' }}
-        <small>{{ $deskripsi or 'Optional description' }}</small>
+        <small>{{ $description or 'Optional description' }}</small>
       </h1>
       <ol class="breadcrumb">
       @if(isset($breadcrumbLevel))

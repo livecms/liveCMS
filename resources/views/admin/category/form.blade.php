@@ -5,10 +5,10 @@
 	@include('partials.error')
 	<div class="row form-group">
 		<div class="col-md-3">
-			{!! Form::label('kategori', 'Kategori', ['class' => 'control-label']) !!}
+			{!! Form::label('category', trans('livecms.category'), ['class' => 'control-label']) !!}
 		</div>
 		<div class="col-md-9">
-			{!! Form::text('kategori', $kategori->kategori, ['class' => 'form-control']) !!}
+			{!! Form::text('category', $category->category, ['class' => 'form-control']) !!}
 		</div>
 	</div>
 
@@ -17,7 +17,7 @@
 			{!! Form::label('slug', 'Slug', ['class' => 'control-label']) !!}
 		</div>
 		<div class="col-md-9">
-			{!! Form::text('slug', $kategori->slug, ['class' => 'form-control']) !!}
+			{!! Form::text('slug', $category->slug, ['class' => 'form-control']) !!}
 		</div>
 	</div>
 

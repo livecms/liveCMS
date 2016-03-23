@@ -4,16 +4,16 @@ $articleSlug = globalParams('slug_article', config('livecms.slugs.article'));
 $staticpageSlug = globalParams('slug_staticpage', config('livecms.slugs.staticpage'));
 
 $menus = [
-    [   'title' => 'Post', 'icon' => 'pencil',
+    [   'title' => trans('livecms.post'), 'icon' => 'pencil',
         'uri' => [
-            ['uri' => $articleSlug, 'title' => 'Article', 'icon' => 'files-o'],
-            ['uri' => 'category', 'title' => 'Category', 'icon' => 'list'],
+            ['uri' => $articleSlug, 'title' => trans('livecms.article'), 'icon' => 'files-o'],
+            ['uri' => 'category', 'title' => trans('livecms.category'), 'icon' => 'list'],
             ['uri' => 'tag', 'title' => 'Tag', 'icon' => 'tag'],
         ],
     ],
-    ['uri' => $staticpageSlug, 'title' => 'Static Page', 'icon' => 'file-o'],
+    ['uri' => $staticpageSlug, 'title' => trans('livecms.staticpage'), 'icon' => 'file-o'],
     ['uri' => 'permalink', 'title' => 'Permalink', 'icon' => 'link'],
-    ['uri' => 'user', 'title' => 'User', 'icon' => 'users'],
+    ['uri' => 'user', 'title' => trans('livecms.user'), 'icon' => 'users'],
     ['uri' => 'setting', 'title' => 'Setting', 'icon' => 'cog'],
 ];
 ?>

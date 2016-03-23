@@ -13,7 +13,8 @@ if (! function_exists('globalParams')) {
             };
      
             return Setting::get();
-        })->groupBy('site_id');
+        });
+        $params = $params->groupBy('site_id')->toArray();
         
         $siteId = site()->id;
         $params = isset($params[$siteId]) ? collect($params[$siteId])->pluck('value', 'key') : [];
