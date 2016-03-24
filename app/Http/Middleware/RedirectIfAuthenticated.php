@@ -20,7 +20,7 @@ class RedirectIfAuthenticated
     {
         if (Auth::guard($guard)->check()) {
             $user = Auth::guard($guard)->user();
-            $site = $user->site;
+            $site = $user->site ?: site();
             $root = $site->getRootUrl();
             $adminSlug  = config('livecms.slugs.admin');
             $setting = $site->settings()->where('key', 'slug_admin')->first();
