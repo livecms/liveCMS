@@ -9,7 +9,7 @@
 </h4>
 <div class="box">
   	<div class="box-body">
-		<table class="table datatables">
+		<table class="table datatables display responsive no-wrap">
 			<thead>
 			@foreach(array_values($fields) as $field)
 				<th>{{ $field }}</th>

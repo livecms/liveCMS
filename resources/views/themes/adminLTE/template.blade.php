@@ -345,6 +345,7 @@ desired effect
     $('.datatables').DataTable({
         processing: true,
         serverSide: true,
+        responsive: true,
         ajax: {
           url: '{{ action($baseClass.'@data') }}',
           type: 'POST'
