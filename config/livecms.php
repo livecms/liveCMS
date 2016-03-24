@@ -5,8 +5,8 @@ return [
 
     'slugs' => [
         'admin'     => '@',
-        'article'   => 'article',
-        'staticpage'    => 'staticpage',
+        'article'   => 'a',
+        'staticpage'    => 'p',
     ],
 
     'themes' => [
