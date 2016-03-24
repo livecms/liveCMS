@@ -105,6 +105,10 @@ class Site extends Model
 
     public function settings()
     {
-        return $this->hasMany(Setting::class);
+        if ($this->id != null) {
+            return $this->hasMany(Setting::class);
+        }
+        
+        return Setting::where('site_id', null);
     }
 }
