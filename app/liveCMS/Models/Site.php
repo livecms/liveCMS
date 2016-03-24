@@ -36,33 +36,38 @@ class Site extends Model
 
         $subdomain = rtrim(substr($host, 0, (strlen($host) - strlen($domain))), '.');
 
-        $subfolder = request()->segment(1);
-
         if ($subdomain) {
             
-            $findSites = static::where('subdomain', $subdomain)->get();
-
-            if (($siteCount = count($findSites)) > 1) {
-
-                $site = $findSites->where('subfolder', $subfolder)->first();
-
-                if ($site) {
-                    
-                    return static::setCurrent($site);
-                }
-            }
-
-            if ($siteCount) {
-                
-                $site = $findSites->first();
-
-                return static::setCurrent($site);
-            }
-
-            return static::setCurrent(new Site);   
+            return static::initSubdomain($subdomain);
         }
 
         return static::setCurrent(new Site);
+    }
+
+    protected static function initSubdomain($subdomain)
+    {
+        $findSites = static::where('subdomain', $subdomain)->get();
+
+        $subfolder = request()->segment(1);
+
+        if (($siteCount = count($findSites)) > 1) {
+
+            $site = $findSites->where('subfolder', $subfolder)->first();
+
+            if ($site) {
+                
+                return static::setCurrent($site);
+            }
+        }
+
+        if ($siteCount) {
+            
+            $site = $findSites->first();
+
+            return static::setCurrent($site);
+        }
+
+        return static::setCurrent(new Site);   
     }
 
     public static function setCurrent($current)
