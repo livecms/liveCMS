@@ -4,10 +4,10 @@
 
 	@include('partials.error')
 	<div class="row form-group">
-		<div class="col-md-3">
-			{!! Form::label('permalink', 'Tag', ['class' => 'control-label']) !!}
+		<div class="col-md-4">
+			{!! Form::label('permalink', url('/').'/', ['class' => 'control-label']) !!}
 		</div>
-		<div class="col-md-9">
+		<div class="col-md-8">
 			{!! Form::text('permalink', $permalink->permalink, ['class' => 'form-control']) !!}
 		</div>
 	</div>

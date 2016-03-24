@@ -14,6 +14,8 @@ class PostableModel extends BaseModel
 
     protected $prefixSlug = '';
 
+    protected static $picturePath = 'files';
+ 
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
@@ -61,5 +63,10 @@ class PostableModel extends BaseModel
         }
 
         return url($this->prefixSlug);
+    }
+
+    public function getPicturePath()
+    {
+        return static::$picturePath;
     }
 }

@@ -11,8 +11,6 @@ use App\liveCMS\Models\Permalink;
 
 abstract class PostableController extends BackendController
 {
-    protected static $picturePath = 'files';
-
     public function __construct(Model $model, $base = 'post')
     {
         parent::__construct($model, $base);
