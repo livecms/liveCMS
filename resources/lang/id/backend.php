@@ -10,5 +10,5 @@ return [
     'editdata'              => 'Edit Data :data',
     'editingdata'           => 'Untuk mengedit data :data',
     'edit'                  => 'Edit',
-
+    'ifwanttochangepicture' => 'Jika Ingin ganti Foto Utama',
 ];

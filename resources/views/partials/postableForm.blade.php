@@ -48,6 +48,27 @@
         </div>
     </div>
 
+    <div class="row form-group">
+        <div class="col-md-2">
+            {!! Form::label('picture', trans('livecms.picture'), ['class' => 'control-label']) !!}
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-sm-9 col-xs-8">
+                    @if ($picture = $model->picture)
+                    Preview :
+                    <figure style="width: 100%;">
+                        <img src="{{ asset($model->getPicturePath().'/'.$picture) }}" class="img-responsive" alt="">
+                    </figure>
+                    <div class="row">&nbsp;</div>
+                    <strong>{{trans('backend.ifwanttochangepicture')}}</strong>
+                    @endif
+                    {!! Form::file('picture', null, ['class' => 'form-control']) !!}
+                </div>
+            </div>
+    </div>
+</div>
+
 @stop
 
 @section('content')

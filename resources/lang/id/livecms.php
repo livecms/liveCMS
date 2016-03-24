@@ -14,4 +14,5 @@ return [
     'title'             => 'Judul',
     'content'           => 'Isi',
     'post'              => 'Tulisan',
+    'picture'           => 'Foto Utama',
 ];
