@@ -21,6 +21,7 @@ class TabelStaticPage extends Migration
             $table->integer('author_id')->unsigned();
             $table->string('picture')->nullable();
             $table->date('published_at');
+            $table->integer('parent_id')->unsigned()->nullable();
             $table->timestamps();
 
             $table->foreign('site_id')
@@ -30,6 +31,10 @@ class TabelStaticPage extends Migration
             $table->foreign('author_id')
                   ->references('id')->on('users')
                   ->onDelete('restrict');
+
+            $table->foreign('parent_id')
+                  ->references('id')->on('static_pages')
+                  ->onDelete('set null');
         });
     }
 

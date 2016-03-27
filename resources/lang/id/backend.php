@@ -11,4 +11,6 @@ return [
     'editingdata'           => 'Untuk mengedit data :data',
     'edit'                  => 'Edit',
     'ifwanttochangepicture' => 'Jika Ingin ganti Foto Utama',
+    'viewall'               => 'Lihat Semua',
+    'viewhierarchy'         => 'Secara Hierarki',
 ];

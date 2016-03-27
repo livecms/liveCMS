@@ -28,11 +28,24 @@ abstract class PostableController extends BackendController
     {
         return $datatables
             ->editColumn('title', function ($data) {
-                return '<a target="_blank"  href="'.$data->url.'">'.$data->title.'</a>';
+                return '<a target="_blank" href="'.$data->url.'">'.$data->title.'</a>';
+            })
+            ->editColumn('content', function ($data) {
+                return str_limit(strip_tags($data->content), 300);
+            })
+            ->editColumn('author_id', function ($data) {
+                return $data->author->name;
+            })
+            ->editColumn('picture', function ($data) {
+                $imgUrl = asset($this->model->getPicturePath().'/'.$data->picture);
+                return $data->picture ? '<a target="_blank"  href="'.$imgUrl.'"><img src="'.$imgUrl.'" style="width: 100px;"></a>' : '-';
+            })
+            ->editColumn('published_at', function ($data) {
+                return $data->published_at->diffForHumans();
             });
     }
 
-    protected function loadFormClasses()
+    protected function loadFormClasses($model)
     {
         $this->useCKEditor  = 'content';
      
@@ -92,7 +105,7 @@ abstract class PostableController extends BackendController
             $destinationPath = public_path($this->model->getPicturePath());
 
             $extension = $request->file('picture')->getClientOriginalExtension();
-            $picture = str_limit(str_slug($this->title.' '.date('YmdHis')), 200) . '.' . $extension;
+            $picture = str_limit(str_slug($this->model->title.' '.date('YmdHis')), 200) . '.' . $extension;
             
             $result = $request->file('picture')->move($destinationPath, $picture);
 

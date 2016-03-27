@@ -347,7 +347,7 @@ desired effect
         serverSide: true,
         responsive: true,
         ajax: {
-          url: '{{ action($baseClass.'@data') }}',
+          url: '{{ action($baseClass.'@data', request()->query()) }}',
           type: 'POST'
         },
         columns: [

@@ -13,9 +13,9 @@ class SetupSeeder extends Seeder
     {
         DB::table('settings')->insert([
             ['key' => 'site_name', 'value' => 'Live CMS'],
-            ['key' => 'slug_admin', 'value' => 'admin'],
-            ['key' => 'slug_article', 'value' => 'article'],
-            ['key' => 'slug_staticpage', 'value' => 'staticpage'],
+            ['key' => 'slug_admin', 'value' => '@'],
+            ['key' => 'slug_article', 'value' => 'a'],
+            ['key' => 'slug_staticpage', 'value' => 'p'],
         ]);
     }
 }

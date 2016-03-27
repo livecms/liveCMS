@@ -13,7 +13,7 @@ class ArticleController extends PostableController
     protected $category;
     protected $tag;
     protected $permalink;
-    protected $unsortables = ['tag', 'category'];
+    protected $unsortables = ['tag', 'category', 'author_id', 'picture'];
 
     public function __construct(Model $model, Category $category, Tag $tag, $base = 'article')
     {
@@ -29,13 +29,9 @@ class ArticleController extends PostableController
 
     protected function processDatatables($datatables)
     {
+        $datatables = parent::processDatatables($datatables);
+        
         return $datatables
-            ->editColumn('title', function ($data) {
-                return '<a target="_blank" href="'.$data->url.'">'.$data->title.'</a>';
-            })
-            ->editColumn('content', function ($data) {
-                return str_limit(strip_tags($data->content), 300);
-            })
             ->addColumn('category', function ($data) {
                 return rtrim(implode(', ', $data->categories->pluck('category')->toArray()), ', ');
             })
@@ -44,11 +40,19 @@ class ArticleController extends PostableController
             });
     }
 
-    protected function loadFormClasses()
+    protected function loadFormClasses($model)
     {
         $this->categories   = $this->category->pluck('category', 'id')->toArray();
         $this->tags         = $this->tag->pluck('tag', 'id')->toArray();
         
-        parent::loadFormClasses();
+        parent::loadFormClasses($model);
+    }
+
+    protected function afterSaving($request)
+    {
+        $this->model->categories()->sync($request->get('categories', []));
+        $this->model->tags()->sync($request->get('tags', []));
+
+        return parent::afterSaving($request);
     }
 }

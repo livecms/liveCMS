@@ -15,4 +15,17 @@ class SettingController extends BackendController
         
         $this->view->share();
     }
+
+    public function redirectTo()
+    {
+        $url = action($this->baseClass.'@index');
+
+        $segments = explode('/', trim($url, '/'));
+
+        $path = array_pop($segments);
+
+        $adminSlug  = globalParams('slug_admin', config('livecms.slugs.admin'));
+
+        return redirect($adminSlug.'/'.$path);
+    }
 }

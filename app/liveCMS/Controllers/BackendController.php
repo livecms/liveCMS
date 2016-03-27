@@ -43,7 +43,7 @@ class BackendController extends BaseController
         return $request;
     }
 
-    protected function loadFormClasses()
+    protected function loadFormClasses($model)
     {
         //
     }
@@ -53,11 +53,12 @@ class BackendController extends BaseController
         return $this->model;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $this->title        = title_case(trans('livecms.'.$this->base));
         $this->description  = trans('backend.alllist', ['list' => title_case(trans('livecms.'.$this->base))]);
         $this->breadcrumb3  = trans('backend.seeall');
+        $this->params       = array_merge($request->query() ? $request->query() : []);
 
         $this->view->share();
 
@@ -74,7 +75,7 @@ class BackendController extends BaseController
         return $datas;
     }
 
-    public function data()
+    public function data(Request $request)
     {
         $datas = $this->model->select($this->getDataFields());
         
@@ -88,7 +89,7 @@ class BackendController extends BaseController
                             <i class="fa fa-xs fa-pencil"></i> 
                             Edit
                     </a> '.
-                    Form::open(['style' => 'display: inline!important', 'method' => 'delete', 
+                    Form::open(['style' => 'display: inline!important', 'method' => 'delete',
                         'action' => [$this->baseClass.'@destroy', $data->{$this->model->getKeyName()}]
                     ]).
                     '  <button type="submit" onClik="return confirm(\''.trans('backend.deleteconfirmation').'\');" 
@@ -110,7 +111,7 @@ class BackendController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $model = $this->model;
         ${camel_case($this->base)} = $model;
@@ -119,10 +120,11 @@ class BackendController extends BaseController
         $this->description  = trans('backend.addingdata', ['data' => trans('livecms.'.$this->base)]);
         $this->breadcrumb3  = trans('backend.add');
         $this->action       = 'store';
+        $this->params       = array_merge($request->query() ? $request->query() : []);
 
         $this->view->share();
 
-        $this->loadFormClasses();
+        $this->loadFormClasses($model);
 
         return view("admin.".camel_case($this->base).".form", compact(camel_case($this->base)));
     }
@@ -144,6 +146,10 @@ class BackendController extends BaseController
         $saved = $this->afterSaving($request);
 
         if ($saved) {
+            if (method_exists($this, 'redirectTo')) {
+                return $this->redirectTo();
+            }
+
             return redirect()->action($this->baseClass.'@index');
         }
     }
@@ -154,7 +160,7 @@ class BackendController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $model = $this->model->findOrFail($id);
         ${camel_case($this->base)} = $model;
@@ -163,11 +169,11 @@ class BackendController extends BaseController
         $this->description  = trans('backend.editingdata', ['data' => trans('livecms.'.$this->base)]);
         $this->breadcrumb3  = trans('backend.edit');
         $this->action       = 'update';
-        $this->params       = compact('id');
+        $this->params       = array_merge($request->query() ? $request->query() : [], compact('id'));
         
         $this->view->share();
         
-        $this->loadFormClasses();
+        $this->loadFormClasses($model);
 
         return view("admin.".camel_case($this->base).".form", compact(camel_case($this->base)));
     }
@@ -192,6 +198,10 @@ class BackendController extends BaseController
         $saved = $this->afterSaving($request);
 
         if ($saved) {
+            if (method_exists($this, 'redirectTo')) {
+                return $this->redirectTo();
+            }
+            
             return redirect()->action($this->baseClass.'@index');
         }
     }
@@ -202,13 +212,17 @@ class BackendController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $this->model = $this->model->findOrFail($id);
 
         $deleted = $this->model->delete();
 
         if ($deleted) {
+            if (method_exists($this, 'redirectTo')) {
+                return $this->redirectTo();
+            }
+            
             return redirect()->action($this->baseClass.'@index');
         }
     }

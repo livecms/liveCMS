@@ -2,17 +2,20 @@
 
 namespace App\liveCMS\Models;
 
+use App\liveCMS\Models\Users\User;
 use Carbon\Carbon;
 
 class PostableModel extends BaseModel
 {
     protected $fillable = ['title', 'site_id', 'slug', 'content', 'author_id', 'picture', 'published_at'];
 
-    protected $dependencies = ['permalink'];
+    protected $dependencies = ['permalink', 'author'];
 
     protected $dates = ['published_at'];
 
     protected $prefixSlug = '';
+
+    protected $aliases = ['author_id' => 'Author'];
 
     protected static $picturePath = 'files';
  

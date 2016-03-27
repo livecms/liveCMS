@@ -11,7 +11,7 @@ class PermalinkController extends BackendController
     {
         parent::__construct($model, $base);
 
-        $edited = ['title' => 'Title', 'postable_type' => 'Tipe', 'postable_id' => 'ID'];
+        $edited = ['title' => 'title', 'postable_type' => 'type', 'postable_id' => 'id'];
         
         $this->breadcrumb2Icon  = 'link';
         $this->fields           = array_merge(array_except($this->model->getFields(), ['id']), $edited);
@@ -29,8 +29,13 @@ class PermalinkController extends BackendController
     protected function processDatatables($datatables)
     {
         return $datatables
+            ->editColumn('permalink', function ($data) {
+                $url = $data->postable->url;
+                return '<a target="_blank"  href="'.$url.'">'.$url.'</a>';
+            })
             ->editColumn('postable_type', function ($data) {
-                return $data->type;
+                $type = trans('livecms.'.strtolower($data->type));
+                return $type;
             })
             ->addColumn('title', function ($data) {
                 return

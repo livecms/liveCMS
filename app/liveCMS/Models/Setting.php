@@ -16,6 +16,7 @@ class Setting extends BaseModel
 
         return [
             'key' => 'required|unique:'.$this->getTable().',key,'.((string) $this->id).',id,site_id,'.$site_id,
+            'value' => 'required'
         ];
     }
 
