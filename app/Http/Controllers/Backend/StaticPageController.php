@@ -116,7 +116,7 @@ class StaticPageController extends PostableController
     {
         if ($request->has('parent')) {
             
-            $parent = Model::find($parent_id = $request->get('parent'));
+            $parent = Model::find($request->get('parent'));
 
             $parent->children()->save($this->model);
         } else {
