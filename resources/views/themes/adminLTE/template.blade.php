@@ -347,7 +347,7 @@ desired effect
         serverSide: true,
         responsive: true,
         ajax: {
-          url: '{{ action($baseClass.'@data', request()->query()) }}',
+          url: '{!! action($baseClass.'@data', array_merge(request()->query(), isset($query) ? (array) $query : [])) !!}',
           type: 'POST'
         },
         columns: [

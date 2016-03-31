@@ -11,13 +11,13 @@ class StaticPageController extends PostableController
 {
     protected $unsortables = ['parent'];
 
-    protected $hierarchy;
+    protected $query;
     
     public function __construct(Model $model, $base = 'staticpage')
     {
         parent::__construct($model, $base);
         $this->fields   = array_merge(['id' => 'id', 'parent' => 'parent'], array_except($this->model->getFields(), ['id', 'parent_id']));
-        $this->hierarchy = request()->has('hierarchy');
+        $this->query = request()->all();
     }
 
     public function index(Request $request)
@@ -26,7 +26,7 @@ class StaticPageController extends PostableController
         $this->description  = trans('backend.alllist', ['list' => title_case(trans('livecms.'.$this->base))]);
         $this->breadcrumb3  = trans('backend.seeall');
 
-        if ($this->hierarchy) {
+        if (isset($this->query['hierarchy'])) {
             $this->fields = array_except($this->fields, ['parent']);
         }
 
@@ -39,7 +39,11 @@ class StaticPageController extends PostableController
     {
         $datas = parent::beforeDatatables($datas);
 
-        if (! $this->hierarchy) {
+        if (isset($this->query['id'])) {
+            return $datas->where('id', $id = $this->query['id'])->orWhere('parent_id', $id)->orderBy('id', 'ASC');
+        }
+
+        if (! isset($this->query['hierarchy'])) {
             return $datas;
         }
 
@@ -50,12 +54,16 @@ class StaticPageController extends PostableController
     {
         $datatables = parent::processDatatables($datatables);
         
-        if ($this->hierarchy) {
+        if (isset($this->query['hierarchy'])) {
+
+            $key = $this->model->getKeyName();
+
+            $hierarchy = isset($this->query['hierarchy']) ?  ['hierarchy' => 'true'] : [];
 
             return $datatables
-                ->editColumn('menu', function ($data) {
+                ->editColumn('menu', function ($data) use ($key, $hierarchy) {
                     return
-                        '<a href="'.action($this->baseClass.'@show', [$data->{$this->model->getKeyName()}]).'" 
+                        '<a href="'.action($this->baseClass.'@show', [$data->{$key}]).'?'.http_build_query($hierarchy).'" 
                             class="btn btn-small btn-link">
                                 <i class="fa fa-xs fa-eye"></i> 
                                 Detail
@@ -84,6 +92,13 @@ class StaticPageController extends PostableController
         
     }
 
+    public function show(Request $request, $id)
+    {
+        $this->query = ['hierarchy' => 'true', 'id' => $id];
+
+        return $this->index($request);
+    }
+
     protected function loadFormClasses($model)
     {
         $parents = $this->model->whereNull('parent_id');
@@ -92,8 +107,27 @@ class StaticPageController extends PostableController
             $parents = $parents->where('id', '<>', $model->id);
         }
         
-        $this->parents = ['null' => trans('backend.choose')] + $parents->pluck('title', 'id')->toArray();
+        $this->parents = [null => trans('backend.choose')] + $parents->pluck('title', 'id')->toArray();
 
         parent::loadFormClasses($model);
+    }
+
+    protected function afterSaving($request)
+    {
+        if ($request->has('parent')) {
+            
+            $parent = Model::find($parent_id = $request->get('parent'));
+
+            $parent->children()->save($this->model);
+        } else {
+            
+            if ($parent = $this->model->parent) {
+                
+                $parent->children()->dissociate($this->model);
+            }
+        }
+
+
+        return parent::afterSaving($request);
     }
 }
