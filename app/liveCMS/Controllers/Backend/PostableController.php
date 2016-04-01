@@ -52,8 +52,10 @@ abstract class PostableController extends BackendController
         $this->view->share();
     }
 
-    public function processRequest($request)
+    protected function processRequest($request)
     {
+        $request = parent::processRequest($request);
+        
         if ($request->has('permalink')) {
             
             if ($this->model->permalink !== null) {

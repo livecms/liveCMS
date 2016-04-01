@@ -112,22 +112,14 @@ class StaticPageController extends PostableController
         parent::loadFormClasses($model);
     }
 
-    protected function afterSaving($request)
+    protected function processRequest($request)
     {
-        if ($request->has('parent')) {
-            
-            $parent = Model::find($request->get('parent'));
+        $request = parent::processRequest($request);
 
-            $parent->children()->save($this->model);
-        } else {
-            
-            if ($parent = $this->model->parent) {
-                
-                $parent->children()->dissociate($this->model);
-            }
-        }
+        $parent_id = ($parent = $request->get('parent')) ? $parent : null;
 
-
-        return parent::afterSaving($request);
+        $request->merge(compact('parent_id'));
+        
+        return $request;
     }
 }
