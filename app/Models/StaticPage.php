@@ -10,13 +10,13 @@ class StaticPage extends PostableModel
    
     public function __construct(array $attributes = [])
     {
-        parent::__construct($attributes);
-
         $this->fillable = array_merge($this->fillable, ['parent_id']);
 
         $this->aliases = array_merge($this->aliases, ['parent_id' => 'Parent']);
 
         $this->prefixSlug = globalParams('slug_staticpage', config('livecms.slugs.staticpage'));
+
+        parent::__construct($attributes);
     }
 
     public function parent()

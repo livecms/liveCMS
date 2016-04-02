@@ -37,7 +37,7 @@ abstract class PostableController extends BackendController
                 return $data->author->name;
             })
             ->editColumn('picture', function ($data) {
-                $imgUrl = asset($this->model->getPicturePath().'/'.$data->picture);
+                $imgUrl = $data->picture;
                 return $data->picture ? '<a target="_blank"  href="'.$imgUrl.'"><img src="'.$imgUrl.'" style="width: 100px;"></a>' : '-';
             })
             ->editColumn('published_at', function ($data) {

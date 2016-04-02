@@ -90,3 +90,51 @@ if (! function_exists('theme')) {
         return $types.$location;
     }
 }
+
+if (! function_exists('get')) {
+
+    function get($postType, $identifier)
+    {
+        $namespace = 'App\\Models\\';
+
+        $class = $namespace.studly_case(snakeToStr($postType));
+
+        $instance = app($class);
+
+        $show = $instance->find($identifier);
+
+        if ($show == null) {
+
+            $instance->where('slug', $identifier)->first();
+        }
+
+        if ($show instanceof App\liveCMS\Models\PostableModel) {
+            
+            return $show->getContent();
+        }
+
+        return null;
+    }
+}
+
+if (! function_exists('child')) {
+
+    function child($post, $index = 0, $attribute = 'content')
+    {
+        if (($children = $post->children) == null || count($children) == 0) {
+            
+            return null;
+        }
+
+        if (is_numeric($index) && $index < count($children)) {
+
+            $child = $children[$index] ? $children[$index] : $children[count($children) - 1];
+
+        } else {
+
+            $child = $children->where('slug', $index)->first();
+        }
+
+        return $child ? $child->$attribute : null;
+    }
+}

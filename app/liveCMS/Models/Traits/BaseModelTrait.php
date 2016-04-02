@@ -51,6 +51,11 @@ trait BaseModelTrait
         return $query->where('site_id', site()->getCurrent()->id);
     }
 
+    public function scopeWithDependencies($query)
+    {
+        return $query->with($this->dependencies());
+    }
+
     public function save(array $options = [])
     {
         $this->site_id = site()->id;

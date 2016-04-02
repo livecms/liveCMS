@@ -53,6 +53,11 @@ class PostableModel extends BaseModel
         return $this->morphOne(Permalink::class, 'postable');
     }
 
+    public function children()
+    {
+        //
+    }
+
     public function getUrlAttribute()
     {
         if ($this->permalink && $this->permalink->permalink) {
@@ -71,5 +76,15 @@ class PostableModel extends BaseModel
     public function getPicturePath()
     {
         return static::$picturePath;
+    }
+
+    public function getPictureAttribute($picture)
+    {
+        return $picture ? asset($this->getPicturePath().'/'.$picture) : null;
+    }
+
+    public function getContent()
+    {
+        return $this->content;
     }
 }

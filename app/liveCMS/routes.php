@@ -1,5 +1,7 @@
 <?php
 
+use App\liveCMS\Models\Permalink;
+
 /*
 |--------------------------------------------------------------------------
 | Routes File
@@ -20,14 +22,16 @@ liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
 
 
         // check if has home permalink
-        $permalink = \App\liveCMS\Models\Permalink::whereIn('permalink', ['/', ''])->first();
+        $permalink = Permalink::withDependencies()->whereIn('permalink', ['/', ''])->first();
 
         // if home exist or not yet launch
         if ($permalink == null || $launchingDateTime->isFuture()) {
             return redirect('coming-soon');
         }
 
-        return view(theme('front', 'home'), $permalink);
+        $post = $permalink->postable;
+
+        return view(theme('front', 'home'), compact('post'));
     });
 
     $router->get('coming-soon', function () {

@@ -6,7 +6,7 @@ class Permalink extends BaseModel
 {
     protected $fillable = ['permalink', 'postable_type', 'postable_id'];
 
-    protected $dependencies = ['postable'];
+    protected $dependencies = ['postable.children'];
 
     protected $appends = ['type'];
 

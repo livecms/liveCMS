@@ -73,7 +73,7 @@
                     <!-- logo -->
                     <div class="navbar-brand">
                         <a href="/frontend/timer/index.html" >
-                            <p class="logo" style="font-size: 2em; color: #02BDD5;">Live CMS</p>
+                            <h2 class="logo">Live CMS</h2>
                             <!-- <img src="/frontend/timer/images/logo.png" alt=""> -->
                         </a>
                     </div>

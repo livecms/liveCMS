@@ -40,7 +40,7 @@ class StaticPageController extends PostableController
         $datas = parent::beforeDatatables($datas);
 
         if (isset($this->query['id'])) {
-            return $datas->where('id', $id = $this->query['id'])->orWhere('parent_id', $id)->orderBy('id', 'ASC');
+            return $datas->where('id', $id = $this->query['id'])->orWhere('parent_id', $id)->orderBy('parent_id', 'ASC')->orderBy('id');
         }
 
         if (! isset($this->query['hierarchy'])) {
