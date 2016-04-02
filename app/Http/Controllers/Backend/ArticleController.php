@@ -13,11 +13,13 @@ class ArticleController extends PostableController
     protected $category;
     protected $tag;
     protected $permalink;
-    protected $unsortables = ['tag', 'category', 'author_id', 'picture'];
 
     public function __construct(Model $model, Category $category, Tag $tag, $base = 'article')
     {
         parent::__construct($model, $base);
+
+        $this->unsortables = array_merge($this->unsortables, ['tag', 'category']);
+
         $this->category = $category;
         $this->tag = $tag;
 

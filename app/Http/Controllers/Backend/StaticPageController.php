@@ -9,13 +9,14 @@ use Illuminate\Http\Request;
 
 class StaticPageController extends PostableController
 {
-    protected $unsortables = ['parent'];
-
     protected $query;
     
     public function __construct(Model $model, $base = 'staticpage')
     {
         parent::__construct($model, $base);
+
+        $this->unsortables = array_merge($this->unsortables, ['parent']);
+
         $this->fields   = array_merge(['id' => 'id', 'parent' => 'parent'], array_except($this->model->getFields(), ['id', 'parent_id']));
         $this->query = request()->all();
     }

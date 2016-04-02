@@ -11,6 +11,8 @@ use App\liveCMS\Models\Permalink;
 
 abstract class PostableController extends BackendController
 {
+    protected $unsortables = ['picture'];
+ 
     public function __construct(Model $model, $base = 'post')
     {
         parent::__construct($model, $base);
