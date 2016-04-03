@@ -19,14 +19,16 @@ liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
             return view('admin.home');
         }]);
 
-        $articleSlug  = globalParams('slug_article', config('livecms.slugs.article'));
-        $staticpageSlug  = globalParams('slug_staticpage', config('livecms.slugs.staticpage'));
+        $articleSlug        = globalParams('slug_article', config('livecms.slugs.article'));
+        $staticpageSlug     = globalParams('slug_staticpage', config('livecms.slugs.staticpage'));
+        $teamSlug           = globalParams('slug_team', config('livecms.slugs.team'));
 
         // dd($articleSlug);
         $router->resource('category', 'CategoryController');
         $router->resource('tag', 'TagController');
         $router->resource($articleSlug, 'ArticleController');
         $router->resource($staticpageSlug, 'StaticPageController');
+        $router->resource($teamSlug, 'TeamController');
 
     });
 

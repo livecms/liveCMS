@@ -1,7 +1,8 @@
 <?php
-$adminPrefix = globalParams('slug_admin', config('livecms.slugs.admin'));
-$articleSlug = globalParams('slug_article', config('livecms.slugs.article'));
-$staticpageSlug = globalParams('slug_staticpage', config('livecms.slugs.staticpage'));
+$adminPrefix        = globalParams('slug_admin', config('livecms.slugs.admin'));
+$articleSlug        = globalParams('slug_article', config('livecms.slugs.article'));
+$staticpageSlug     = globalParams('slug_staticpage', config('livecms.slugs.staticpage'));
+$teamSlug           = globalParams('slug_team', config('livecms.slugs.team'));
 
 $menus = [
     [   'title' => trans('livecms.post'), 'icon' => 'pencil',
@@ -12,6 +13,7 @@ $menus = [
         ],
     ],
     ['uri' => $staticpageSlug, 'title' => trans('livecms.staticpage'), 'icon' => 'file-o'],
+    ['uri' => $teamSlug, 'title' => trans('livecms.team'), 'icon' => 'user-plus'],
     ['uri' => 'permalink', 'title' => 'Permalink', 'icon' => 'link'],
     ['uri' => 'user', 'title' => trans('livecms.user'), 'icon' => 'users'],
     ['uri' => 'setting', 'title' => 'Setting', 'icon' => 'cog'],

@@ -8,6 +8,7 @@ return [
     'staticpage'        => 'Halaman Statis',
     'category'          => 'Kategori',
     'categories'        => 'Kategori',
+    'team'              => 'Team',
     'tag'               => 'Tag',
     'permalink'         => 'Permalink',
 

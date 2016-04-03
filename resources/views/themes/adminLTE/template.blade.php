@@ -274,7 +274,7 @@ desired effect
     $.fn.liveposCurrency = {aSep: '.', aDec: ',', aSign: 'Rp. ', lZero: 'deny'};
     $.fn.liveposNumeric = {aSep: '.', aDec: ',', aSign: '', lZero: 'deny'};
 
-    $('select').select2({windowdth: '100%'});    
+    $('select').select2({width: '100%'});    
     
     $('.input-mask.input-mask-currency').autoNumeric('init', $.fn.liveposCurrency);
     $('.input-mask.input-mask-numeric').autoNumeric('init', $.fn.liveposNumeric);
