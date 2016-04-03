@@ -53,6 +53,16 @@ class BackendController extends BaseController
         return $this->model;
     }
 
+    protected function redirection($method = 'index')
+    {
+
+        if (method_exists($this, 'redirectTo')) {
+            return $this->redirectTo();
+        }
+
+        return redirect()->action($this->baseClass.'@'.$method);
+    }
+
     public function index(Request $request)
     {
         $this->title        = title_case(trans('livecms.'.$this->base));
@@ -139,6 +149,10 @@ class BackendController extends BaseController
     {
         $request = $this->processRequest($request);
 
+        if ($request === true) {
+            return $this->redirection();
+        }
+
         $this->validate($request, $this->model->rules());
 
         $this->model = $this->model->create($request->all());
@@ -146,11 +160,7 @@ class BackendController extends BaseController
         $saved = $this->afterSaving($request);
 
         if ($saved) {
-            if (method_exists($this, 'redirectTo')) {
-                return $this->redirectTo();
-            }
-
-            return redirect()->action($this->baseClass.'@index');
+            return $this->redirection();
         }
     }
 
@@ -191,6 +201,10 @@ class BackendController extends BaseController
 
         $request = $this->processRequest($request);
 
+        if ($request === true) {
+            return $this->redirection();
+        }
+
         $this->validate($request, $this->model->rules());
 
         $this->model->update($request->all());
@@ -198,11 +212,7 @@ class BackendController extends BaseController
         $saved = $this->afterSaving($request);
 
         if ($saved) {
-            if (method_exists($this, 'redirectTo')) {
-                return $this->redirectTo();
-            }
-            
-            return redirect()->action($this->baseClass.'@index');
+            return $this->redirection();
         }
     }
 
@@ -219,11 +229,7 @@ class BackendController extends BaseController
         $deleted = $this->model->delete();
 
         if ($deleted) {
-            if (method_exists($this, 'redirectTo')) {
-                return $this->redirectTo();
-            }
-            
-            return redirect()->action($this->baseClass.'@index');
+            return $this->redirection();
         }
     }
 }
