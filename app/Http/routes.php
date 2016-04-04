@@ -23,7 +23,6 @@ liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
         $staticpageSlug     = globalParams('slug_staticpage', config('livecms.slugs.staticpage'));
         $teamSlug           = globalParams('slug_team', config('livecms.slugs.team'));
 
-        // dd($articleSlug);
         $router->resource('category', 'CategoryController');
         $router->resource('tag', 'TagController');
         $router->resource($articleSlug, 'ArticleController');
