@@ -93,7 +93,7 @@ if (! function_exists('theme')) {
 
 if (! function_exists('get')) {
 
-    function get($postType, $identifier)
+    function get($postType, $identifier = null)
     {
         $namespace = 'App\\Models\\';
 
@@ -101,11 +101,16 @@ if (! function_exists('get')) {
 
         $instance = app($class);
 
+        if ($identifier === null) {
+
+            return $instance->get();
+        }
+
         $show = $instance->find($identifier);
 
         if ($show == null) {
 
-            $instance->where('slug', $identifier)->first();
+            $show = $instance->where('slug', $identifier)->first();
         }
 
         if ($show instanceof App\liveCMS\Models\PostableModel) {
