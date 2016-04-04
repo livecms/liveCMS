@@ -11,7 +11,7 @@ use App\liveCMS\Models\Permalink;
 
 abstract class PostableController extends BackendController
 {
-    protected $unsortables = ['picture'];
+    protected $unsortables = ['picture', 'author_id'];
  
     public function __construct(Model $model, $base = 'post')
     {
@@ -43,7 +43,7 @@ abstract class PostableController extends BackendController
                 return $data->picture ? '<a target="_blank"  href="'.$imgUrl.'"><img src="'.$imgUrl.'" style="width: 100px;"></a>' : '-';
             })
             ->editColumn('published_at', function ($data) {
-                return $data->published_at->diffForHumans();
+                return $data->published_at ? $data->published_at->diffForHumans() : '';
             });
     }
 
