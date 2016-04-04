@@ -10,7 +10,7 @@
 					<div class="col-md-3">&nbsp;</div>
 					<div class="col-md-9">
 						{!! Form::submit('Simpan', ['class' => 'btn btn-primary']) !!}
-						<a href="{{ action($baseClass.'@index', !isset($params) ? [] : $params) }}" class="btn btn-danger">Batal</a>
+						<a href="{{ action($baseClass.'@index') }}" class="btn btn-danger">Batal</a>
 					</div>
 				</div>
 

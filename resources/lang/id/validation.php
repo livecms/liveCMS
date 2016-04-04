@@ -101,6 +101,6 @@ return array(
     |
     */
 
-    'attributes' => array(),
+    'attributes' => require(__DIR__.'/livecms.php'),
 
 );
