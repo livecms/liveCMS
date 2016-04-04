@@ -7,7 +7,9 @@ use App\liveCMS\Models\PostableModel;
 
 class Team extends PostableModel
 {
-    protected $fillable = ['name', 'role', 'site_id', 'slug', 'description', 'author_id', 'picture', 'published_at'];
+    protected $fillable = ['name', 'role', 'site_id', 'slug', 'description', 'author_id', 'picture'];
+
+    protected $dependencies = ['socials'];
  
     public function __construct(array $attributes = [])
     {

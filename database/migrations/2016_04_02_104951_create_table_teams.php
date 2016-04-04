@@ -28,7 +28,6 @@ class CreateTableTeams extends Migration
             $table->longText('description');
             $table->integer('author_id')->unsigned();
             $table->string('picture')->nullable();
-            $table->date('published_at');
             $table->timestamps();
 
             $table->foreign('site_id')
