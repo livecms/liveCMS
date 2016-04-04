@@ -30,7 +30,7 @@ class PageController extends FrontendController
 
         $type = strtolower(basename($page->portable_type));
 
-        return view($type, $page->postable);
+        return view(theme('front', $permalink), ['post' => $page->postable]);
     }
 
     public function routes()
