@@ -16,6 +16,16 @@ trait BaseModelTrait
         return $this->rules;
     }
 
+    public function exceptFields()
+    {
+        return (array) $this->excepts;
+    }
+
+    public function mergeFields()
+    {
+        return (array) $this->merges;
+    }
+
     public function getFields()
     {
         $fields = $this->buildFields();
@@ -36,7 +46,11 @@ trait BaseModelTrait
 
     protected function buildFields()
     {
-        return array_flip(array_except(array_flip($this->getFillable()), $this->getHidden()));
+        $fillable = array_flip($this->getFillable());
+
+        $fields = array_merge(array_except($fillable, $this->exceptFields()), $this->mergeFields());
+        
+        return array_flip(array_except($fields, $this->getHidden()));
     }
 
     public function snakeToStr($snake)
