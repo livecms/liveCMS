@@ -8,6 +8,8 @@ return [
         'article'       => 'a',
         'staticpage'    => 'p',
         'team'          => 't',
+        'project'       => 'x',
+        'client'        => 'c',
     ],
 
     'themes' => [
