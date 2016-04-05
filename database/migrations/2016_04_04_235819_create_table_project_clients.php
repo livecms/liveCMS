@@ -90,6 +90,9 @@ class CreateTableProjectClients extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('project_project_categories');
+        Schema::drop('project_categories');
+        Schema::drop('projects');
+        Schema::drop('clients');
     }
 }
