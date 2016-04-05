@@ -9,6 +9,8 @@ class Team extends PostableModel
 {
     protected $fillable = ['name', 'role', 'site_id', 'slug', 'description', 'author_id', 'picture'];
 
+    protected $excepts = ['author_id'];
+    
     protected $dependencies = ['socials'];
  
     public function __construct(array $attributes = [])
