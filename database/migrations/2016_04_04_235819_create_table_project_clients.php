@@ -48,7 +48,7 @@ class CreateTableProjectClients extends Migration
             $table->integer('site_id')->unsigned()->nullable();
             $table->string('title');
             $table->string('slug');
-            $table->longText('description');
+            $table->longText('content');
             $table->integer('author_id')->unsigned();
             $table->string('picture')->nullable();
             $table->integer('client_id')->unsigned();

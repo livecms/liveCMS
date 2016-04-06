@@ -7,6 +7,12 @@ use App\liveCMS\Models\Permalink;
 
 class Project extends PostableModel
 {
+    protected $fillable = ['title', 'site_id', 'slug', 'content', 'author_id', 'picture', 'client_id'];
+
+    protected $excepts = ['author_id', 'client_id'];
+
+    protected $mergesBefore = ['client' => 'Client'];
+    
     protected $dependencies = ['categories', 'client', 'permalink'];
 
     public function __construct(array $attributes = [])
@@ -14,6 +20,13 @@ class Project extends PostableModel
         parent::__construct($attributes);
      
         $this->prefixSlug = globalParams('slug_project', config('livecms.slugs.project'));
+    }
+
+    public function rules()
+    {
+        $rules = parent::rules();
+
+        return array_merge($rules, ['client' => 'required']);
     }
 
     public function categories()

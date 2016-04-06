@@ -11,6 +11,10 @@ return [
     'team'              => 'Team',
     'tag'               => 'Tag',
     'permalink'         => 'Permalink',
+    'project'           => 'Project',
+    'projectcategory'   => 'Kategori Project',
+    'client'            => 'Client',
+    'clientandproject'  => 'Client & Project',
 
     'name'              => 'Nama',
     'role'              => 'Jabatan',

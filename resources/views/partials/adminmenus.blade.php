@@ -1,15 +1,27 @@
 <?php
-$adminPrefix        = globalParams('slug_admin', config('livecms.slugs.admin'));
-$articleSlug        = globalParams('slug_article', config('livecms.slugs.article'));
-$staticpageSlug     = globalParams('slug_staticpage', config('livecms.slugs.staticpage'));
-$teamSlug           = globalParams('slug_team', config('livecms.slugs.team'));
+$adminPrefix            = globalParams('slug_admin', config('livecms.slugs.admin'));
+$articleSlug            = globalParams('slug_article', config('livecms.slugs.article'));
+$categorySlug           = globalParams('slug_category', config('livecms.slugs.category'));
+$tagSlug                = globalParams('slug_tag', config('livecms.slugs.tag'));
+$staticpageSlug         = globalParams('slug_staticpage', config('livecms.slugs.staticpage'));
+$teamSlug               = globalParams('slug_team', config('livecms.slugs.team'));
+$projectSlug            = globalParams('slug_project', config('livecms.slugs.project'));
+$clientSlug             = globalParams('slug_client', config('livecms.slugs.client'));
+$projectCategorySlug    = globalParams('slug_projectcategory', config('livecms.slugs.projectcategory'));
 
 $menus = [
     [   'title' => trans('livecms.post'), 'icon' => 'pencil',
         'uri' => [
             ['uri' => $articleSlug, 'title' => trans('livecms.article'), 'icon' => 'files-o'],
-            ['uri' => 'category', 'title' => trans('livecms.category'), 'icon' => 'list'],
-            ['uri' => 'tag', 'title' => 'Tag', 'icon' => 'tag'],
+            ['uri' => $categorySlug, 'title' => trans('livecms.category'), 'icon' => 'list'],
+            ['uri' => $tagSlug, 'title' => trans('livecms.tag'), 'icon' => 'tag'],
+        ],
+    ],
+    [   'title' => trans('livecms.clientandproject'), 'icon' => 'briefcase',
+        'uri' => [
+            ['uri' => $clientSlug, 'title' => trans('livecms.client'), 'icon' => 'users'],
+            ['uri' => $projectCategorySlug, 'title' => trans('livecms.projectcategory'), 'icon' => 'list'],
+            ['uri' => $projectSlug, 'title' => trans('livecms.project'), 'icon' => 'briefcase'],
         ],
     ],
     ['uri' => $staticpageSlug, 'title' => trans('livecms.staticpage'), 'icon' => 'file-o'],

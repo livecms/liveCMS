@@ -21,9 +21,14 @@ trait BaseModelTrait
         return (array) $this->excepts;
     }
 
-    public function mergeFields()
+    public function mergeBeforeFields()
     {
-        return (array) $this->merges;
+        return (array) $this->mergesBefore;
+    }
+
+    public function mergeAfterFields()
+    {
+        return (array) $this->mergesAfter;
     }
 
     public function getFields()
@@ -48,7 +53,7 @@ trait BaseModelTrait
     {
         $fillable = array_flip($this->getFillable());
 
-        $fields = array_merge(array_except($fillable, $this->exceptFields()), $this->mergeFields());
+        $fields = array_merge($this->mergeBeforeFields(), array_except($fillable, $this->exceptFields()), $this->mergeAfterFields());
         
         return array_flip(array_except($fields, $this->getHidden()));
     }

@@ -6,9 +6,12 @@ return [
     'slugs' => [
         'admin'         => '@',
         'article'       => 'a',
+        'category'      => 'cat',
+        'tag'           => 'tag',
         'staticpage'    => 'p',
         'team'          => 't',
         'project'       => 'x',
+        'projectcategory'   => 'x-cat',
         'client'        => 'c',
     ],
 

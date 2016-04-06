@@ -7,6 +7,8 @@ use App\liveCMS\Models\Permalink;
 
 class Article extends PostableModel
 {
+    protected $mergesAfter = ['category' => 'Category', 'tag' => 'Tag'];
+
     protected $dependencies = ['categories', 'tags', 'permalink'];
 
     public function __construct(array $attributes = [])

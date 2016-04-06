@@ -19,15 +19,23 @@ liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
             return view('admin.home');
         }]);
 
-        $articleSlug        = globalParams('slug_article', config('livecms.slugs.article'));
-        $staticpageSlug     = globalParams('slug_staticpage', config('livecms.slugs.staticpage'));
-        $teamSlug           = globalParams('slug_team', config('livecms.slugs.team'));
+        $articleSlug            = globalParams('slug_article', config('livecms.slugs.article'));
+        $categorySlug           = globalParams('slug_category', config('livecms.slugs.category'));
+        $tagSlug                = globalParams('slug_tag', config('livecms.slugs.tag'));
+        $staticpageSlug         = globalParams('slug_staticpage', config('livecms.slugs.staticpage'));
+        $teamSlug               = globalParams('slug_team', config('livecms.slugs.team'));
+        $projectSlug            = globalParams('slug_project', config('livecms.slugs.project'));
+        $clientSlug             = globalParams('slug_client', config('livecms.slugs.client'));
+        $projectCategorySlug    = globalParams('slug_projectcategory', config('livecms.slugs.projectcategory'));
 
-        $router->resource('category', 'CategoryController');
-        $router->resource('tag', 'TagController');
+        $router->resource($categorySlug, 'CategoryController');
+        $router->resource($tagSlug, 'TagController');
         $router->resource($articleSlug, 'ArticleController');
         $router->resource($staticpageSlug, 'StaticPageController');
         $router->resource($teamSlug, 'TeamController');
+        $router->resource($projectSlug, 'ProjectController');
+        $router->resource($projectCategorySlug, 'ProjectCategoryController');
+        $router->resource($clientSlug, 'ClientController');
 
     });
 

@@ -9,6 +9,10 @@ class Client extends PostableModel
 {
     protected $fillable = ['name', 'site_id', 'slug', 'description', 'author_id', 'picture'];
 
+    protected $mergesAfter = ['project' => 'Project'];
+
+    protected $excepts = ['author_id'];
+
     protected $dependencies = ['projects'];
  
     public function __construct(array $attributes = [])

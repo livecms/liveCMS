@@ -6,6 +6,10 @@ use App\liveCMS\Models\PostableModel;
 
 class StaticPage extends PostableModel
 {
+    protected $mergesBefore = ['id' => 'id', 'parent' => 'parent'];
+
+    protected $excepts = ['id', 'parent_id'];
+
     protected $dependencies = ['permalink', 'author', 'parent'];
    
     public function __construct(array $attributes = [])

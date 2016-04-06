@@ -4,26 +4,27 @@ namespace App\Http\Controllers\Backend;
 
 use App\liveCMS\Controllers\Backend\PostableController;
 use App\liveCMS\Models\Permalink;
-use App\Models\Article as Model;
-use App\Models\Category;
-use App\Models\Tag;
+use App\Models\Client;
+use App\Models\Project as Model;
+use App\Models\ProjectCategory;
 
-class ArticleController extends PostableController
+class ProjectController extends PostableController
 {
     protected $category;
-    protected $tag;
+    protected $client;
     protected $permalink;
 
-    public function __construct(Model $model, Category $category, Tag $tag, $base = 'article')
+    public function __construct(Model $model, ProjectCategory $category, Client $client, $base = 'project')
     {
         parent::__construct($model, $base);
 
-        $this->unsortables = array_merge($this->unsortables, ['tag', 'category']);
+        $this->unsortables = array_merge($this->unsortables, ['client', 'category']);
 
         $this->category = $category;
-        $this->tag = $tag;
+        $this->client = $client;
 
         $this->breadcrumb2Icon  = 'files-o';
+        $this->fields           = array_merge($this->model->getFields(), ['category' => 'Category', 'client' => 'Client']);
         
         $this->view->share();
     }
@@ -36,23 +37,31 @@ class ArticleController extends PostableController
             ->addColumn('category', function ($data) {
                 return rtrim(implode(', ', $data->categories->pluck('category')->toArray()), ', ');
             })
-            ->addColumn('tag', function ($data) {
-                return rtrim(implode(', ', $data->tags->pluck('tag')->toArray()), ', ');
+            ->addColumn('client', function ($data) {
+                return $data->client->name;
             });
     }
 
     protected function loadFormClasses($model)
     {
         $this->categories   = $this->category->pluck('category', 'id')->toArray();
-        $this->tags         = $this->tag->pluck('tag', 'id')->toArray();
+        $this->client       = $this->client->pluck('name', 'id')->toArray();
         
         parent::loadFormClasses($model);
+    }
+
+    protected function processRequest($request)
+    {
+        $client_id = $request->get('client', null);
+
+        $request->merge(compact('client_id'));
+
+        return parent::processRequest($request);
     }
 
     protected function afterSaving($request)
     {
         $this->model->categories()->sync($request->get('categories', []));
-        $this->model->tags()->sync($request->get('tags', []));
 
         return parent::afterSaving($request);
     }
