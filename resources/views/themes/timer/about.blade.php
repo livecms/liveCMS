@@ -83,9 +83,7 @@
                     <div class="col-md-3">
                         <div class="team-member wow fadeInLeft" data-wow-duration="500ms" data-wow-delay=".{{$i * 2 +1}}s">
                             <div class="team-img">
-                            @if ($picture = $team->picture)
-                                <img src="{{$picture}}" class="team-pic" alt="">
-                            @endif
+                                <img src="{{$team->picture}}" class="team-pic" alt="">
                             </div>
                             <h3 class="team_name">{{$team->name}}</h3>
                             <p class="team_designation">{{$team->role}}</p>
@@ -114,36 +112,11 @@
                         <h2 class="subtitle text-center wow fadeInDown" data-wow-duration="500ms" data-wow-delay=".3s">Our Happy Clinets</h2>
                         <p class="subtitle-des text-center wow fadeInDown" data-wow-duration="500ms" data-wow-delay=".5s">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore, error.</p>
                         <div id="clients-logo" class="owl-carousel">
+                            @foreach ($clients = get('client') as $client)
                             <div>
-                                <img src="images/clients/logo-1.jpg" alt="">
+                                <img src="{{$client->picture}}" title="{{$client->name}}" alt="client image">
                             </div>
-                            <div>
-                                <img src="images/clients/logo-2.jpg" alt="">
-                            </div>
-                            <div>
-                                <img src="images/clients/logo-3.jpg" alt="">
-                            </div>
-                            <div>
-                                <img src="images/clients/logo-4.jpg" alt="">
-                            </div>
-                            <div>
-                                <img src="images/clients/logo-5.jpg" alt="">
-                            </div>
-                            <div>
-                                <img src="images/clients/logo-1.jpg" alt="">
-                            </div>
-                            <div>
-                                <img src="images/clients/logo-2.jpg" alt="">
-                            </div>
-                            <div>
-                                <img src="images/clients/logo-3.jpg" alt="">
-                            </div>
-                            <div>
-                                <img src="images/clients/logo-4.jpg" alt="">
-                            </div>
-                            <div>
-                                <img src="images/clients/logo-5.jpg" alt="">
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

@@ -42,7 +42,50 @@
                 </div>
             </div>
         </section> <!-- /#about -->
-
+        
+        <!--
+        ==================================================
+        Portfolio Section Start
+        ================================================== -->
+        <section id="works" class="works">
+            <div class="container">
+                <div class="section-heading">
+                    <h1 class="title wow fadeInDown" data-wow-delay=".3s">Latest Works</h1>
+                    <p class="wow fadeInDown" data-wow-delay=".5s">
+                        Aliquam lobortis. Maecenas vestibulum mollis diam. Pellentesque auctor neque nec urna. Nulla sit amet est. Aenean posuere <br> tortor sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolor sagittis lacus.
+                    </p>
+                </div>
+                <div class="row">
+                    @for ($i = 0; $i < count($projects = get('project')); $i++)
+                    <?php $project = $projects[$i]; ?>
+                    <div class="col-sm-4 col-xs-12">
+                        <figure class="wow fadeInLeft animated portfolio-item" data-wow-duration="500ms" data-wow-delay="{{$i*300}}ms">
+                            <div class="img-wrapper">
+                                <img src="{{$project->picture}}" class="img-responsive" alt="project image" >
+                                <div class="overlay">
+                                    <div class="buttons">
+                                        <a rel="gallery" class="fancybox" href="{{$project->picture}}">Demo</a>
+                                        <a target="_blank" href="{{$project->url}}">Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <figcaption>
+                            <h4>
+                            <a href="{{$project->url}}">
+                                {{$project->title}}
+                            </a>
+                            </h4>
+                            <p>
+                                {{dataImplode($project->categories, 'category')}}
+                            </p>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    @endfor
+                    
+                </div>
+            </div>
+        </section> <!-- #works -->
 
         <!--
         ==================================================

@@ -34,10 +34,10 @@ class ArticleController extends PostableController
         
         return $datatables
             ->addColumn('category', function ($data) {
-                return rtrim(implode(', ', $data->categories->pluck('category')->toArray()), ', ');
+                return dataImplode($data->categories, 'category');
             })
             ->addColumn('tag', function ($data) {
-                return rtrim(implode(', ', $data->tags->pluck('tag')->toArray()), ', ');
+                return dataImplode($data->tags, 'tag');
             });
     }
 

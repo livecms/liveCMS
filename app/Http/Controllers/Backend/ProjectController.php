@@ -35,7 +35,7 @@ class ProjectController extends PostableController
         
         return $datatables
             ->addColumn('category', function ($data) {
-                return rtrim(implode(', ', $data->categories->pluck('category')->toArray()), ', ');
+                return dataImplode($data->categories, 'category');
             })
             ->addColumn('client', function ($data) {
                 return $data->client->name;

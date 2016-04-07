@@ -143,3 +143,11 @@ if (! function_exists('child')) {
         return $child ? $child->$attribute : null;
     }
 }
+
+if (! function_exists('dataImplode')) {
+
+    function dataImplode($data, $attribute)
+    {
+        return rtrim($data->pluck($attribute)->implode(', '), ', ');
+    }
+}
