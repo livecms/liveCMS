@@ -27,6 +27,7 @@ liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
         $projectSlug            = globalParams('slug_project', config('livecms.slugs.project'));
         $clientSlug             = globalParams('slug_client', config('livecms.slugs.client'));
         $projectCategorySlug    = globalParams('slug_projectcategory', config('livecms.slugs.projectcategory'));
+        $gallerySlug            = globalParams('slug_gallery', config('livecms.slugs.gallery'));
 
         $router->resource($categorySlug, 'CategoryController');
         $router->resource($tagSlug, 'TagController');
@@ -36,6 +37,7 @@ liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
         $router->resource($projectSlug, 'ProjectController');
         $router->resource($projectCategorySlug, 'ProjectCategoryController');
         $router->resource($clientSlug, 'ClientController');
+        $router->resource($gallerySlug, 'GalleryController');
 
     });
 

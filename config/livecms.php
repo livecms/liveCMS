@@ -13,6 +13,7 @@ return [
         'project'       => 'x',
         'projectcategory'   => 'x-cat',
         'client'        => 'c',
+        'gallery'       => 'g',
     ],
 
     'themes' => [

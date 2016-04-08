@@ -15,6 +15,7 @@ return [
     'projectcategory'   => 'Kategori Project',
     'client'            => 'Client',
     'clientandproject'  => 'Client & Project',
+    'gallery'           => 'Galeri',
 
     'name'              => 'Nama',
     'role'              => 'Jabatan',

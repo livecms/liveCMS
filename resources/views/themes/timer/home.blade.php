@@ -61,7 +61,9 @@
                     <div class="col-sm-4 col-xs-12">
                         <figure class="wow fadeInLeft animated portfolio-item" data-wow-duration="500ms" data-wow-delay="{{$i*300}}ms">
                             <div class="img-wrapper">
+                                @if ($project->picture)
                                 <img src="{{$project->picture}}" class="img-responsive" alt="project image" >
+                                @endif
                                 <div class="overlay">
                                     <div class="buttons">
                                         <a rel="gallery" class="fancybox" href="{{$project->picture}}">Demo</a>
@@ -82,7 +84,6 @@
                         </figure>
                     </div>
                     @endfor
-                    
                 </div>
             </div>
         </section> <!-- #works -->

@@ -83,7 +83,9 @@
                     <div class="col-md-3">
                         <div class="team-member wow fadeInLeft" data-wow-duration="500ms" data-wow-delay=".{{$i * 2 +1}}s">
                             <div class="team-img">
+                                @if ($team->picture)
                                 <img src="{{$team->picture}}" class="team-pic" alt="">
+                                @endif
                             </div>
                             <h3 class="team_name">{{$team->name}}</h3>
                             <p class="team_designation">{{$team->role}}</p>
@@ -114,7 +116,9 @@
                         <div id="clients-logo" class="owl-carousel">
                             @foreach ($clients = get('client') as $client)
                             <div>
+                                @if ($client->picture)
                                 <img src="{{$client->picture}}" title="{{$client->name}}" alt="client image">
+                                @endif
                             </div>
                             @endforeach
                         </div>
