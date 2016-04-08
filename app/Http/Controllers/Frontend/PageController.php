@@ -10,14 +10,22 @@ use Illuminate\Http\Request;
 
 class PageController extends FrontendController
 {
-    public function getArticle($slug)
+    public function getArticle($slug = null)
     {
+        if ($slug == null) {
+
+            $articles = Article::orderBy('published_at', 'DESC')->simplePaginate(1);
+
+            return view(theme('front', (request()->ajax() ? 'partials.articles' : 'articles')), compact('articles'));
+
+        }
+
         $article = Article::where('slug', $slug)->firstOrFail();
 
-        return view('article', $article);
+        return view(theme('front', 'article'), $article);
     }
 
-    public function getStatis($slug)
+    public function getStatis($slug = null)
     {
         $statis = StaticPage::where('slug', $slug)->firstOrFail();
 
@@ -40,7 +48,8 @@ class PageController extends FrontendController
         $articleSlug = globalParams('article_slug', config('livecms.slugs.article'));
 
         if ($parameters[0] == $articleSlug) {
-            return $this->getArticle($parameters[1]);
+            $param = isset($parameters[1]) ? $parameters[1] : null;
+            return $this->getArticle($param);
         }
 
 

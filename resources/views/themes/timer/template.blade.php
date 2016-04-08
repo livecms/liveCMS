@@ -34,24 +34,6 @@
         <!-- responsive css -->
         <link rel="stylesheet" href="/frontend/timer/css/responsive.css">
         
-        <!-- Template Javascript Files
-        ================================================== -->
-        <!-- modernizr js -->
-        <script src="/frontend/timer/js/vendor/modernizr-2.6.2.min.js"></script>
-        <!-- jquery -->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <!-- owl carouserl js -->
-        <script src="/frontend/timer/js/owl.carousel.min.js"></script>
-        <!-- bootstrap js -->
-
-        <script src="/frontend/timer/js/bootstrap.min.js"></script>
-        <!-- wow js -->
-        <script src="/frontend/timer/js/wow.min.js"></script>
-        <!-- slider js -->
-        <script src="/frontend/timer/js/slider.js"></script>
-        <script src="/frontend/timer/js/jquery.fancybox.js"></script>
-        <!-- template main js -->
-        <script src="/frontend/timer/js/main.js"></script>
     </head>
     <body>
         <!--
@@ -171,6 +153,29 @@
                 </div>
             </div>
         </footer> <!-- /#footer -->
-            
+        
+         <!-- Template Javascript Files
+        ================================================== -->
+        <!-- modernizr js -->
+        <script src="/frontend/timer/js/vendor/modernizr-2.6.2.min.js"></script>
+        <!-- jquery -->
+        <script src="/frontend/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+        <!-- owl carouserl js -->
+        <script src="/frontend/timer/js/owl.carousel.min.js"></script>
+        <!-- bootstrap js -->
+
+        <script src="/frontend/timer/js/bootstrap.min.js"></script>
+        <!-- wow js -->
+        <script src="/frontend/timer/js/wow.min.js"></script>
+        <!-- slider js -->
+        <script src="/frontend/timer/js/slider.js"></script>
+        <script src="/frontend/timer/js/jquery.fancybox.js"></script>
+        <!-- template main js -->
+        <script src="/frontend/timer/js/main.js"></script>
+        <!-- jscroll js -->
+        <script src="/frontend/plugins/jscroll-2.3.4/jquery.jscroll.min.js"></script>
+
+        @yield('script')
+
     </body>
 </html>
