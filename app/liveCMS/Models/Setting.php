@@ -6,13 +6,16 @@ use Cache;
 
 class Setting extends BaseModel
 {
-    protected $fillable = ['key', 'value', 'site_id'];
+    protected $fillable = ['key', 'value', 'site_id', 'publicable'];
+
+    protected $hidden = ['publicable', 'site_id'];
 
     public function rules()
     {
         $site_id = site()->id;
+        $publicable = true;
 
-        request()->merge(compact('site_id'));
+        request()->merge(compact('site_id', 'publicable'));
 
         return [
             'key' => 'required|unique:'.$this->getTable().',key,'.((string) $this->id).',id,site_id,'.$site_id,
@@ -40,5 +43,12 @@ class Setting extends BaseModel
         $global_params = static::get();
 
         Cache::forever('global_params', $global_params);
+    }
+
+    public function newQuery()
+    {
+        $query = parent::newQuery();
+
+        return $query->where('publicable', true);
     }
 }

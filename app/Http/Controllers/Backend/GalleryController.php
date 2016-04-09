@@ -13,7 +13,7 @@ class GalleryController extends PostableController
     {
         parent::__construct($model, $base);
 
-        $this->breadcrumb2Icon  = 'images';
+        $this->breadcrumb2Icon  = 'image';
 
         $this->view->share();
     }

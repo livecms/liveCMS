@@ -17,6 +17,7 @@ class CreateSettingsTable extends Migration
             $table->integer('site_id')->unsigned()->nullable();
             $table->string('key');
             $table->text('value');
+            $table->boolean('publicable')->default(false);
             $table->timestamps();
 
             $table->foreign('site_id')

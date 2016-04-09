@@ -5,6 +5,7 @@ $categorySlug           = globalParams('slug_category', config('livecms.slugs.ca
 $tagSlug                = globalParams('slug_tag', config('livecms.slugs.tag'));
 $staticpageSlug         = globalParams('slug_staticpage', config('livecms.slugs.staticpage'));
 $teamSlug               = globalParams('slug_team', config('livecms.slugs.team'));
+$gallerySlug            = globalParams('slug_gallery', config('livecms.slugs.gallery'));
 $projectSlug            = globalParams('slug_project', config('livecms.slugs.project'));
 $clientSlug             = globalParams('slug_client', config('livecms.slugs.client'));
 $projectCategorySlug    = globalParams('slug_projectcategory', config('livecms.slugs.projectcategory'));
@@ -26,6 +27,7 @@ $menus = [
     ],
     ['uri' => $staticpageSlug, 'title' => trans('livecms.staticpage'), 'icon' => 'file-o'],
     ['uri' => $teamSlug, 'title' => trans('livecms.team'), 'icon' => 'user-plus'],
+    ['uri' => $gallerySlug, 'title' => trans('livecms.gallery'), 'icon' => 'image'],
     ['uri' => 'permalink', 'title' => 'Permalink', 'icon' => 'link'],
     ['uri' => 'user', 'title' => trans('livecms.user'), 'icon' => 'users'],
     ['uri' => 'setting', 'title' => 'Setting', 'icon' => 'cog'],

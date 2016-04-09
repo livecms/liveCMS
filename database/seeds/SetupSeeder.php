@@ -11,11 +11,13 @@ class SetupSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('settings')->delete();
+
         DB::table('settings')->insert([
-            ['key' => 'site_name', 'value' => 'Live CMS'],
-            ['key' => 'slug_admin', 'value' => '@'],
-            ['key' => 'slug_article', 'value' => 'a'],
-            ['key' => 'slug_staticpage', 'value' => 'p'],
+            ['publicable' => true,'key' => 'site_name', 'value' => 'Live CMS'],
+            ['publicable' => true,'key' => 'slug_admin', 'value' => '@'],
+            ['publicable' => true,'key' => 'slug_article', 'value' => 'a'],
+            ['publicable' => true,'key' => 'slug_staticpage', 'value' => 'p'],
         ]);
     }
 }
