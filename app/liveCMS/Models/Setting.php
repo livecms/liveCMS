@@ -51,4 +51,11 @@ class Setting extends BaseModel
 
         return $query->where('publicable', true);
     }
+
+    public function scopePrivateOnly($query)
+    {
+        $query = parent::newQuery();
+        
+        return $query->where('publicable', false);
+    }
 }

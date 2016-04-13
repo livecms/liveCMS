@@ -16,6 +16,7 @@ return [
     'client'            => 'Client',
     'clientandproject'  => 'Client & Project',
     'gallery'           => 'Galeri',
+    'contact'           => 'Kontak',
 
     'name'              => 'Nama',
     'role'              => 'Jabatan',
@@ -36,4 +37,13 @@ return [
     'slug'              => 'Slug',
     'author'            => 'Penulis',
     'published at'      => 'Diterbitkan Pada',
+    'address'           => 'Alamat',
+    'address2'          => 'Alamat 2',
+    'city'              => 'Kota / Kabupaten',
+    'province'          => 'Propinsi',
+    'state'             => 'Negara Bagian',
+    'country'           => 'Negara',
+    'postcode'          => 'Kode Pos',
+    'faximile'          => 'Faximile',
+    'telephone'         => 'Telepon',
 ];

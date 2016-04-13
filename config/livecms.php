@@ -14,6 +14,7 @@ return [
         'projectcategory'   => 'x-cat',
         'client'        => 'c',
         'gallery'       => 'g',
+        'contact'       => 'contact',
     ],
 
     'themes' => [

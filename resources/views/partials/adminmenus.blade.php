@@ -9,6 +9,7 @@ $gallerySlug            = globalParams('slug_gallery', config('livecms.slugs.gal
 $projectSlug            = globalParams('slug_project', config('livecms.slugs.project'));
 $clientSlug             = globalParams('slug_client', config('livecms.slugs.client'));
 $projectCategorySlug    = globalParams('slug_projectcategory', config('livecms.slugs.projectcategory'));
+$contactSlug            = globalParams('slug_contact', config('livecms.slugs.contact'));
 
 $menus = [
     [   'title' => trans('livecms.post'), 'icon' => 'pencil',
@@ -30,6 +31,7 @@ $menus = [
     ['uri' => $gallerySlug, 'title' => trans('livecms.gallery'), 'icon' => 'image'],
     ['uri' => 'permalink', 'title' => 'Permalink', 'icon' => 'link'],
     ['uri' => 'user', 'title' => trans('livecms.user'), 'icon' => 'users'],
+    ['uri' => $contactSlug, 'title' => trans('livecms.contact'), 'icon' => 'phone'],
     ['uri' => 'setting', 'title' => 'Setting', 'icon' => 'cog'],
 ];
 ?>
