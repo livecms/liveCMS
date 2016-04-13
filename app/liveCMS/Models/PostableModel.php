@@ -2,7 +2,7 @@
 
 namespace App\liveCMS\Models;
 
-use App\liveCMS\Models\Users\User;
+use App\liveCMS\Models\Users\User as UserModel;
 use Carbon\Carbon;
 
 class PostableModel extends BaseModel
@@ -45,7 +45,7 @@ class PostableModel extends BaseModel
 
     public function author()
     {
-        return $this->belongsTo(User::class, 'author_id');
+        return $this->belongsTo(UserModel::class, 'author_id');
     }
 
     public function permalink()

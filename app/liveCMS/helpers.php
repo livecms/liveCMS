@@ -27,6 +27,14 @@ if (! function_exists('globalParams')) {
     }
 }
 
+if (! function_exists('isInCurrentRoute')) {
+
+    function isInCurrentRoute($part)
+    {
+        return starts_with(request()->route()->getName(), $part);
+    }
+}
+
 if (! function_exists('snakeToStr')) {
     
     function snakeToStr($snake)

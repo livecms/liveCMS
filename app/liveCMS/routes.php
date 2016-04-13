@@ -14,7 +14,7 @@ use App\liveCMS\Models\Permalink;
 */
 liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
 
-    $router->get('/', function () use ($adminSlug, $subDomain, $subFolder) {
+    $router->get('/', ['as' => 'home', function () use ($adminSlug, $subDomain, $subFolder) {
         
         // if set launching time
         $launchingDateTime = globalParams('launching_datetime') ?
@@ -32,11 +32,11 @@ liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
         $post = $permalink->postable;
 
         return view(theme('front', 'home'), compact('post'));
-    });
+    }]);
 
-    $router->get('coming-soon', function () {
+    $router->get('coming-soon', ['as' => 'coming-soon', function () {
         return view('coming-soon');
-    });
+    }]);
     
 
     // ADMIN AREA
