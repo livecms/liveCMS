@@ -96,6 +96,6 @@ class AuthController extends Controller
             return redirect()->away($url);
         }
 
-        return redirect($this->redirectTo);
+        return redirect()->intended($this->redirectTo);
     }
 }
