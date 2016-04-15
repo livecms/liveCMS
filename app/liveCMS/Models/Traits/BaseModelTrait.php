@@ -133,7 +133,7 @@ trait BaseModelTrait
 
     public function allowsUserUpdate($user)
     {
-        return true;   
+        return true;
     }
 
     public function allowsUserDelete($user)
