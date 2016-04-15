@@ -50,12 +50,14 @@ $menus = [
         <a href="#"><i class="fa fa-{{$menu['icon']}}"></i> <span>{{$menu['title']}}</span> <i class="fa fa-angle-left pull-right"></i></a>
         <ul class="treeview-menu">
         @foreach($menu['uri'] as $subMenu)
-            <li class="@if(isInCurrentRoute($menuLink = $adminSlug.'.'.$subMenu['uri'].'.index'))active @endif"><a href="{{ route($menuLink) }}"><i class="fa fa-{{$subMenu['icon']}}"></i> <span>{{$subMenu['title']}}</span></a></li>
+            @if (canRead($menuLink = $adminSlug.'.'.$subMenu['uri'].'.index'))
+            <li class="@if(isInCurrentRoute($menuLink))active @endif"><a href="{{ route($menuLink) }}"><i class="fa fa-{{$subMenu['icon']}}"></i> <span>{{$subMenu['title']}}</span></a></li>
+            @endif
         @endforeach
     </ul>
 @else
-    @if (canRead($adminSlug.'.'.$menu['uri'].'.index'))
-    <li class="@if(isInCurrentRoute($menuLink = $adminSlug.'.'.$menu['uri'].'.index'))active @endif"><a href="{{ route($menuLink) }}"><i class="fa fa-{{$menu['icon']}}"></i> <span>{{$menu['title']}}</span></a></li>
+    @if (canRead($menuLink = $adminSlug.'.'.$menu['uri'].'.index'))
+    <li class="@if(isInCurrentRoute($menuLink))active @endif"><a href="{{ route($menuLink) }}"><i class="fa fa-{{$menu['icon']}}"></i> <span>{{$menu['title']}}</span></a></li>
     @endif
 @endif
 @endforeach

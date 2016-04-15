@@ -20,6 +20,7 @@ class BackendController extends BaseController
 
     public function __construct(Model $model, $base = 'base')
     {
+        $this->middleware('model:'.get_class($model));
         parent::__construct();
 
         $this->model    = static::$controllerModel = $model;

@@ -123,7 +123,6 @@ trait BaseModelTrait
 
     public function allowsUserRead($user)
     {
-            info('ceckkkk read of '.static::class);
         return true;
     }
 

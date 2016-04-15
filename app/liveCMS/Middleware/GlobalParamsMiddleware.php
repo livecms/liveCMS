@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace App\liveCMS\Middleware;
 
 use Closure;
 use App\Setting as Param;

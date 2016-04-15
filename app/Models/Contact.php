@@ -19,6 +19,8 @@ class Contact extends BaseModel
 
     public function __construct(array $attributes = [])
     {
+        parent::__construct($attributes);
+     
         $default = Setting::privateOnly()->pluck('value', 'key')->toArray();
 
         $attributes = array_replace($default, $attributes);
