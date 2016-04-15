@@ -3,9 +3,12 @@
 namespace App\liveCMS\Models\Traits;
 
 use App\Models\Site;
+use Gate;
 
 trait BaseModelTrait
 {
+    protected static $usePolicy = true;
+
     public function dependencies()
     {
         return $this->dependencies;
@@ -63,8 +66,23 @@ trait BaseModelTrait
         return snakeToStr($snake);
     }
 
+    public function turnOnPolicy()
+    {
+        static::$usePolicy = true;
+    }
+
+    public function turnOffPolicy()
+    {
+        static::$usePolicy = false;
+    }
+
     public function newQuery()
     {
+        if (static::$usePolicy && auth()->check()) {
+
+            Gate::authorize('access', $this);
+        }
+
         $query = parent::newQuery();
 
         return $query->where('site_id', site()->getCurrent()->id);
@@ -96,5 +114,31 @@ trait BaseModelTrait
         $id = $this->id == null ? 'NULL' : $this->id;
         $siteId = site()->id == null ? 'NULL' : site()->id;
         return 'required|unique:'.$this->getTable().','.$field.','.$id.',id,site_id,'.$siteId;
+    }
+
+    public function allowsUserAccess($user)
+    {
+        return true;
+    }
+
+    public function allowsUserRead($user)
+    {
+            info('ceckkkk read of '.static::class);
+        return true;
+    }
+
+    public function allowsUserCreate($user)
+    {
+        return true;
+    }
+
+    public function allowsUserUpdate($user)
+    {
+        return true;   
+    }
+
+    public function allowsUserDelete($user)
+    {
+        return true;
     }
 }

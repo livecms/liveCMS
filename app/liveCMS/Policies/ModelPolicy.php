@@ -25,6 +25,11 @@ class ModelPolicy
         return $user->is_admin;
     }
 
+    public function access(User $user, Model $model)
+    {
+        return $model->allowsUserAccess($user);
+    }
+
     public function read(User $user, Model $model)
     {
         return $model->allowsUserRead($user);

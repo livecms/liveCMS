@@ -39,23 +39,8 @@ class User extends BaseModel implements UserModelContract
 
     public static function boot()
     {
-        if (auth()->check()) {
-            
-            Gate::policy(static::class, UserPolicy::class);
-
-            Gate::authorize('read', app(static::class));
-
-            static::creating(function ($model) {
-                Gate::authorize('create', $model);
-            });
-
-            static::updating(function ($model) {
-                Gate::authorize('update', $model);
-            });
-
-            static::deleting(function ($model) {
-                Gate::authorize('delete', $model);
-            });
-        }
+        static::setPolicy(UserPolicy::class);
+        
+        parent::boot();
     }
 }

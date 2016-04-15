@@ -55,4 +55,29 @@ trait UserModelTrait
     {
         return $this->roles->where('role', 'banned')->count() > 0;
     }
+
+    public function allowsUserAccess($user)
+    {
+        return auth()->user()->is_super;
+    }
+
+    public function allowsUserRead($user)
+    {
+        return auth()->user()->is_super;
+    }
+
+    public function allowsUserCreate($user)
+    {
+        return auth()->user()->is_super;
+    }
+
+    public function allowsUserUpdate($user)
+    {
+        return auth()->user()->is_super;   
+    }
+
+    public function allowsUserDelete($user)
+    {
+        return auth()->user()->is_super;
+    }
 }

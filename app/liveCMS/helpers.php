@@ -2,6 +2,7 @@
 
 use App\liveCMS\Models\GenericSetting as Setting;
 use App\liveCMS\Models\Site;
+use Illuminate\Support\Facades\Route;
 
 if (! function_exists('globalParams')) {
 
@@ -32,6 +33,24 @@ if (! function_exists('isInCurrentRoute')) {
     function isInCurrentRoute($part)
     {
         return starts_with(request()->route()->getName(), $part);
+    }
+}
+
+if (! function_exists('canRead')) {
+
+    function canRead($routeName)
+    {
+        $route = Route::getRoutes()->getByName($routeName);
+        
+        if ($route == null) {
+            return null;
+        }
+
+        $action = $route->getAction();
+
+        list($controller, $action) = explode('@', $action['controller']);
+
+        return app($controller)->getControllerModel()->allowsUserRead(auth()->user());
     }
 }
 

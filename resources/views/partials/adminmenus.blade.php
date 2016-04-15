@@ -27,9 +27,9 @@ $menus = [
         ],
     ],
     ['uri' => $staticpageSlug, 'title' => trans('livecms.staticpage'), 'icon' => 'file-o'],
+    ['uri' => 'permalink', 'title' => 'Permalink', 'icon' => 'link'],
     ['uri' => $teamSlug, 'title' => trans('livecms.team'), 'icon' => 'user-plus'],
     ['uri' => $gallerySlug, 'title' => trans('livecms.gallery'), 'icon' => 'image'],
-    ['uri' => 'permalink', 'title' => 'Permalink', 'icon' => 'link'],
     ['uri' => 'user', 'title' => trans('livecms.user'), 'icon' => 'users'],
     ['uri' => $contactSlug, 'title' => trans('livecms.contact'), 'icon' => 'phone'],
     ['uri' => 'setting', 'title' => 'Setting', 'icon' => 'cog'],
@@ -54,6 +54,8 @@ $menus = [
         @endforeach
     </ul>
 @else
+    @if (canRead($adminSlug.'.'.$menu['uri'].'.index'))
     <li class="@if(isInCurrentRoute($menuLink = $adminSlug.'.'.$menu['uri'].'.index'))active @endif"><a href="{{ route($menuLink) }}"><i class="fa fa-{{$menu['icon']}}"></i> <span>{{$menu['title']}}</span></a></li>
+    @endif
 @endif
 @endforeach

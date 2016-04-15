@@ -2,7 +2,7 @@
 
 namespace App\liveCMS\Policies;
 
-use App\liveCMS\Models\User as Model;
+use App\liveCMS\Models\BaseModel as Model;
 use App\liveCMS\Models\Users\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 

@@ -12,6 +12,7 @@ use App\liveCMS\Models\Contracts\BaseModelInterface as Model;
 
 class BackendController extends BaseController
 {
+    protected static $controllerModel;
     protected $model;
     protected $base;
     protected $baseClass;
@@ -21,7 +22,7 @@ class BackendController extends BaseController
     {
         parent::__construct();
 
-        $this->model    = $model;
+        $this->model    = static::$controllerModel = $model;
         $this->base     = $base;
         $reflection     = new ReflectionClass($this);
         $this->baseClass = '\\'.$reflection->getName();
@@ -31,6 +32,11 @@ class BackendController extends BaseController
         // $this->breadcrumb2Url   = route($this->baseClass.'.index');
         
         $this->view->share();
+    }
+
+    public function getControllerModel()
+    {
+        return static::$controllerModel;
     }
 
     protected function processDatatables($datatables)
