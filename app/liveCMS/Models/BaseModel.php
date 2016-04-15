@@ -7,6 +7,7 @@ use App\liveCMS\Models\Traits\BaseModelTrait;
 use App\liveCMS\Models\Traits\ModelAuthorizationTrait;
 use App\liveCMS\Models\Contracts\BaseModelInterface as BaseModelContract;
 use App\liveCMS\Models\Contracts\ModelAuthorizationInterface as ModelAuthorizationContract;
+use App\liveCMS\Policies\AdminPolicy;
 
 abstract class BaseModel extends Model implements BaseModelContract, ModelAuthorizationContract
 {
@@ -23,4 +24,11 @@ abstract class BaseModel extends Model implements BaseModelContract, ModelAuthor
     protected $addition = [];
 
     protected $deletion = [];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        
+        static::setPolicy(AdminPolicy::class);
+    }
 }

@@ -4,9 +4,12 @@ namespace App\Models;
 
 use App\liveCMS\Models\PostableModel;
 use App\liveCMS\Models\Permalink;
+use App\liveCMS\Models\Traits\AdminModelTrait;
 
 class Project extends PostableModel
 {
+    use AdminModelTrait;
+
     protected $fillable = ['title', 'site_id', 'slug', 'content', 'author_id', 'picture', 'client_id'];
 
     protected $excepts = ['author_id', 'client_id'];

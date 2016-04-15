@@ -138,6 +138,6 @@ trait BaseModelTrait
 
     public function allowsUserDelete($user)
     {
-        return true;
+        return $this->author_id && $this->author_id == $user->id;
     }
 }

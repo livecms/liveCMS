@@ -2,8 +2,12 @@
 
 namespace App\liveCMS\Models;
 
+use App\liveCMS\Models\Traits\AdminModelTrait;
+
 class Permalink extends BaseModel
 {
+    use AdminModelTrait;
+
     protected $fillable = ['permalink', 'postable_type', 'postable_id'];
 
     protected $dependencies = ['postable.children'];

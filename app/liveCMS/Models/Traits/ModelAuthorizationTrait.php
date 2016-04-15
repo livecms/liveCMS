@@ -27,10 +27,11 @@ trait ModelAuthorizationTrait
 
     protected static function setPolicy($policy)
     {
+        info('set policy '.static::class);
         static::$policy = $policy;
     }
 
-    public static function bootModelAuthorizationTrait()
+    protected static function bootModelAuthorizationTrait()
     {
         if (static::$policy === null) {
             

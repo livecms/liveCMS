@@ -37,10 +37,10 @@ class User extends BaseModel implements UserModelContract
 
     protected $aliases = [];
 
-    public static function boot()
+    public function __construct(array $attributes = [])
     {
-        static::setPolicy(UserPolicy::class);
+        parent::__construct($attributes);
         
-        parent::boot();
+        static::setPolicy(UserPolicy::class);
     }
 }

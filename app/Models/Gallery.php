@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use App\liveCMS\Models\PostableModel;
+use App\liveCMS\Models\Traits\AdminModelTrait;
 
 class Gallery extends PostableModel
 {
+    use AdminModelTrait;
+
     protected $excepts = ['author_id', 'published_at'];
 
     protected $aliases = ['content' => 'Description'];

@@ -3,9 +3,12 @@
 namespace App\liveCMS\Models;
 
 use Cache;
+use App\liveCMS\Models\Traits\AdminModelTrait;
 
 class Setting extends BaseModel
 {
+    use AdminModelTrait;
+
     protected $fillable = ['key', 'value', 'site_id', 'publicable'];
 
     protected $hidden = ['publicable', 'site_id'];

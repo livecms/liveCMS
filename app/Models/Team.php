@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use App\liveCMS\Models\PostableModel;
+use App\liveCMS\Models\Traits\AdminModelTrait;
 
 class Team extends PostableModel
 {
+    use AdminModelTrait;
+
     protected $fillable = ['name', 'role', 'site_id', 'slug', 'description', 'author_id', 'picture'];
 
     protected $excepts = ['author_id'];

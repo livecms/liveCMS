@@ -4,9 +4,12 @@ namespace App\Models;
 
 use App\liveCMS\Models\BaseModel;
 use App\liveCMS\Models\Setting;
+use App\liveCMS\Models\Traits\AdminModelTrait;
 
 class Contact extends BaseModel
 {
+    use AdminModelTrait;
+
     protected $fillable = ['address', 'address2', 'city', 'country', 'postcode', 'telephone', 'faximile', 'email'];
 
     public function rules()

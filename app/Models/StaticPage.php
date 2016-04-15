@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use App\liveCMS\Models\PostableModel;
+use App\liveCMS\Models\Traits\AdminModelTrait;
 
 class StaticPage extends PostableModel
 {
+    use AdminModelTrait;
+
     protected $mergesBefore = ['id' => 'id', 'parent' => 'parent'];
 
     protected $excepts = ['id', 'parent_id'];
