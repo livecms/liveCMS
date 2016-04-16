@@ -14,19 +14,14 @@ class AddRoleUsers extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('site_id')->unsigned()->nullable();
             $table->string('role');
             $table->timestamps();
-
-            $table->foreign('site_id')
-                  ->references('id')->on('sites')
-                  ->onDelete('cascade');
         });
 
         Schema::create('role_users', function (Blueprint $table) {
             $table->integer('role_id')->unsigned();
             $table->integer('user_id')->unsigned();
-
+            
             $table->foreign('role_id')
                   ->references('id')->on('roles')
                   ->onDelete('cascade');

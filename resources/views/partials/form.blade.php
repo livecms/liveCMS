@@ -2,7 +2,7 @@
 	<div class="col-md-{{ $width or '7' }}">
 		<div class="box">
 		  	<div class="box-body">
-				{!! Form::model($model, ['method' => !isset($params['id']) ? 'post' : 'put', 'url' => action($baseClass.'@'.$action, !isset($params) ? [] : $params), 'files' => isset($files) ?: false ]) !!}
+				{!! Form::model($model, ['method' => !isset($params['id']) ? 'post' : 'put', 'url' => action($baseClass.'@'.$action, !isset($params) ? [] : $params), 'files' => isset($files) ?: false, 'id' => $base.'form']) !!}
 				
 				@yield('form')
 

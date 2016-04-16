@@ -17,6 +17,10 @@ return [
         'contact'       => 'contact',
     ],
 
+    'users' => [
+        'defaultpassword' => 'passwordlivecms',
+    ],
+
     'themes' => [
         'admin' => 'adminLTE',
         'front' => 'timer',

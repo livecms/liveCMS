@@ -19,20 +19,27 @@ class SiteModel extends Site implements BaseModelContract
 
     protected $table= 'sites';
 
-    // protected $dependencies = ['postable.children'];
+    protected $aliases = ['site' => 'sitename'];
+
+    protected $dependencies = ['admins'];
 
     // protected $appends = ['type'];
 
+    public function admins()
+    {
+        return $this->hasMany(User::class, 'site_id')->whereHas('roles', function ($query) {
+            $query->where('role', 'admin');
+        });
+    }
+
     public function rules()
     {
-        $uri = explode('/', request()->get('permalink'));
-        $uri = array_splice($uri, 0, 5);
-        $permalink = implode('/', array_map('str_slug', $uri));
-
-        request()->merge(compact('permalink'));
-
         return [
-            'permalink' => 'required|unique:'.$this->getTable().',permalink'.(($this->id != null) ? ','.$this->id : ''),
+            'sitename' => 'required|'.$this->uniqify('site'),
+            'subdomain' => 'required_without:subfolder|'.$this->uniqify('subdomain', ''),
+            'subfolder' => 'required_without:subdomain|'.$this->uniqify('subfolder', ''),
+            'email' => 'required|email',
+            'passwordprivilege' => $this->validPrivilege('passwordprivilege'),
         ];
     }
 
@@ -40,6 +47,11 @@ class SiteModel extends Site implements BaseModelContract
     {
         $this->firstAuthorization();
 
-        return parent::newQuery();
+        return parent::newQuery()->with($this->dependencies());
+    }
+
+    public function save(array $options = [])
+    {
+        return parent::save($options);
     }
 }

@@ -5,6 +5,7 @@ namespace App\liveCMS\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\liveCMS\Controllers\Controller;
 use App\liveCMS\Models\Users\User;
+use App\liveCMS\Models\User as UserModel;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Validator;
@@ -52,11 +53,7 @@ class AuthController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6',
-        ]);
+        return Validator::make($data, UserModel::rules());
     }
 
     /**
@@ -67,11 +64,7 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        return UserModel::createUser($data);
     }
 
     /**

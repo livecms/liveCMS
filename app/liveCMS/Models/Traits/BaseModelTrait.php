@@ -87,8 +87,12 @@ trait BaseModelTrait
     public function newQuery()
     {
         $this->firstAuthorization();
-        
-        $query = parent::newQuery();
+
+        $query = parent::newQuery()->with($this->dependencies());
+
+        if ($this->allSites) {
+            return $query;
+        }
 
         return $query->where('site_id', site()->getCurrent()->id);
     }
@@ -100,9 +104,18 @@ trait BaseModelTrait
 
     public function save(array $options = [])
     {
-        $this->site_id = site()->id;
+        if (!$this->allSites) {
+            $this->site_id = site()->id;
+        }
 
         return parent::save($options);
+    }
+
+    public function setAllSites($value)
+    {
+        $this->allSites = $value;
+
+        return $this;
     }
 
     protected function slugify($field)
@@ -114,11 +127,39 @@ trait BaseModelTrait
         $request->merge(compact('slug'));
     }
 
-    protected function uniqify($field)
+    protected function uniqify($field, $additional = 'required')
     {
         $id = $this->id == null ? 'NULL' : $this->id;
+        
+        $rules = $additional.'|unique:'.$this->getTable().','.$field.','.$id;
+            
+        if ($this->allSites) {
+            return $rules;
+        }
+
         $siteId = site()->id == null ? 'NULL' : site()->id;
-        return 'required|unique:'.$this->getTable().','.$field.','.$id.',id,site_id,'.$siteId;
+        
+        return $rules.',id,site_id,'.$siteId;
+    }
+
+    protected function validPrivilege($field)
+    {
+        if (!($privilege = request()->get($field, null))) {
+            return 'required';
+        }
+
+        if (! \Hash::check($privilege, auth()->user()->password)) {
+
+            $userPasswordField = trans('livecms.userpassword');
+
+            $privilege = [$userPasswordField => ''];
+
+            request()->merge($privilege);
+
+            return 'same:'.$userPasswordField;
+        }
+
+        return 'required';
     }
 
     public function allowsUserAccess($user)

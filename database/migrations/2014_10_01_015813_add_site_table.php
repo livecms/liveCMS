@@ -17,7 +17,7 @@ class AddSiteTable extends Migration
             $table->string('site');
             $table->string('subdomain')->nullable();
             $table->string('subfolder')->nullable();
-            //
+            $table->timestamps();
         });
     }
 

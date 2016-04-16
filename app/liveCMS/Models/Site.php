@@ -10,6 +10,8 @@ use Illuminate\Support\Str;
 
 class Site extends Model
 {
+    protected $allSites = true;
+    
     protected static $current;
     
     protected static $host;
