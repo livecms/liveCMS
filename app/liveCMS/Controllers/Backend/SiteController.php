@@ -45,7 +45,6 @@ class SiteController extends BackendController
             $user = $this->user->createUser(compact('site_id', 'username', 'email'));
             $role = Role::where('role', Role::ADMIN)->first();
             $user->roles()->attach($role->id);
-            // $user->site->associate()
         }
 
         $this->model->admins()->save($user);

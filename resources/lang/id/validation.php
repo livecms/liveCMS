@@ -62,7 +62,7 @@ return array(
     "required_with_all"     => ":attribute harus diisi ketika :values tidak ada.",
     "required_without"      => ":attribute harus diisi ketika :values tidak ada.",
     "required_without_all"  => ":attribute harus diisi ketika :values tidak ada.",
-    "same"                  => ":attribute and :other harus sama.",
+    "same"                  => ":attribute tidak sama dengan :other.",
     "size"                  => array(
         "numeric"           => ":attribute harus :size.",
         "file"              => ":attribute harus :size KB.",

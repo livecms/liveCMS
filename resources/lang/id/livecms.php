@@ -17,11 +17,15 @@ return [
     'clientandproject'  => 'Client & Project',
     'gallery'           => 'Galeri',
     'contact'           => 'Kontak',
+    'site'              => 'Website',
 
     'name'              => 'Nama',
     'role'              => 'Jabatan',
     'mediasocial'       => 'Media Sosial',
     'username'          => 'Username',
+    'password'          => 'Password',
+    'yourpassword'      => 'Password Anda',
+    'passwordprivilege' => 'Password',
     'email'             => 'Email',
     'key'               => 'Key',
     'value'             => 'Value',
@@ -46,4 +50,7 @@ return [
     'postcode'          => 'Kode Pos',
     'faximile'          => 'Faximile',
     'telephone'         => 'Telepon',
+    'sitename'          => 'Nama Situs',
+    'subdomain'         => 'Sub Domain',
+    'subfolder'         => 'Sub Folder',
 ];

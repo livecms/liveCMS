@@ -14,4 +14,6 @@ return [
     'viewall'               => 'Lihat Semua',
     'viewhierarchy'         => 'Secara Hierarki',
     'choose'                => 'Pilih',
+    'administrators'        => 'Adminstrator',
+    'needyourpasswordtocontinue' => 'Masukkan Password Anda untuk melanjutkan.',
 ];
