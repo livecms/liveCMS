@@ -47,6 +47,16 @@ trait UserModelTrait
         return $this->roles->where('role', 'admin')->count() > 0;
     }
 
+    public function getIsAuthorAttribute()
+    {
+        return $this->roles->where('role', 'author')->count() > 0;
+    }
+
+    public function getIsLimitedAttribute()
+    {
+        return $this->roles->where('role', 'user')->count() > 0;
+    }
+
     public function getIsAdministerAttribute()
     {
         $roles = ['super', 'admin'];
