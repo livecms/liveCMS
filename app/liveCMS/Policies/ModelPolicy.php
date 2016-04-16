@@ -3,7 +3,7 @@
 namespace App\liveCMS\Policies;
 
 use App\liveCMS\Models\Users\User;
-use App\liveCMS\Models\BaseModel as Model;
+use App\liveCMS\Models\Contracts\BaseModelInterface as Model;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ModelPolicy

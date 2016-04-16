@@ -43,9 +43,10 @@ liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
 
     $router->group(['prefix' => $adminSlug, 'namespace' => 'Backend', 'middleware' => 'auth'], function ($router) {
 
+        $router->resource('permalink', 'PermalinkController');
         $router->resource('setting', 'SettingController');
         $router->resource('user', 'UserController');
-        $router->resource('permalink', 'PermalinkController');
+        $router->resource('site', 'SiteController');
 
     });
 

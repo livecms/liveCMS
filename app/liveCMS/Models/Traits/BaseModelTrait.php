@@ -76,13 +76,18 @@ trait BaseModelTrait
         static::$usePolicy = false;
     }
 
-    public function newQuery()
+    protected function firstAuthorization()
     {
         if (static::$usePolicy && auth()->check()) {
 
             Gate::authorize('access', $this);
         }
+    }
 
+    public function newQuery()
+    {
+        $this->firstAuthorization();
+        
         $query = parent::newQuery();
 
         return $query->where('site_id', site()->getCurrent()->id);
