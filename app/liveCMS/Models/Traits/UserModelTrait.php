@@ -60,4 +60,9 @@ trait UserModelTrait
     {
         return $this->roles->where('role', 'banned')->count() > 0;
     }
+
+    public function allowsUserRead($user)
+    {
+        return $user->is_admin;
+    }
 }

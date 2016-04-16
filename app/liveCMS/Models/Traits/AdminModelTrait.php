@@ -11,7 +11,7 @@ trait AdminModelTrait
 
     public function allowsUserRead($user)
     {
-        return true;
+        return $user->is_admin;
     }
 
     public function allowsUserCreate($user)

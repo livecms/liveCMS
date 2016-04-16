@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use App\liveCMS\Models\PostableModel;
+use App\liveCMS\Models\Traits\AdminModelTrait;
 
 class Client extends PostableModel
 {
+    use AdminModelTrait;
+    
     protected $fillable = ['name', 'site_id', 'slug', 'description', 'author_id', 'picture'];
 
     protected $mergesAfter = ['project' => 'Project'];
