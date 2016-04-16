@@ -42,10 +42,13 @@ $menus = [
 @if(is_array($uri = $menu['uri']))
 <?php
     $activeMenu = false;
+    $canReadMenu = false;
     foreach (collect($uri)->pluck('uri')->toArray() as $uri) {
         $activeMenu = $activeMenu || isInCurrentRoute($adminSlug.'.'.$uri.'.');
+        $canReadMenu = $canReadMenu || canRead($adminSlug.'.'.$uri.'.index');
     }
 ?>
+    @if ($canReadMenu)
     <li class="@if($activeMenu) active @endif treeview">
         <a href="#"><i class="fa fa-{{$menu['icon']}}"></i> <span>{{$menu['title']}}</span> <i class="fa fa-angle-left pull-right"></i></a>
         <ul class="treeview-menu">
@@ -55,6 +58,7 @@ $menus = [
             @endif
         @endforeach
     </ul>
+    @endif
 @else
     @if (canRead($menuUrl = ($menuLink = $adminSlug.'.'.$menu['uri'].'.').'index'))
     <li class="@if(isInCurrentRoute($menuLink))active @endif"><a href="{{ route($menuUrl) }}"><i class="fa fa-{{$menu['icon']}}"></i> <span>{{$menu['title']}}</span></a></li>
