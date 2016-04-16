@@ -43,6 +43,11 @@ class Site extends Model
             return static::initSubdomain($subdomain);
         }
 
+        if ($site = static::getBySubfolder(new static)) {
+                
+            return static::setCurrent($site);
+        }
+
         return static::setCurrent(new Site);
     }
 
@@ -50,13 +55,9 @@ class Site extends Model
     {
         $findSites = static::where('subdomain', $subdomain)->get();
 
-        $subfolder = request()->segment(1);
-
         if (($siteCount = count($findSites)) > 1) {
 
-            $site = $findSites->where('subfolder', $subfolder)->first();
-
-            if ($site) {
+            if ($site = static::getBySubfolder($findSites)) {
                 
                 return static::setCurrent($site);
             }
@@ -69,7 +70,19 @@ class Site extends Model
             return static::setCurrent($site);
         }
 
-        return static::setCurrent(new Site);   
+        return static::setCurrent(new Site);
+    }
+
+    protected static function getBySubfolder($collection)
+    {
+        $subfolder = request()->segment(1);
+
+        if ($site = $collection->where('subfolder', $subfolder)->first()) {
+            
+            return $site;
+        }
+
+        return null;
     }
 
     public static function setCurrent($current)
