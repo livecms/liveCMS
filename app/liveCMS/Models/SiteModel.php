@@ -5,10 +5,17 @@ namespace App\liveCMS\Models;
 use App\liveCMS\Models\Contracts\BaseModelInterface as BaseModelContract;
 use App\liveCMS\Models\Traits\BaseModelTrait;
 use App\liveCMS\Models\Traits\ModelAuthorizationTrait;
+use App\liveCMS\Models\Traits\SuperModelTrait;
 
 class SiteModel extends Site implements BaseModelContract
 {
-    use BaseModelTrait, ModelAuthorizationTrait;
+    use BaseModelTrait, ModelAuthorizationTrait, SuperModelTrait {
+        SuperModelTrait::allowsUserAccess insteadof BaseModelTrait;
+        SuperModelTrait::allowsUserRead insteadof BaseModelTrait;
+        SuperModelTrait::allowsUserCreate insteadof BaseModelTrait;
+        SuperModelTrait::allowsUserUpdate insteadof BaseModelTrait;
+        SuperModelTrait::allowsUserDelete insteadof BaseModelTrait;
+    }
 
     protected $table= 'sites';
 
