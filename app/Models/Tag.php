@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use App\liveCMS\Models\BaseModel;
+use App\liveCMS\Models\Traits\AuthorModelTrait;
 
 class Tag extends BaseModel
 {
+    use AuthorModelTrait;
+
     protected $fillable = ['tag', 'slug'];
 
     public function rules()

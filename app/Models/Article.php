@@ -4,9 +4,12 @@ namespace App\Models;
 
 use App\liveCMS\Models\PostableModel;
 use App\liveCMS\Models\Permalink;
+use App\liveCMS\Models\Traits\AuthorModelTrait;
 
 class Article extends PostableModel
 {
+    use AuthorModelTrait;
+    
     protected $mergesAfter = ['category' => 'Category', 'tag' => 'Tag'];
 
     protected $dependencies = ['categories', 'tags', 'permalink'];
