@@ -16,7 +16,7 @@ class Site extends Model
     
     protected static $domain;
 
-    protected $fillable = ['subdomain', 'subfolder'];
+    protected $fillable = ['site', 'subdomain', 'subfolder'];
 
 
     public static function init()
