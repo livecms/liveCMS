@@ -33,6 +33,7 @@ $menus = [
     ['uri' => 'user', 'title' => trans('livecms.user'), 'icon' => 'users'],
     ['uri' => $contactSlug, 'title' => trans('livecms.contact'), 'icon' => 'phone'],
     ['uri' => 'setting', 'title' => 'Setting', 'icon' => 'cog'],
+    ['uri' => 'site', 'title' => trans('livecms.site'), 'icon' => 'globe'],
 ];
 ?>
 
