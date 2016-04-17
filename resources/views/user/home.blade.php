@@ -23,18 +23,18 @@
         </div>
         <div class="box-footer">
           <div class="row">
-            <div class="col-sm-6 border-right">
+            <div class="col-xs-6 border-right">
               <div class="description-block">
                 <h5 class="description-header">3,200</h5>
-                <span class="description-text">Artikel</span>
+                <span class="description-text">{{trans('livecms.article')}}</span>
               </div>
               <!-- /.description-block -->
             </div>
             <!-- /.col -->
-            <div class="col-sm-6 border-right">
+            <div class="col-xs-6 border-right">
               <div class="description-block">
                 <h5 class="description-header">13,000</h5>
-                <span class="description-text">Dilihat</span>
+                <span class="description-text">{{trans('livecms.viewed')}}</span>
               </div>
               <!-- /.description-block -->
             </div>
@@ -52,7 +52,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-          <strong><i class="fa fa-pencil margin-r-5"></i> Tentang Saya</strong>
+          <strong><i class="fa fa-pencil margin-r-5"></i>{{trans('livecms.aboutme')}}</strong>
           <p class="text-muted">
             B.S. in Computer Science from the University of Tennessee at Knoxville
           </p>
@@ -66,62 +66,13 @@
     <div class="col-md-8">
       <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
-          <li class="active"><a href="#settings" data-toggle="tab">Setting</a></li>
+          <li class="active"><a href="#settings" data-toggle="tab">{{trans('backend.changeprofile')}}</a></li>
         </ul>
         <div class="tab-content">
 
           <div class="tab-pane active" id="settings">
-            <form class="form-horizontal">
-              <div class="form-group">
-                <label for="inputName" class="col-sm-2 control-label">Name</label>
-
-                <div class="col-sm-10">
-                  <input type="email" class="form-control" id="inputName" placeholder="Name">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="inputEmail" class="col-sm-2 control-label">Email</label>
-
-                <div class="col-sm-10">
-                  <input type="email" class="form-control" id="inputEmail" placeholder="Email">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="inputName" class="col-sm-2 control-label">Name</label>
-
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" id="inputName" placeholder="Name">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="inputExperience" class="col-sm-2 control-label">Experience</label>
-
-                <div class="col-sm-10">
-                  <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="inputSkills" class="col-sm-2 control-label">Skills</label>
-
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                  <button type="submit" class="btn btn-danger">Submit</button>
-                </div>
-              </div>
-            </form>
+            @include('user.profile.form')
+            @yield('profile.form')
           </div>
           <!-- /.tab-pane -->
         </div>
