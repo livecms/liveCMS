@@ -34,7 +34,6 @@ class Setting extends BaseModel
     {
         parent::boot();
 
-        info('tess');
         static::saved(function ($model) {
             $model->process();
         });
@@ -46,7 +45,6 @@ class Setting extends BaseModel
 
     protected function process()
     {
-        info('clear cace');
         Cache::forget('global_params');
 
         $global_params = static::get();

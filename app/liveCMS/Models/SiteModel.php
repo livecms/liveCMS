@@ -24,7 +24,7 @@ class SiteModel extends Site implements BaseModelContract
 
     protected $dependencies = ['admins'];
 
-    protected $useAuthorization = false;
+    protected $useAuthorization = true;
     // protected $appends = ['type'];
 
     public function users()

@@ -37,7 +37,6 @@ class ModelPolicy
 
     public function create(User $user, Model $model)
     {
-            info('creating '.get_class($model));
         return (! $model->useAuthorization()) || $model->allowsUserCreate($user);
     }
 
