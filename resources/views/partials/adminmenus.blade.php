@@ -43,7 +43,7 @@ $subfolderPrefix = $subfolderPrefix ? $subfolderPrefix.'.' : $subfolderPrefix;
 ?>
 
 <!-- Home -->
-<li class="@if(isInCurrentRoute('admin.home'))active @endif"><a href="{{ url($adminSlug) }}"><i class="fa fa-home"></i> <span>Home</span></a></li>
+<li class="@if(isInCurrentRoute('admin.home'))active @endif"><a href="{{ route('admin.home') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
 
 @foreach($menus as $menu)
 @if(is_array($uri = $menu['uri']))

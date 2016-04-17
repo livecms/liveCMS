@@ -15,14 +15,7 @@ liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
     // ADMIN AREA
 
     $router->group(['prefix' => $adminSlug, 'namespace' => 'Backend', 'middleware' => 'auth'], function ($router) {
-        $router->get('/', ['as' => 'admin.home', function () {
-            // $user = auth()->user();
-            // // dd($user->id);
-            // $tes = new App\liveCMS\Models\SiteModel;
-            // dd($tes->allowsUserRead($user));
-            return view('admin.home');
-        }]);
-
+        
         $articleSlug            = globalParams('slug_article', config('livecms.slugs.article'));
         $categorySlug           = globalParams('slug_category', config('livecms.slugs.category'));
         $tagSlug                = globalParams('slug_tag', config('livecms.slugs.tag'));

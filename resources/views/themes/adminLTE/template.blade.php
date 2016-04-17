@@ -33,7 +33,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect.
   -->
-  <link rel="stylesheet" href="/backend/dist/css/skins/skin-blue.min.css">
+  <link rel="stylesheet" href="/backend/dist/css/skins/skin-green-new.min.css">
 
   <style type="text/css">
     .user-label {
@@ -77,7 +77,7 @@ desired effect
 -->
 @if(auth()->user())
 @section('templateBody')
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="{{ $bodyClass or 'skin-blue sidebar-mini' }}">
 <div class="wrapper">
 
   <!-- Main Header -->
@@ -171,7 +171,10 @@ desired effect
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
+      @section('sidebarmenus')
         @include('partials.adminmenus')
+      @stop
+      @yield('sidebarmenus')
       </ul>
       <!-- /.sidebar-menu -->
     </section>

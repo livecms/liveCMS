@@ -15,6 +15,7 @@ return [
         'client'        => 'c',
         'gallery'       => 'g',
         'contact'       => 'contact',
+        'userprofile'   => 'me',
     ],
 
     'users' => [

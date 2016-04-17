@@ -12,7 +12,10 @@ use App\liveCMS\Models\Permalink;
 | and give it the controller to call when that URI is requested.
 |
 */
-liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
+
+$userSlug = globalParams('slug_userprofile', config('livecms.slugs.userprofile'));
+
+liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) use ($userSlug) {
 
     $router->get('/', ['as' => 'home', function () use ($adminSlug, $subDomain, $subFolder) {
         
@@ -42,11 +45,27 @@ liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
     // ADMIN AREA
 
     $router->group(['prefix' => $adminSlug, 'namespace' => 'Backend', 'middleware' => 'auth'], function ($router) {
+        
+        $router->get('/', ['as' => 'admin.home', function () {
+            return view('admin.home');
+        }]);
 
         $router->resource('permalink', 'PermalinkController');
         $router->resource('setting', 'SettingController');
         $router->resource('user', 'UserController');
         $router->resource('site', 'SiteController');
+        $router->resource('me', 'Controller');
+
+    });
+
+    // PROFILE AREA
+
+    $router->group(['prefix' => $userSlug, 'namespace' => 'User', 'middleware' => 'auth'], function ($router) {
+        
+        $router->get('/', ['as' => 'user.home', function () {
+            $bodyClass = 'skin-blue sidebar-mini sidebar-collapse';
+            return view('user.home', compact('bodyClass'));
+        }]);
 
     });
 
