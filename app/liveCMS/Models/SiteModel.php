@@ -2,6 +2,7 @@
 
 namespace App\liveCMS\Models;
 
+use Validator;
 use App\liveCMS\Models\Contracts\BaseModelInterface as BaseModelContract;
 use App\liveCMS\Models\Traits\BaseModelTrait;
 use App\liveCMS\Models\Traits\ModelAuthorizationTrait;
@@ -17,29 +18,56 @@ class SiteModel extends Site implements BaseModelContract
         SuperModelTrait::allowsUserDelete insteadof BaseModelTrait;
     }
 
-    protected $table= 'sites';
+    protected $table = 'sites';
 
     protected $aliases = ['site' => 'sitename'];
 
     protected $dependencies = ['admins'];
 
+    protected $useAuthorization = false;
     // protected $appends = ['type'];
+
+    public function users()
+    {
+        return $this->hasMany(User::class, 'site_id');
+    }
 
     public function admins()
     {
-        return $this->hasMany(User::class, 'site_id')->whereHas('roles', function ($query) {
+        return $this->users()->whereHas('roles', function ($query) {
             $query->where('role', 'admin');
         });
     }
 
     public function rules()
     {
+        $this->slugify('subdomain', 'subdomain');
+        $this->slugify('subfolder', 'subfolder');
+
+        $request = request()->all();
+
+        $emailRules = 'required|email';
+
+        $useEmail = request()->isMethod('post');
+
+        if (isset($request['emails'])) {
+
+            foreach ($request['emails'] as $key => $email) {
+                $validator = Validator::make(compact('email'), ['email' => $emailRules]);
+                if ($validator->fails()) {
+                    request()->merge(compact('email'));
+                    $useEmail = true;
+                    break;
+                }
+            }
+        }
+
         return [
             'sitename' => 'required|'.$this->uniqify('site'),
             'subdomain' => 'required_without:subfolder|'.$this->uniqify('subdomain', ''),
             'subfolder' => 'required_without:subdomain|'.$this->uniqify('subfolder', ''),
-            'email' => 'required|email',
-            'passwordprivilege' => $this->validPrivilege('passwordprivilege'),
+            'email' => $useEmail ? $emailRules : '',
+            'passwordprivilege' => request()->isMethod('post') ? '' : $this->validPrivilege('passwordprivilege'),
         ];
     }
 

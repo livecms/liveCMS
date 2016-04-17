@@ -61,10 +61,6 @@ class User extends BaseModel implements UserModelContract
     {
         $credentials = array_only($attributes, $this->credentials);
 
-        if (! Validator::make($attributes, $this->rules())) {
-            return;
-        }
-
         $user = new static;
         $user->fill($attributes);
         $user->site_id = $user->site_id ? $user->site_id : site()->id;

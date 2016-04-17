@@ -76,11 +76,19 @@ trait BaseModelTrait
         static::$usePolicy = false;
     }
 
+    public function useAuthorization()
+    {
+        return $this->useAuthorization;
+    }
+
     protected function firstAuthorization()
     {
         if (static::$usePolicy && auth()->check()) {
 
-            Gate::authorize('access', $this);
+            if ($this->useAuthorization) {
+
+                Gate::authorize('access', $this);
+            }
         }
     }
 
@@ -118,13 +126,13 @@ trait BaseModelTrait
         return $this;
     }
 
-    protected function slugify($field)
+    protected function slugify($field, $target = 'slug')
     {
         $request = request();
 
-        $slug = str_slug($request->has('slug') ? $request->get('slug') : $request->get($field));
+        $slug = str_slug($request->has($target) ? $request->get($target) : $request->get($field));
 
-        $request->merge(compact('slug'));
+        $request->merge([$target => $slug]);
     }
 
     protected function uniqify($field, $additional = 'required')

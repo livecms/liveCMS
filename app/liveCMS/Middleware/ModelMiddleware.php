@@ -17,7 +17,7 @@ class ModelMiddleware
     public function handle($request, Closure $next, $model, $privilege = 'read')
     {
         Gate::authorize($privilege, app($model));
-
+        
         return $next($request);
     }
 }

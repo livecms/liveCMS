@@ -37,16 +37,22 @@ $menus = [
 ];
 ?>
 
+<?php
+$subfolderPrefix = site()->subfolder;
+$subfolderPrefix = $subfolderPrefix ? $subfolderPrefix.'.' : $subfolderPrefix;
+?>
+
 <!-- Home -->
 <li class="@if(isInCurrentRoute('admin.home'))active @endif"><a href="{{ url($adminSlug) }}"><i class="fa fa-home"></i> <span>Home</span></a></li>
+
 @foreach($menus as $menu)
 @if(is_array($uri = $menu['uri']))
 <?php
     $activeMenu = false;
     $canReadMenu = false;
     foreach (collect($uri)->pluck('uri')->toArray() as $uri) {
-        $activeMenu = $activeMenu || isInCurrentRoute($adminSlug.'.'.$uri.'.');
-        $canReadMenu = $canReadMenu || canRead($adminSlug.'.'.$uri.'.index');
+        $activeMenu = $activeMenu || isInCurrentRoute($subfolderPrefix.$adminSlug.'.'.$uri.'.');
+        $canReadMenu = $canReadMenu || canRead($subfolderPrefix.$adminSlug.'.'.$uri.'.index');
     }
 ?>
     @if ($canReadMenu)
@@ -54,14 +60,14 @@ $menus = [
         <a href="#"><i class="fa fa-{{$menu['icon']}}"></i> <span>{{$menu['title']}}</span> <i class="fa fa-angle-left pull-right"></i></a>
         <ul class="treeview-menu">
         @foreach($menu['uri'] as $subMenu)
-            @if (canRead($menuUrl = ($menuLink = $adminSlug.'.'.$subMenu['uri'].'.').'index'))
+            @if (canRead($menuUrl = ($menuLink = $subfolderPrefix.$adminSlug.'.'.$subMenu['uri'].'.').'index'))
             <li class="@if(isInCurrentRoute($menuLink))active @endif"><a href="{{ route($menuUrl) }}"><i class="fa fa-{{$subMenu['icon']}}"></i> <span>{{$subMenu['title']}}</span></a></li>
             @endif
         @endforeach
     </ul>
     @endif
 @else
-    @if (canRead($menuUrl = ($menuLink = $adminSlug.'.'.$menu['uri'].'.').'index'))
+    @if (canRead($menuUrl = ($menuLink = $subfolderPrefix.$adminSlug.'.'.$menu['uri'].'.').'index'))
     <li class="@if(isInCurrentRoute($menuLink))active @endif"><a href="{{ route($menuUrl) }}"><i class="fa fa-{{$menu['icon']}}"></i> <span>{{$menu['title']}}</span></a></li>
     @endif
 @endif

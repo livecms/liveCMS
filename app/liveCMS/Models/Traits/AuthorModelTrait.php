@@ -16,12 +16,12 @@ trait AuthorModelTrait
 
     public function allowsUserCreate($user)
     {
-        return $user->is_author;
+        return $user->is_author || $user->is_administer;
     }
 
     public function allowsUserUpdate($user)
     {
-        return $user->is_author;
+        return $this->author_id && $this->author_id == $user->id || $user->is_administer;
     }
 
     public function allowsUserDelete($user)

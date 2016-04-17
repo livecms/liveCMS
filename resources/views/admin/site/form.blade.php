@@ -45,10 +45,10 @@
 	@foreach ($site->admins as $key => $admin)
 	<div class="row form-group">
 		<div class="col-md-3">
-			{!! Form::label('email'.$key, trans('livecms.email'), ['class' => 'control-label']) !!}
+			{!! Form::label('email_'.$key, trans('livecms.email'), ['class' => 'control-label']) !!}
 		</div>
 		<div class="col-md-9">
-			{!! Form::text('email'.$key, $admin->email, ['class' => 'form-control']) !!}
+			{!! Form::text('emails_'.$key, $admin->email, ['class' => 'form-control']) !!}
 		</div>
 	</div>
 	@endforeach

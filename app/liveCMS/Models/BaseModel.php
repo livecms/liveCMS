@@ -15,6 +15,8 @@ abstract class BaseModel extends Model implements BaseModelContract, ModelAuthor
 
     protected $allSites = false;
 
+    protected $useAuthorization = true;
+
     protected $hidden = ['site_id'];
 
     protected $dependencies = [];

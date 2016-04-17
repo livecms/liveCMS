@@ -9,6 +9,10 @@ class Setting extends BaseModel
 {
     use AdminModelTrait;
 
+    protected $useAuthorization = false;
+
+    protected $allSites = true;
+
     protected $fillable = ['key', 'value', 'site_id', 'publicable'];
 
     protected $hidden = ['publicable', 'site_id'];
@@ -30,6 +34,7 @@ class Setting extends BaseModel
     {
         parent::boot();
 
+        info('tess');
         static::saved(function ($model) {
             $model->process();
         });
@@ -41,6 +46,7 @@ class Setting extends BaseModel
 
     protected function process()
     {
+        info('clear cace');
         Cache::forget('global_params');
 
         $global_params = static::get();
@@ -51,7 +57,6 @@ class Setting extends BaseModel
     public function newQuery()
     {
         $query = parent::newQuery();
-
         return $query->where('publicable', true);
     }
 

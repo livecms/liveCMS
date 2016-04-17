@@ -27,26 +27,27 @@ class ModelPolicy
 
     public function access(User $user, Model $model)
     {
-        return $model->allowsUserAccess($user);
+        return (! $model->useAuthorization()) || $model->allowsUserAccess($user);
     }
 
     public function read(User $user, Model $model)
     {
-        return $model->allowsUserRead($user);
+        return (! $model->useAuthorization()) || $model->allowsUserRead($user);
     }
 
     public function create(User $user, Model $model)
     {
-        return $model->allowsUserCreate($user);
+            info('creating '.get_class($model));
+        return (! $model->useAuthorization()) || $model->allowsUserCreate($user);
     }
 
     public function update(User $user, Model $model)
     {
-        return $model->allowsUserUpdate($user);
+        return (! $model->useAuthorization()) || $model->allowsUserUpdate($user);
     }
 
     public function delete(User $user, Model $model)
     {
-        return $model->allowsUserDelete($user);
+        return (! $model->useAuthorization()) || $model->allowsUserDelete($user);
     }
 }

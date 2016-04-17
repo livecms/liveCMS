@@ -16,6 +16,10 @@ liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
 
     $router->group(['prefix' => $adminSlug, 'namespace' => 'Backend', 'middleware' => 'auth'], function ($router) {
         $router->get('/', ['as' => 'admin.home', function () {
+            // $user = auth()->user();
+            // // dd($user->id);
+            // $tes = new App\liveCMS\Models\SiteModel;
+            // dd($tes->allowsUserRead($user));
             return view('admin.home');
         }]);
 

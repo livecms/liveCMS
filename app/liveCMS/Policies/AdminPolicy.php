@@ -9,6 +9,6 @@ class AdminPolicy extends ModelPolicy
 {
     public function before(User $user)
     {
-        return $user->is_admin;
+        return $user->is_administer;
     }
 }

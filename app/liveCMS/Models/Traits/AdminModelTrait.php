@@ -26,6 +26,6 @@ trait AdminModelTrait
 
     public function allowsUserDelete($user)
     {
-        return $this->author_id && $this->author_id == $user->id;
+        return $user->is_administer;
     }
 }
