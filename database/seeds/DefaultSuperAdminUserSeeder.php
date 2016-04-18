@@ -20,6 +20,7 @@ class DefaultSuperAdminUserSeeder extends Seeder
                 'email' => 'super@livecms.org',
                 'password' => bcrypt('admin'),
                 'name' => 'Super Administrator',
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             ]);
 
         $user_id = DB::table('users')->where($user)->first()->id;
