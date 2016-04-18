@@ -15,7 +15,7 @@ class User extends BaseModel implements UserModelContract
 
     protected $allSites = true;
 
-    protected static $picturePath = 'files';
+    protected static $picturePath = 'users';
 
     /**
      * The attributes that are mass assignable.
