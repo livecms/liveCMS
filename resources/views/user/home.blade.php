@@ -52,11 +52,13 @@
         </div>
         <div class="box-body">
           <p class="text-center">
+            @if (count($profile->socials))
             @foreach ($profile->socials as $social => $url)
               @if ($url)
               <a class="btn btn-danger" target="__blank" rel="nofollow" href="{{$profile->getSocials($social)}}"><i class="fa fa-{{$social}}"></i></a>
               @endif
             @endforeach
+            @endif
           </p>
         </div>
         <!-- /.box-header -->
