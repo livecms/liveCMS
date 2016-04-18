@@ -75,12 +75,24 @@
     <div class="col-md-8">
       <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
-          <li class="active"><a href="#settings" data-toggle="tab">{{trans('backend.changeprofile')}}</a></li>
+          <li class="active"><a href="#profile" data-toggle="tab">{{trans('backend.changeprofile')}}</a></li>
+          <li><a href="#avatar" data-toggle="tab">{{trans('backend.changeavatar')}}</a></li>
+          <li><a href="#credential" data-toggle="tab">{{trans('backend.changecredential')}}</a></li>
         </ul>
         <div class="tab-content">
 
-          <div class="tab-pane active" id="settings">
-            @include('user.profile.form')
+          @include('user.profile.form')
+          <div class="tab-pane active" id="profile">
+            @yield('profile.form')
+          </div>
+          <!-- /.tab-pane -->
+
+          <div class="tab-pane" id="avatar">
+            @yield('profile.form.2')
+          </div>
+          <!-- /.tab-pane -->
+
+          <div class="tab-pane" id="credential">
             @yield('profile.form')
           </div>
           <!-- /.tab-pane -->
@@ -92,4 +104,23 @@
     <!-- /.col -->
     </div>
     <!-- /.row -->
+@stop
+
+@section('script.footer')
+
+<script type="text/javascript">
+  jQuery(function() {
+    var hash = window.location.hash;
+    hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+
+
+
+    $('.nav-tabs a').click(function (e) {
+      $(this).tab('show');
+      var scrollmem = $('body').scrollTop();
+      window.location.hash = this.hash;
+      $('html,body').scrollTop(scrollmem);
+    });
+  });
+</script>
 @stop

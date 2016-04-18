@@ -1,3 +1,5 @@
+<?php use Illuminate\Support\Str; ?>
+
 @if($errors->any())
 <div class="alert alert-warning">
     @if ($errors->count() === 1 && $errors->first('passwordprivilege'))
@@ -8,7 +10,7 @@
         </div>
         <div class="col-md-9">
             {!! Form::password('passwordprivilege', ['class' => 'form-control', 'autofocus' => 'autofocus']) !!}
-            <h5>{{$errors->first('passwordprivilege')}}</h5>
+            <h5>{{Str::ucfirst($errors->first('passwordprivilege'))}}</h5>
         </div>
     </div>
     @else
@@ -17,7 +19,7 @@
     <ul class="list-unstyled">
         @foreach ($errors->all() as $error)
             @if (! str_contains($error, trans('livecms.passwordprivilege')))
-            <li>{{ $error }}</li>
+            <li>{{ Str::ucfirst($error) }}</li>
             @endif
         @endforeach
     </ul>

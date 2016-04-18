@@ -59,4 +59,12 @@ return [
     'subdomain'         => 'Sub Domain',
     'subfolder'         => 'Sub Folder',
     'viewed'            => 'Dilihat',
+    'socials'           => [
+                            'github' => 'Github',
+                            'linkedin' => 'Linkedin',
+                            'facebook' => 'Facebook',
+                            'twitter' => 'Twitter',
+                            'instagram' => 'Instagram',
+                            'google-plus' => 'Google Plus',
+                        ],
 ];
