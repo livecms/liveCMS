@@ -161,6 +161,7 @@ return [
         Yajra\Datatables\DatatablesServiceProvider::class,
         App\liveCMS\Collective\Html\HtmlServiceProvider::class,
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
+        LiveCMS\Support\Thumbnailer\ThumbnailerServiceProvider::class,
 
     ],
 
@@ -209,10 +210,11 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
         'Debugbar'  => Barryvdh\Debugbar\Facade::class,
 
-        'Datatables' => Yajra\Datatables\Datatables::class,
-        'Form' => Collective\Html\FormFacade::class,
-        'Html' => Collective\Html\HtmlFacade::class,
-        'Alert' => UxWeb\SweetAlert\SweetAlert::class,
+        'Datatables'=> Yajra\Datatables\Datatables::class,
+        'Form'      => Collective\Html\FormFacade::class,
+        'Html'      => Collective\Html\HtmlFacade::class,
+        'Alert'     => UxWeb\SweetAlert\SweetAlert::class,
+        'Thumb'     => LiveCMS\Support\Thumbnailer\Facades\Thumbnailer::class,
 
     ],
 
