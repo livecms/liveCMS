@@ -2,6 +2,7 @@
 
 return [
 
+    'home'              => 'Home',
     'user'              => 'Pengguna',
     'setting'           => 'Setting',
     'article'           => 'Artikel',
@@ -18,7 +19,10 @@ return [
     'gallery'           => 'Galeri',
     'contact'           => 'Kontak',
     'site'              => 'Website',
+    'profile'           => 'Profile',
 
+    'about'             => 'Tentang',
+    'aboutme'           => 'Tentang Saya',
     'name'              => 'Nama',
     'role'              => 'Jabatan',
     'mediasocial'       => 'Media Sosial',
@@ -31,6 +35,7 @@ return [
     'value'             => 'Value',
     'type'              => 'Tipe',
     'title'             => 'Judul',
+    'jobtitle'          => 'Pekerjaan / Jabatan',
     'content'           => 'Isi',
     'description'       => 'Deskripsi',
     'post'              => 'Tulisan',
@@ -53,4 +58,5 @@ return [
     'sitename'          => 'Nama Situs',
     'subdomain'         => 'Sub Domain',
     'subfolder'         => 'Sub Folder',
+    'viewed'            => 'Dilihat',
 ];

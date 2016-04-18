@@ -115,8 +115,11 @@ desired effect
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="/backend/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
+                @if (auth()->user()->picture)
+                <img src="{{auth()->user()->picture}}" class="img-circle" alt="User Image">
+                @else
+                <i class="text-gray ion ion-person fa-5x"></i>
+                @endif
                 <p>
                   {{ str_limit(auth()->user()->name, 20) }}
                   <small>Since {{ auth()->user()->created_at->diffForHumans() }}</small>

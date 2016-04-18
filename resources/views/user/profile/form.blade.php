@@ -23,6 +23,13 @@
     </div>
 
     <div class="row form-group">
+        {!! Form::label('jobtitle', trans('livecms.jobtitle'), ['class' => 'col-sm-2 control-label']) !!}
+        <div class="col-sm-9">
+            {!! Form::text('jobtitle', $profile->jobtitle, ['class' => 'form-control']) !!}
+        </div>
+    </div>
+
+    <div class="row form-group">
         {!! Form::label('about', trans('livecms.about'), ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-9">
             {!! Form::textarea('about', $profile->about, ['class' => 'form-control', 'style' => 'height: 80px;']) !!}
@@ -33,18 +40,16 @@
     <div class="row form-group">
         {!! Form::label('mediasocial', trans('livecms.mediasocial'), ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-9">
-            @if (isset($socials))
-            @foreach ($socials as $social => $socialTitle)
+            @foreach ($profile->socialMedias() as $social)
             <div class="row form-group">
-                <div class="col-sm-3 col-lg-2">
-                    {!! Form::label($social, $socialTitle, ['class' => 'control-label']) !!}
-                </div>
-                <div class="col-sm-9 col-lg-10">
-                    {!! Form::text('mediasocials['.$social.']', ($socialInfo = $profile->socials()->where('social', $social)->first()) ? $socialInfo->url : '', ['class' => 'form-control', 'placeholder' => trans('livecms.url')]) !!}
+                <label for="social-{{$social}}" class="col-sm-2 control-label">
+                    <a href="#" class="btn btn-sm btn-social-icon btn-{{$social == 'google-plus' ? 'google' : $social}}"><i class="fa fa-{{$social}}"></i></a>
+                </label>
+                <div class="col-sm-10">
+                    {!! Form::text('socials['.$social.']', $profile->getSocials($social), ['class' => 'form-control', 'placeholder' => title_case($social).' '.trans('livecms.url')]) !!}
                 </div>
             </div>
             @endforeach
-            @endif
         </div>
     </div>
 

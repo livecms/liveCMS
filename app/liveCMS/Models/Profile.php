@@ -8,6 +8,38 @@ class Profile extends User
 
     protected $dependencies = [];
 
+    protected $socialMedias = ['github', 'linkedin', 'facebook', 'twitter', 'instagram', 'google-plus'];
+
+    protected $casts = [
+        'socials' => 'array',
+    ];
+
+    public function socialMedias()
+    {
+        return $this->socialMedias;
+    }
+
+    public function getSocials($social = null)
+    {
+        $socials = $this->socials;
+
+        if (count($socials)) {
+            
+            if ($social === null) {
+                return $socials;
+            }
+
+            foreach ($socials as $key => $value) {
+                if ($social == $key) {
+
+                    return $value;
+                }
+            }
+        }
+
+        return null;
+    }
+
     public function rules()
     {
         return [
@@ -16,6 +48,7 @@ class Profile extends User
             'email' => $this->uniqify('email', 'required|email|max:255'),
             'password' => 'confirmed|min:6',
             'passwordprivilege' => $this->validPrivilege('passwordprivilege'),
+            'socials.*' => 'active_url',
         ];
     }
 }

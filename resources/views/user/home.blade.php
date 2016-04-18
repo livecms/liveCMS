@@ -14,12 +14,20 @@
       <!-- Widget: user widget style 1 -->
       <div class="box box-widget widget-user">
         <!-- Add the bg color to the header using any of the bg-* classes -->
-        <div class="widget-user-header bg-aqua" style="background: url('/backend/dist/img/photo1.png') center center;">
-          <h3 class="widget-user-username">Elizabeth Pierce</h3>
-          <h5 class="widget-user-desc">Web Designer</h5>
+        <div class="widget-user-header bg-aqua" 
+          @if ($profile->background)
+          style="background: url('{{$profile->background}}') center center;"
+          @endif
+        >
+          <h3 class="widget-user-username">{{$profile->name}}</h3>
+          <h5 class="widget-user-desc">{{$profile->jobtitle}}</h5>
         </div>
-        <div class="widget-user-image">
-          <img class="img-circle" src="/backend/dist/img/user3-128x128.jpg" alt="User Avatar">
+        <div class="widget-user-image text-center text-aqua img-circle">
+        @if ($profile->picture)
+          <img class="img-circle" src="{{$profile->picture}}" alt="User Avatar">
+        @else
+          <i class="ion ion-person fa-5x"></i>
+        @endif
         </div>
         <div class="box-footer">
           <div class="row">
@@ -44,17 +52,18 @@
         </div>
         <div class="box-body">
           <p class="text-center">
-              <a class="btn btn-danger" href="#"><i class="fa fa-facebook"></i></a>
-              <a class="btn btn-danger" href="#"><i class="fa fa-twitter"></i></a>
-              <a class="btn btn-danger" href="#"><i class="fa fa-github"></i></a>
-              <a class="btn btn-danger" href="#"><i class="fa fa-google-plus"></i></a>
+            @foreach ($profile->socials as $social => $url)
+              @if ($url)
+              <a class="btn btn-danger" target="__blank" rel="nofollow" href="{{$profile->getSocials($social)}}"><i class="fa fa-{{$social}}"></i></a>
+              @endif
+            @endforeach
           </p>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
           <strong><i class="fa fa-pencil margin-r-5"></i>{{trans('livecms.aboutme')}}</strong>
           <p class="text-muted">
-            B.S. in Computer Science from the University of Tennessee at Knoxville
+            {{$profile->about}}
           </p>
         </div>
         <!-- /.box -->

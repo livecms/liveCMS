@@ -17,7 +17,7 @@ class PostableModel extends BaseModel
 
     protected $aliases = ['author_id' => 'Author'];
 
-    protected static $picturePath = 'files';
+    protected static $picturePath = 'users';
  
     public function __construct(array $attributes = [])
     {

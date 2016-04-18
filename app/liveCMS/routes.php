@@ -62,7 +62,9 @@ liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) us
     $router->group(['prefix' => $userSlug, 'namespace' => 'User', 'middleware' => 'auth'], function ($router) {
 
         $router->get('/', ['as' => 'admin.home', function () {
-            return view('user');
+            $bodyClass        = 'skin-blue sidebar-mini sidebar-collapse';
+
+            return view('user', compact('bodyClass'));
         }]);
 
         $router->resource('profile', 'ProfileController');

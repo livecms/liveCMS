@@ -16,4 +16,9 @@ return [
     'choose'                => 'Pilih',
     'administrators'        => 'Adminstrator',
     'needyourpasswordtocontinue' => 'Masukkan Password Anda untuk melanjutkan.',
+    'myprofile'             => 'Profile Saya',
+    'yourprofile'           => 'Profile Anda',
+    'changeprofile'         => 'Ubah Profile',
+    'homeprofile'           => 'Home Profile',
+    'yourhomeprofile'       => 'Home Profile Anda',
 ];

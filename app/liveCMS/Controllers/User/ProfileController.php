@@ -19,12 +19,12 @@ class ProfileController extends UserController
 
     public function index(Request $request)
     {
-        $model = auth()->user();
+        $model = $this->model->find(auth()->user()->id);
         ${camel_case($this->base)} = $model;
 
         $this->title        = title_case(trans('livecms.'.$this->base));
-        $this->description  = trans('backend.yourhomeprofile');
-        $this->breadcrumb3  = trans('backend.homeprofile');
+        $this->description  = trans('backend.homeprofile');
+        $this->breadcrumb3  = trans('backend.myprofile');
         $this->params       = array_merge($request->query() ? $request->query() : []);
         $this->action       = 'store';
 
