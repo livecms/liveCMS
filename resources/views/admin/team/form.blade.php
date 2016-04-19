@@ -86,17 +86,15 @@
 
     <hr>
     <div class="row form-group">
-        <div class="col-md-2">
-            {!! Form::label('mediasocial', trans('livecms.mediasocial'), ['class' => 'control-label']) !!}
-        </div>
+        {!! Form::label('mediasocial', trans('livecms.mediasocial'), ['class' => 'col-md-2 control-label']) !!}
         <div class="col-md-10">
             @foreach ($socials as $social => $socialTitle)
             <div class="row form-group">
-                <div class="col-sm-3 col-lg-2">
-                    {!! Form::label($social, $socialTitle, ['class' => 'control-label']) !!}
-                </div>
-                <div class="col-sm-9 col-lg-10">
-                    {!! Form::text('mediasocials['.$social.']', ($socialInfo = $team->socials()->where('social', $social)->first()) ? $socialInfo->url : '', ['class' => 'form-control', 'placeholder' => trans('livecms.url')]) !!}
+                <label for="{{$social}}" class="col-xs-1">
+                    <a href="javascript:;" class="btn btn-sm btn-social-icon btn-{{$social == 'google-plus' ? 'google' : $social}}"><i class="fa fa-{{$social}}"></i></a>
+                </label>
+                <div class="col-sm-8">
+                    {!! Form::text('socials['.$social.']', ($socialInfo = $team->socials()->where('social', $social)->first()) ? $socialInfo->url : '', ['class' => 'form-control', 'placeholder' => title_case($social).' '.trans('livecms.url')]) !!}
                 </div>
             </div>
             @endforeach

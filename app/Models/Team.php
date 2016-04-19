@@ -39,6 +39,7 @@ class Team extends PostableModel
             'slug' => $this->uniqify('slug'),
             'description' => 'required',
             'picture' => 'image|max:5120',
+            'socials.*' => 'active_url',
             'published_at' => 'required',
         ];
     }

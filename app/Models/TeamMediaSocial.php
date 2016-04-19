@@ -11,7 +11,7 @@ class TeamMediaSocial extends Model
 
     protected $fillable = ['social', 'url'];
 
-    protected $socials = ['facebook', 'twitter', 'google-plus', 'linkedin', 'github'];
+    protected $socials = ['facebook', 'twitter', 'instagram', 'google-plus', 'linkedin', 'github'];
 
     public function socials()
     {

@@ -31,10 +31,10 @@ class TeamController extends PostableController
 
     protected function afterSaving($request)
     {
-        $mediasocials = $request->get('mediasocials');
+        $socials = $request->get('socials');
 
 
-        foreach ($mediasocials as $social => $url) {
+        foreach ($socials as $social => $url) {
             
             $mediasocial = $this->model->socials()->where('social', $social)->first();
 
@@ -52,6 +52,6 @@ class TeamController extends PostableController
     {
         parent::loadFormClasses($model);
 
-        $this->mediasocials = $this->model->socials;
+        $this->socials = $this->model->socials;
     }
 }
