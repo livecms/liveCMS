@@ -1,3 +1,5 @@
-* text=auto
-*.css linguist-vendored
+# Enforce Unix newlines
+* text=lf
+
+*.css  linguist-vendored
 *.less linguist-vendored
