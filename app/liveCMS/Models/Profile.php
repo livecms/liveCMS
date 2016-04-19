@@ -6,6 +6,8 @@ class Profile extends User
 {
     protected $table = 'users';
 
+    protected $useAuthorization = false;
+
     protected $dependencies = [];
 
     protected $socialMedias = ['github', 'linkedin', 'facebook', 'twitter', 'instagram', 'google-plus'];
@@ -42,12 +44,31 @@ class Profile extends User
 
     public function rules()
     {
+        $request = request();
+
+        if ($request->has('credentials')) {
+
+            $password = bcrypt($request->get('newpassword'));
+            $request->merge(compact('password'));
+
+            return [
+                'newpassword' => 'required|confirmed|min:6',
+                'passwordprivilege' => $this->validPrivilege('passwordprivilege'),
+            ];
+        }
+
+        if ($request->has('avatars')) {
+
+            return [
+                'picture' => 'image|max:5120',
+                'background' => 'image|max:5120',
+            ];
+        }
+
         return [
             'name' => 'required',
             'username' => $this->uniqify('username', 'required|max:255'),
             'email' => $this->uniqify('email', 'required|email|max:255'),
-            'password' => 'confirmed|min:6',
-            'passwordprivilege' => $this->validPrivilege('passwordprivilege'),
             'socials.*' => 'active_url',
         ];
     }

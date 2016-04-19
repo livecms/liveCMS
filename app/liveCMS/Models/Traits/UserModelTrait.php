@@ -75,4 +75,20 @@ trait UserModelTrait
     {
         return $user->is_admin;
     }
+
+    public function getPicturePath()
+    {
+        return static::$picturePath;
+    }
+
+    public function getAvatarAttribute($avatar)
+    {
+        return $avatar ? asset($this->getPicturePath().'/'.$avatar) : null;
+    }
+
+    public function getBackgroundAttribute($background)
+    {
+        return $background ? asset($this->getPicturePath().'/'.$background) : null;
+    }
+
 }

@@ -23,8 +23,8 @@
           <h5 class="widget-user-desc">{{$profile->jobtitle}}</h5>
         </div>
         <div class="widget-user-image text-center text-aqua img-circle">
-        @if ($profile->picture)
-          <img class="img-circle" src="{{$profile->picture}}" alt="User Avatar">
+        @if ($profile->avatar)
+          <img class="img-circle" src="{{$profile->avatar}}" alt="User Avatar" title="{{basename($profile->avatar)}}">
         @else
           <i class="ion ion-person fa-5x"></i>
         @endif
@@ -55,7 +55,7 @@
             @if (count($profile->socials))
             @foreach ($profile->socials as $social => $url)
               @if ($url)
-              <a class="btn btn-danger" target="__blank" rel="nofollow" href="{{$profile->getSocials($social)}}"><i class="fa fa-{{$social}}"></i></a>
+              <a class="btn btn-danger" target="__blank" rel="nofollow" href="{{$profile->getSocials($social)}}"><i class="fa fa-{{$social}}" title="{{title_case($social)}}"></i></a>
               @endif
             @endforeach
             @endif
@@ -77,25 +77,25 @@
     <div class="col-md-8">
       <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
-          <li class="active"><a href="#profile" data-toggle="tab">{{trans('backend.changeprofile')}}</a></li>
-          <li><a href="#avatar" data-toggle="tab">{{trans('backend.changeavatar')}}</a></li>
-          <li><a href="#credential" data-toggle="tab">{{trans('backend.changecredential')}}</a></li>
+          <li class="active"><a href="#profiles" data-toggle="tab">{{trans('backend.changeprofile')}}</a></li>
+          <li><a href="#avatars" data-toggle="tab">{{trans('backend.changeavatar')}}</a></li>
+          <li><a href="#credentials" data-toggle="tab">{{trans('backend.changecredential')}}</a></li>
         </ul>
         <div class="tab-content">
 
           @include('user.profile.form')
-          <div class="tab-pane active" id="profile">
+          <div class="tab-pane active" id="profiles">
             @yield('profile.form')
           </div>
           <!-- /.tab-pane -->
 
-          <div class="tab-pane" id="avatar">
-            @yield('profile.form.2')
+          <div class="tab-pane" id="avatars">
+            @yield('profile.form.avatars')
           </div>
           <!-- /.tab-pane -->
 
-          <div class="tab-pane" id="credential">
-            @yield('profile.form')
+          <div class="tab-pane" id="credentials">
+            @yield('profile.form.credentials')
           </div>
           <!-- /.tab-pane -->
         </div>
@@ -113,9 +113,10 @@
 <script type="text/javascript">
   jQuery(function() {
     var hash = window.location.hash;
+    if ($('#form-alert').data('errors')) {
+      hash = '#'+$('#form-alert').data('errors');
+    }
     hash && $('ul.nav a[href="' + hash + '"]').tab('show');
-
-
 
     $('.nav-tabs a').click(function (e) {
       $(this).tab('show');

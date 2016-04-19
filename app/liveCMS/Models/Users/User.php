@@ -19,4 +19,6 @@ class User extends Model implements
     UserModelContract
 {
     use Authenticatable, Authorizable, CanResetPassword, UserModelTrait;
+
+    protected static $picturePath = 'users';
 }

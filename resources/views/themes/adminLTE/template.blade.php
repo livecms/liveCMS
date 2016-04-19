@@ -27,6 +27,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="/backend/plugins/datatables/dataTables.bootstrap.css">
   <!-- I Check -->
   <link rel="stylesheet" href="/backend/plugins/iCheck/square/blue.css">
+  <!-- SweetAlert -->
+  <link rel="stylesheet" href="/backend/plugins/sweetalert/sweetalert.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="/backend/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
@@ -64,7 +66,7 @@ desired effect
 | SKINS         | skin-blue                               |
 |               | skin-black                              |
 |               | skin-purple                             |
-|               | skin-yellow                             |
+|               | skin-yellow                             | 
 |               | skin-red                                |
 |               | skin-green                              |
 |---------------------------------------------------------|
@@ -104,19 +106,22 @@ desired effect
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              @if (!auth()->user()->avatar)
               <div class="user-label">
                 <span>{{ auth()->user()->getInitial() }}</span>
               </div>
+              @else
               <!-- The user image in the navbar-->
-              <!-- <img src="/backend/dist/img/user2-160x160.jpg" class="user-image" alt="User Image"> -->
+              <img src="{{auth()->user()->avatar}}" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <!-- <span class="hidden-xs">Alexander Pierce</span> -->
+              <span class="hidden-xs">{{auth()->user()->name}}</span>
+              @endif
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                @if (auth()->user()->picture)
-                <img src="{{auth()->user()->picture}}" class="img-circle" alt="User Image">
+                @if (auth()->user()->avatar)
+                <img src="{{auth()->user()->avatar}}" class="img-circle" alt="User Image">
                 @else
                 <i class="text-gray ion ion-person fa-5x"></i>
                 @endif
@@ -252,6 +257,8 @@ desired effect
 <script src="/backend/plugins/autoNumeric/autoNumeric-min.js"></script>
 <!-- TinyMCE -->
 <script src="/backend/plugins/tinymce/js/tinymce/tinymce.min.js"></script>
+<!-- Sweet Alert -->
+<script src="/backend/plugins/sweetalert/sweetalert.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="/backend/dist/js/demo.js"></script>
 
@@ -391,6 +398,12 @@ desired effect
 
 
 </script>
+
+@if (Session::has('sweet_alert.alert'))
+    <script>
+        swal({!! Session::get('sweet_alert.alert') !!});
+    </script>
+@endif
 
 @yield('script.footer')
 

@@ -23,7 +23,7 @@ class User extends BaseModel implements UserModelContract
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'email', 'password', 'picture', 'background', 'jobtitle', 'socials', 'about', 'site_id',
+        'name', 'username', 'email', 'password', 'avatar', 'background', 'jobtitle', 'socials', 'about', 'site_id',
     ];
 
     /**
@@ -92,20 +92,5 @@ class User extends BaseModel implements UserModelContract
         $this->update($credentials);
 
         return $this;
-    }
-
-    public function getPicturePath()
-    {
-        return static::$picturePath;
-    }
-
-    public function getPictureAttribute($picture)
-    {
-        return $picture ? asset($this->getPicturePath().'/'.$picture) : null;
-    }
-
-    public function getBackgroundAttribute($background)
-    {
-        return $background ? asset($this->getPicturePath().'/'.$background) : null;
     }
 }
