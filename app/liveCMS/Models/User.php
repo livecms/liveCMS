@@ -50,7 +50,7 @@ class User extends BaseModel implements UserModelContract
         ];
     }
 
-    protected $aliases = [];
+    protected $excepts = ['socials', 'about', 'background', 'jobtitle', 'site_id'];
 
     public function __construct(array $attributes = [])
     {
