@@ -27,6 +27,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="/backend/plugins/datatables/dataTables.bootstrap.css">
   <!-- I Check -->
   <link rel="stylesheet" href="/backend/plugins/iCheck/square/blue.css">
+  <!-- Styky Table Header -->
+  <link rel="stylesheet" href="/backend/plugins/sticky-table-headers/css/component.css">
   <!-- SweetAlert -->
   <link rel="stylesheet" href="/backend/plugins/sweetalert/sweetalert.css">
   <!-- Theme style -->
@@ -259,6 +261,8 @@ desired effect
 <script src="/backend/plugins/tinymce/js/tinymce/tinymce.min.js"></script>
 <!-- Sweet Alert -->
 <script src="/backend/plugins/sweetalert/sweetalert.min.js"></script>
+<!-- Sticky Table Header -->
+<script src="/backend/plugins/sticky-table-headers/js/jquery.stickyheader.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="/backend/dist/js/demo.js"></script>
 

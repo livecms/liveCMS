@@ -13,7 +13,6 @@
 liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
 
     // ADMIN AREA
-
     $router->group(['prefix' => $adminSlug, 'namespace' => 'Backend', 'middleware' => 'auth'], function ($router) {
         
         $articleSlug            = globalParams('slug_article', config('livecms.slugs.article'));
@@ -40,9 +39,17 @@ liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
 
     });
 
+    // PROFILE AREA
+
+    $userSlug = globalParams('slug_userprofile', config('livecms.slugs.userprofile'));
+    $router->group(['prefix' => $userSlug, 'namespace' => 'User', 'middleware' => 'auth'], function ($router) {
+
+        $router->resource('article', 'ArticleController');
+
+    });
+
     // FRONTEND
     $router->group(['namespace' => 'Frontend'], function ($router) {
         $router->get('{arg0?}/{arg1?}/{arg2?}/{arg3?}/{arg4?}/{arg5?}', 'PageController@routes');
     });
-
 });

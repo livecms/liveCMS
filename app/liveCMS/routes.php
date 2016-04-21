@@ -12,10 +12,7 @@ use App\liveCMS\Models\Permalink;
 | and give it the controller to call when that URI is requested.
 |
 */
-
-$userSlug = globalParams('slug_userprofile', config('livecms.slugs.userprofile'));
-
-liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) use ($userSlug) {
+liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
 
     $router->get('/', ['as' => 'home', function () use ($adminSlug, $subDomain, $subFolder) {
         
@@ -59,6 +56,7 @@ liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) us
 
     // PROFILE AREA
 
+    $userSlug = globalParams('slug_userprofile', config('livecms.slugs.userprofile'));
     $router->group(['prefix' => $userSlug, 'namespace' => 'User', 'middleware' => 'auth'], function ($router) {
 
         $router->get('/', ['as' => 'admin.home', function () {

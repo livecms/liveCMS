@@ -30,7 +30,7 @@ class ProfileController extends UserController
 
         $this->view->share();
 
-        return view('user.home', compact(camel_case($this->base)));
+        return view('user.profile.home', compact(camel_case($this->base)));
     }
 
     public function store(Request $request)
