@@ -54,7 +54,7 @@ class ProfileController extends UserController
 
         $update = [];
 
-        foreach (['picture', 'background'] as $picture) {
+        foreach (['avatar', 'background'] as $picture) {
 
             $oldPicture = $this->model->$picture;
 
