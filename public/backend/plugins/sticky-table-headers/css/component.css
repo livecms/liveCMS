@@ -25,6 +25,7 @@ table {
     margin-bottom: 3em;
     width: 100%;
     background: #fff;
+    margin: 0;
 }
 td, th {
     padding: 0.75em 1.5em;
@@ -38,7 +39,7 @@ td, th {
 		line-height: 1;
 	}
 th {
-    background-color: #31bc86;
+    background-color: #10B405;
     font-weight: bold;
     color: #fff;
     white-space: nowrap;
@@ -47,11 +48,11 @@ tbody th {
 	background-color: #2ea879;
 }
 tbody tr:nth-child(2n-1) {
-    background-color: #f5f5f5;
+    background-color: #FBFBFB;
     transition: all .125s ease-in-out;
 }
 tbody tr:hover {
-    background-color: rgba(129,208,177,.3);
+    background-color: rgba(195, 192, 192, 0.13);
 }
 
 /* For appearance */
@@ -59,8 +60,9 @@ tbody tr:hover {
 	overflow-x: auto;
 	overflow-y: hidden;
 	position: relative;
-	margin: 3em 0;
+	margin: 0; 
 	width: 100%;
+	padding: 0 15px 0 0;
 }
 .sticky-wrap .sticky-thead,
 .sticky-wrap .sticky-col,

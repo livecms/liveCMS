@@ -9,7 +9,7 @@
 (function(b,c){var $=b.jQuery||b.Cowboy||(b.Cowboy={}),a;$.throttle=a=function(e,f,j,i){var h,d=0;if(typeof f!=="boolean"){i=j;j=f;f=c}function g(){var o=this,m=+new Date()-d,n=arguments;function l(){d=+new Date();j.apply(o,n)}function k(){h=c}if(i&&!h){l()}h&&clearTimeout(h);if(i===c&&m>e){l()}else{if(f!==true){h=setTimeout(i?k:l,i===c?e-m:e)}}}if($.guid){g.guid=j.guid=j.guid||$.guid++}return g};$.debounce=function(d,e,f){return f===c?a(d,e,false):a(d,f,e!==false)}})(this);
 
 $(function(){
-	$('table').each(function() {
+	$('.datatables').each(function() {
 		if($(this).find('thead').length > 0 && $(this).find('th').length > 0) {
 			// Clone <thead>
 			var $w	   = $(window),
@@ -80,13 +80,15 @@ $(function(){
 							// When top of wrapping parent is out of view
 							$stickyHead.add($stickyInsct).css({
 								opacity: 1,
-								top: $stickyWrap.scrollTop()
+								top: $stickyWrap.scrollTop(),
+								'z-index': 100
 							});
 						} else {
 							// When top of wrapping parent is in view
 							$stickyHead.add($stickyInsct).css({
 								opacity: 0,
-								top: 0
+								top: 0,
+								'z-index': -2
 							});
 						}
 					} else {
@@ -96,13 +98,15 @@ $(function(){
 							// When top of viewport is in the table itself
 							$stickyHead.add($stickyInsct).css({
 								opacity: 1,
-								top: $w.scrollTop() - $t.offset().top
+								top: $w.scrollTop() - $t.offset().top,
+								'z-index': 100
 							});
 						} else {
 							// When top of viewport is above or below table
 							$stickyHead.add($stickyInsct).css({
 								opacity: 0,
-								top: 0
+								top: 0,
+								'z-index': -2
 							});
 						}
 					}

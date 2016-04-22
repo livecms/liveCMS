@@ -32,12 +32,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- SweetAlert -->
   <link rel="stylesheet" href="/backend/plugins/sweetalert/sweetalert.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="/backend/dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="/backend/dist/css/AdminLTE.dark.min.css">
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect.
   -->
-  <link rel="stylesheet" href="/backend/dist/css/skins/skin-green-new.min.css">
+  <link rel="stylesheet" href="/backend/dist/css/skins/skin-dark.min.css">
 
   <style type="text/css">
     .user-label {
@@ -45,12 +45,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
         height: 30px;
         text-align: center;
         background-color: rgba(85, 85, 85, 0.25);
+        color: #fff;
         border-radius: 50%;
         margin-top: -5px;
         margin-bottom: -5px;
         padding: 5px;
     }
+
+    .dark .user-label {
+        background-color: #545353;
+    }
+
   </style>
+
+  @yield('css.header')
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -81,7 +89,7 @@ desired effect
 -->
 @if(auth()->user())
 @section('templateBody')
-<body class="{{ $bodyClass or 'skin-blue sidebar-mini' }}">
+<body class="dark {{ $bodyClass or 'skin-blue sidebar-mini' }}">
 <div class="wrapper">
 
   <!-- Main Header -->
@@ -359,7 +367,7 @@ desired effect
       });
 
   @if(isset($base))
-    $('.datatables').DataTable({
+    var table = $('.datatables').DataTable({
         processing: true,
         serverSide: true,
         responsive: true,
@@ -373,6 +381,12 @@ desired effect
         ],
         order: [@foreach($orders as $key => $order) [{{ $key }}, '{{ $order }}']@endforeach],
     });
+    $(table.table().container())
+      .find('div.dataTables_paginate')
+      .css( 'display', table.page.info().pages <= 1 ?
+           'none' :
+           'block'
+    );
   @endif
 
   @if(isset($useCKEditor))
