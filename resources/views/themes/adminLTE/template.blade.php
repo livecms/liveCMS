@@ -96,7 +96,7 @@ desired effect
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="{{url(globalParams('slug_admin', config('livecms.slugs.admin')))}}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini">{{ globalParams('site_initial') }}</span>
       <!-- logo for regular state and mobile devices -->
@@ -247,7 +247,7 @@ desired effect
       Anything you want
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2015 <a href="#">{{ $global_params['site_name'] or 'Company' }}</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2015 - {{ \Carbon\Carbon::now()->format('Y') }}. <a href="{{globalParams('site_name') ? url('/') : 'https://github.com/livecms/liveCMS'}}">{{ globalParams('site_name', 'Live CMS') }}</a>.</strong> All rights reserved.
   </footer>
 
   <!-- /.control-sidebar -->
