@@ -71,6 +71,7 @@ class Profile extends User
             'name' => 'required',
             'username' => $this->uniqify('username', 'required|max:255'),
             'email' => $this->uniqify('email', 'required|email|max:255'),
+            'jobtitle' => 'max:255',
             'socials.*' => 'active_url',
         ];
     }
