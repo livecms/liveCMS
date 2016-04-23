@@ -21,6 +21,7 @@ class CreateArticlesTable extends Migration
             $table->integer('author_id')->unsigned();
             $table->string('picture')->nullable();
             $table->date('published_at');
+            $table->integer('view')->unsigned->nullable();
             $table->timestamps();
 
             $table->foreign('site_id')
