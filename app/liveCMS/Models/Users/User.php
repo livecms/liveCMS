@@ -20,5 +20,7 @@ class User extends Model implements
 {
     use Authenticatable, Authorizable, CanResetPassword, UserModelTrait;
 
+    protected $withSuper = true;
+
     protected static $picturePath = 'users';
 }

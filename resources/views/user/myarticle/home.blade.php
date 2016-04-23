@@ -6,7 +6,7 @@
     @if(isset($withoutAddButton))
     @else
         <p>
-        <a href="{{ action($baseClass.'@create', request()->query()) }}" class="btn btn-danger">Tambah</a> &nbsp;<span>Klik untuk menambah data {{ trans('livecms.'.$base) }}.</span>
+        <a href="{{ action($baseClass.'@create', request()->query()) }}" class="btn btn-danger">Tambah</a> &nbsp;<span>Klik untuk menambah {{ trans('livecms.'.$base) }}.</span>
         </p>
     @endif
     </div>

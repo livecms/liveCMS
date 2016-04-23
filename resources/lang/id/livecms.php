@@ -3,9 +3,11 @@
 return [
 
     'home'              => 'Home',
+    'dashboard'         => 'Dashboard',
     'user'              => 'Pengguna',
     'setting'           => 'Setting',
     'article'           => 'Artikel',
+    'myarticle'         => 'Artikel Saya',
     'staticpage'        => 'Halaman Statis',
     'category'          => 'Kategori',
     'categories'        => 'Kategori',
@@ -20,6 +22,7 @@ return [
     'contact'           => 'Kontak',
     'site'              => 'Website',
     'profile'           => 'Profile',
+    'myprofile'         => 'Profile Saya',
 
     'about'             => 'Tentang',
     'aboutme'           => 'Tentang Saya',

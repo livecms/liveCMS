@@ -16,4 +16,13 @@ class UserController extends BackendController
         
         $this->view->share();
     }
+
+    protected function processDatatables($datatables)
+    {
+        return $datatables
+            ->editColumn('avatar', function ($data) {
+                $imgUrl = $data->avatar;
+                return $data->avatar ? '<a target="_blank"  href="'.$imgUrl.'"><img src="'.$imgUrl.'" style="width: 100px;"></a>' : '-';
+            });
+    }
 }

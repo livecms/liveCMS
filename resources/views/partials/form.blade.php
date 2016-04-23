@@ -9,8 +9,8 @@
 				<div class="row form-group">
 					<div class="col-md-3">&nbsp;</div>
 					<div class="col-md-9">
-						{!! Form::submit('Simpan', ['class' => 'btn btn-primary']) !!}
-						<a href="{{ action($baseClass.'@index') }}" class="btn btn-danger">Batal</a>
+						{!! Form::submit('Simpan', ['class' => 'btn btn-success']) !!}
+						<a href="{{ action($baseClass.'@index') }}" class="btn btn-default">Batal</a>
 					</div>
 				</div>
 

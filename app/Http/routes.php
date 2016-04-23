@@ -41,10 +41,11 @@ liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
 
     // PROFILE AREA
 
-    $userSlug = globalParams('slug_userprofile', config('livecms.slugs.userprofile'));
+    $userSlug = globalParams('slug_userhome', config('livecms.slugs.userhome'));
     $router->group(['prefix' => $userSlug, 'namespace' => 'User', 'middleware' => 'auth'], function ($router) {
 
-        $router->resource('article', 'ArticleController');
+        $articleSlug            = globalParams('slug_article', config('livecms.slugs.article'));
+        $router->resource($articleSlug, 'ArticleController');
 
     });
 

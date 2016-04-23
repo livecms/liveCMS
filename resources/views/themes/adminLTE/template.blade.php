@@ -109,9 +109,23 @@ desired effect
       <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
         <span class="sr-only">Toggle navigation</span>
       </a>
+
+      @if (isset($withoutHeader))
+      <div class="navbar-custom-menu pull-left">
+        <h3 class=page-header>
+          {{ $title or 'Page Header' }}
+        </h3>
+      </div>
+      @endif
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
+          <li class="dropdown user user-menu">
+            <a class="dropdown-toggle">
+              <!-- hidden-xs hides the username on small devices so only the image appears. -->
+              <span class="hidden-xs">{{auth()->user()->name}}</span>
+            </a>
+          </li>
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
@@ -123,8 +137,6 @@ desired effect
               @else
               <!-- The user image in the navbar-->
               <img src="{{auth()->user()->avatar}}" class="user-image" alt="User Image">
-              <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">{{auth()->user()->name}}</span>
               @endif
             </a>
             <ul class="dropdown-menu">
@@ -157,10 +169,10 @@ desired effect
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="{{ url('/me') }}" class="btn btn-default btn-flat">Profile</a>
+                  <a href="{{ route((site()->subfolder ? site()->subfolder.'.' : '').globalParams('slug_userhome', config('livecms.slugs.userhome')).'.'.globalParams('slug_profile', config('livecms.slugs.profile')).'.index') }}" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="{{ url('/logout') }}" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="{{ url('logout') }}" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -202,6 +214,7 @@ desired effect
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
+    @if (!isset($withoutHeader))
     <section class="content-header">
       <h1>
         {{ $title or 'Page Header' }}
@@ -215,6 +228,7 @@ desired effect
       @endif
       </ol>
     </section>
+    @endif
 
     <!-- Main content -->
     <section class="content">
@@ -299,7 +313,7 @@ desired effect
     $.fn.liveposCurrency = {aSep: '.', aDec: ',', aSign: 'Rp. ', lZero: 'deny'};
     $.fn.liveposNumeric = {aSep: '.', aDec: ',', aSign: '', lZero: 'deny'};
 
-    $('select').select2({width: '100%'});    
+    $('select').select2({width: '100%', tokenSeparators: [',']});    
     
     $('.input-mask.input-mask-currency').autoNumeric('init', $.fn.liveposCurrency);
     $('.input-mask.input-mask-numeric').autoNumeric('init', $.fn.liveposNumeric);
@@ -376,24 +390,25 @@ desired effect
           type: 'POST'
         },
         columns: [
-          @foreach(array_keys($fields) as $field) { name: '{{ $field }}', data: '{{ $field }}', sortable: {{ in_array($field, $unsortables) ? 'false' : 'true'}}}, @endforeach
-          { name: 'menu', data: 'menu', sortable: false },
+          @foreach(array_keys($fields) as $field) { name: '{{ $field }}', data: '{{ $field }}', sortable: {{ in_array($field, $unsortables) ? 'false' : 'true'}}, searchable: {{ in_array($field, $unsortables) ? 'false' : 'true'}}}, @endforeach
+          { name: 'menu', data: 'menu', sortable: false, searchable: false },
         ],
         order: [@foreach($orders as $key => $order) [{{ $key }}, '{{ $order }}']@endforeach],
+    }).on( 'draw.dt', function () {
+      $(table.table().container())
+        .find('div.dataTables_paginate')
+        .css( 'display', table.page.info() && table.page.info().pages <= 1 ?
+             'none' :
+             'block'
+      );
     });
-    $(table.table().container())
-      .find('div.dataTables_paginate')
-      .css( 'display', table.page.info().pages <= 1 ?
-           'none' :
-           'block'
-    );
   @endif
 
-  @if(isset($useCKEditor))
+  @if(isset($useCKEditor) || isset($useTinyMCE))
     tinymce.init({
       selector: 'textarea',
       automatic_uploads: true,
-      height: 500,
+      height: 400,
       theme: 'modern',
       plugins: [
         'advlist autolink lists link charmap print preview hr anchor pagebreak',

@@ -6,6 +6,8 @@ class Profile extends User
 {
     protected $table = 'users';
 
+    protected $withSuper = true;
+
     protected $useAuthorization = false;
 
     protected $dependencies = [];

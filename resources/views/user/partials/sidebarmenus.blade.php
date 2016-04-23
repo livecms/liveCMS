@@ -1,39 +1,11 @@
 <?php
-$userSlug              = globalParams('slug_userprofile', config('livecms.slugs.userprofile'));
-// $articleSlug            = globalParams('slug_article', config('livecms.slugs.article'));
-// $categorySlug           = globalParams('slug_category', config('livecms.slugs.category'));
-// $tagSlug                = globalParams('slug_tag', config('livecms.slugs.tag'));
-// $staticpageSlug         = globalParams('slug_staticpage', config('livecms.slugs.staticpage'));
-// $teamSlug               = globalParams('slug_team', config('livecms.slugs.team'));
-// $gallerySlug            = globalParams('slug_gallery', config('livecms.slugs.gallery'));
-// $projectSlug            = globalParams('slug_project', config('livecms.slugs.project'));
-// $clientSlug             = globalParams('slug_client', config('livecms.slugs.client'));
-// $projectCategorySlug    = globalParams('slug_projectcategory', config('livecms.slugs.projectcategory'));
-// $contactSlug            = globalParams('slug_contact', config('livecms.slugs.contact'));
-
+$userSlug               = globalParams('slug_userhome', config('livecms.slugs.userhome'));
+$profileSlug            = globalParams('slug_profile', config('livecms.slugs.profile'));
+$articleSlug            = globalParams('slug_article', config('livecms.slugs.article'));
 $menus = [
-    // [   'title' => trans('livecms.post'), 'icon' => 'pencil',
-    //     'uri' => [
-    //         ['uri' => $articleSlug, 'title' => trans('livecms.article'), 'icon' => 'files-o'],
-    //         ['uri' => $categorySlug, 'title' => trans('livecms.category'), 'icon' => 'list'],
-    //         ['uri' => $tagSlug, 'title' => trans('livecms.tag'), 'icon' => 'tag'],
-    //     ],
-    // ],
-    // [   'title' => trans('livecms.clientandproject'), 'icon' => 'briefcase',
-    //     'uri' => [
-    //         ['uri' => $clientSlug, 'title' => trans('livecms.client'), 'icon' => 'users'],
-    //         ['uri' => $projectCategorySlug, 'title' => trans('livecms.projectcategory'), 'icon' => 'list'],
-    //         ['uri' => $projectSlug, 'title' => trans('livecms.project'), 'icon' => 'briefcase'],
-    //     ],
-    // ],
-    // ['uri' => $staticpageSlug, 'title' => trans('livecms.staticpage'), 'icon' => 'file-o'],
-    // ['uri' => 'permalink', 'title' => 'Permalink', 'icon' => 'link'],
-    // ['uri' => $teamSlug, 'title' => trans('livecms.team'), 'icon' => 'user-plus'],
-    // ['uri' => $gallerySlug, 'title' => trans('livecms.gallery'), 'icon' => 'image'],
-    // ['uri' => 'user', 'title' => trans('livecms.user'), 'icon' => 'users'],
-    // ['uri' => $contactSlug, 'title' => trans('livecms.contact'), 'icon' => 'phone'],
-    // ['uri' => 'setting', 'title' => 'Setting', 'icon' => 'cog'],
-    // ['uri' => 'site', 'title' => trans('livecms.site'), 'icon' => 'globe'],
+    ['uri' => 'permalink', 'title' => 'Permalink', 'icon' => 'link'],
+    ['uri' => $profileSlug, 'title' => trans('livecms.profile'), 'icon' => 'user'],
+    ['uri' => $articleSlug, 'title' => trans('livecms.article'), 'icon' => 'pencil'],
 ];
 ?>
 
@@ -43,8 +15,6 @@ $subfolderPrefix = $subfolderPrefix ? $subfolderPrefix.'.' : $subfolderPrefix;
 ?>
 
 <!-- Home -->
-<li class="@if(isInCurrentRoute('user.home'))active @endif"><a href="{{ url($userSlug) }}"><i class="fa fa-user"></i> <span>{{trans('livecms.myprofile')}}</span></a></li>
-
 @foreach($menus as $menu)
 @if(is_array($uri = $menu['uri']))
 <?php

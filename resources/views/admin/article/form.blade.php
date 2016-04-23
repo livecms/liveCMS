@@ -9,7 +9,7 @@
 			{!! Form::label('category', trans('livecms.category'), ['class' => 'control-label']) !!}
 		</div>
 		<div class="col-md-10">
-			{!! Form::select('categories[]', $categories, $article->categories->pluck('id')->all(), ['class' => 'form-control', 'multiple' => true]) !!}
+			{!! Form::select('categories[]', $categories, $article->categories->pluck('id')->all(), ['class' => 'form-control', 'multiple' => true, 'data-tags' => true]) !!}
 		</div>
 	</div>
 
@@ -18,7 +18,7 @@
 			{!! Form::label('tag', 'Tag', ['class' => 'control-label']) !!}
 		</div>
 		<div class="col-md-10">
-			{!! Form::select('tags[]', $tags, $article->tags->pluck('id')->all(), ['class' => 'form-control', 'multiple' => true]) !!}
+			{!! Form::select('tags[]', $tags, $article->tags->pluck('id')->all(), ['class' => 'form-control', 'multiple' => true, 'data-tags' => true]) !!}
 		</div>
 	</div>
 @stop

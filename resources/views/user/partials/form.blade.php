@@ -4,7 +4,7 @@
 <hr>
 <div class="row form-group">
     <div class="col-sm-2">
-        {!! Form::submit('Update', ['class' => 'btn btn-block btn-danger']) !!}
+        {!! Form::submit('Update', ['class' => 'btn btn-block btn-success']) !!}
     </div>
     <div class="col-sm-10">
         <span class="text-muted"> 

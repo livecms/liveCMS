@@ -98,7 +98,7 @@ $(function(){
 							// When top of viewport is in the table itself
 							$stickyHead.add($stickyInsct).css({
 								opacity: 1,
-								top: $w.scrollTop() - $t.offset().top,
+								top: $w.scrollTop() - $t.offset().top + $stickyHead.height() + ($('body').width() < 760 ? $stickyHead.height() : 0) ,
 								'z-index': 100
 							});
 						} else {

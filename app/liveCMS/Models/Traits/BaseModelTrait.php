@@ -92,11 +92,21 @@ trait BaseModelTrait
         }
     }
 
+    public function selfPost($bool = true)
+    {
+        $this->selfPost = $bool;
+        return $this;
+    }
+
     public function newQuery()
     {
         $this->firstAuthorization();
 
         $query = parent::newQuery()->with($this->dependencies());
+
+        if (auth()->check() && $this->selfPost) {
+            $query = $query->where('author_id', auth()->user()->id);
+        }
 
         if ($this->allSites) {
             return $query;

@@ -11,4 +11,6 @@ class Role extends Model
     const AUTHOR = 'author';
     const BANNED = 'banned';
     const REGISTERED = 'registered';
+
+    protected $fillable = ['role'];
 }

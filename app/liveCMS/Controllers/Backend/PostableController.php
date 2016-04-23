@@ -77,7 +77,7 @@ abstract class PostableController extends BackendController
     {
         $directory = $this->model->getPicturePath();
         $picturePath = public_path($directory.DIRECTORY_SEPARATOR.$picture);
-        
+
         @unlink($picturePath);
     }
 

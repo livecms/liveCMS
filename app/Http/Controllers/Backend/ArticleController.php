@@ -51,6 +51,63 @@ class ArticleController extends PostableController
 
     protected function afterSaving($request)
     {
+        $categories = $request->get('categories', []);
+
+        $newCategories = [];
+
+        foreach ($categories as $index => $category) {
+            if (is_numeric($category) && $this->category->find($category)) {
+                continue;
+            }
+
+            $cat = $this->category->firstOrNew(['category' => $category]);
+
+            if (!$cat->id) {
+
+                $i = 0;
+                do {
+                    $slug = str_slug($cat->category).($i++ > 0 ? '-'.$i : '');
+                } while ($this->category->where('slug', $slug)->first());
+
+                $cat->slug = $slug;
+                $cat->save();
+            }
+
+            $newCategories[$index] = $cat->id;
+        }
+
+        $categories = array_replace($categories, $newCategories);
+
+        $tags = $request->get('tags', []);
+
+        $newTags = [];
+
+        foreach ($tags as $index => $tag) {
+            
+            if (is_numeric($tag) && $this->tag->find($tag)) {
+                continue;
+            }
+
+            $tag = $this->tag->firstOrNew(['tag' => $tag]);
+
+            if (!$tag->id) {
+
+                $i = 0;
+                do {
+                    $slug = str_slug($tag->tag).($i++ > 0 ? '-'.$i : '');
+                } while ($this->tag->where('slug', $slug)->first());
+                
+                $tag->slug = $slug;
+                $tag->save();
+            }
+
+            $newTags[$index] = $tag->id;
+        }
+
+        $tags = array_replace($tags, $newTags);
+
+        $request->merge(compact('categories', 'tags'));
+
         $this->model->categories()->sync($request->get('categories', []));
         $this->model->tags()->sync($request->get('tags', []));
 

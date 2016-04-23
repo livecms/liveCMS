@@ -7,6 +7,25 @@ use App\liveCMS\Models\Users\Role;
 
 trait UserModelTrait
 {
+    public function withSuper($bool = true)
+    {
+        $this->withSuper = $bool;
+        return $this;
+    }
+
+    public function newQuery()
+    {
+        $query = parent::newQuery();
+
+        if ($this->withSuper) {
+            return $query;
+        }
+
+        return $query->whereHas('roles', function ($query) {
+            $query->where('role', '<>', Role::SUPER);
+        });
+    }
+
     public function getInitial()
     {
         $name = strtoupper($this->name);

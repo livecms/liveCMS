@@ -23,6 +23,7 @@ class BackendController extends BaseController
         $this->middleware('model:'.get_class($model));
         parent::__construct();
 
+        $this->withoutHeader = true;
         $this->model    = static::$controllerModel = $model;
         $this->base     = $base;
         $reflection     = new ReflectionClass($this);

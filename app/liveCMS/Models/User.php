@@ -15,6 +15,8 @@ class User extends BaseModel implements UserModelContract
 
     protected $allSites = true;
 
+    protected $withSuper = false;
+
     protected static $picturePath = 'users';
 
     /**
@@ -42,6 +44,19 @@ class User extends BaseModel implements UserModelContract
 
     public function rules()
     {
+        $request = request();
+
+        if ($request->has('credentials')) {
+
+            $password = bcrypt($request->get('newpassword'));
+            $request->merge(compact('password'));
+
+            return [
+                'newpassword' => 'required|confirmed|min:6',
+                'passwordprivilege' => $this->validPrivilege('passwordprivilege'),
+            ];
+        }
+
         return [
             'name' => 'required',
             'username' => $this->uniqify('username', 'required|max:255'),
