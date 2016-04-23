@@ -23,6 +23,7 @@ class ProjectController extends PostableController
         $this->category = $category;
         $this->client = $client;
 
+        $this->formLeftWidth = 2;
         $this->breadcrumb2Icon  = 'files-o';
         $this->fields           = array_merge($this->model->getFields(), ['category' => 'Category', 'client' => 'Client']);
         

@@ -93,30 +93,35 @@ class BackendController extends BaseController
         return $datas;
     }
 
+    protected function drawMenuField($data)
+    {
+        return
+            '<a href="'.action($this->baseClass.'@edit', [$data->{$this->model->getKeyName()}]).'" 
+                class="btn btn-small btn-link">
+                    <i class="fa fa-xs fa-pencil"></i> 
+                    Edit
+            </a> '.
+            Form::open(['style' => 'display: inline!important', 'method' => 'delete',
+                'action' => [$this->baseClass.'@destroy', $data->{$this->model->getKeyName()}]
+            ]).
+            '  <button type="submit" onClick="return confirm(\''.trans('backend.deleteconfirmation').'\');" 
+                class="btn btn-small btn-link">
+                    <i class="fa fa-xs fa-trash-o"></i> 
+                    Delete
+            </button>
+            </form>';
+    }
+
     public function data(Request $request)
     {
         $datas = $this->model->select($this->getDataFields());
         
         $datas = $this->beforeDatatables($datas);
 
-        $datatables = Datatables::of($datas)
-            ->addColumn('menu', function ($data) {
-                return
-                    '<a href="'.action($this->baseClass.'@edit', [$data->{$this->model->getKeyName()}]).'" 
-                        class="btn btn-small btn-link">
-                            <i class="fa fa-xs fa-pencil"></i> 
-                            Edit
-                    </a> '.
-                    Form::open(['style' => 'display: inline!important', 'method' => 'delete',
-                        'action' => [$this->baseClass.'@destroy', $data->{$this->model->getKeyName()}]
-                    ]).
-                    '  <button type="submit" onClick="return confirm(\''.trans('backend.deleteconfirmation').'\');" 
-                        class="btn btn-small btn-link">
-                            <i class="fa fa-xs fa-trash-o"></i> 
-                            Delete
-                    </button>
-                    </form>';
-            });
+        $datatables = Datatables::of($datas)->addColumn('menu', function ($data) {
+            return $this->drawMenuField($data);
+        });
+
         $datatables = $this->processDatatables($datatables);
         $result = $datatables
             ->make(true);

@@ -16,8 +16,7 @@ class StaticPageController extends PostableController
         parent::__construct($model, $base);
 
         $this->unsortables = array_merge($this->unsortables, ['parent']);
-
-        // $this->fields   = array_merge(['id' => 'id', 'parent' => 'parent'], array_except($this->model->getFields(), ['id', 'parent_id']));
+        $this->formLeftWidth = 2;
         $this->query = request()->all();
     }
 

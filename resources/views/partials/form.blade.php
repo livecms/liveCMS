@@ -6,13 +6,17 @@
 				
 				@yield('form')
 
+				@if (!isset($withoutFormButtons))
+				<hr>
+				
 				<div class="row form-group">
-					<div class="col-md-3">&nbsp;</div>
+					<div class="col-md-{{ $formLeftWidth or '3' }}">&nbsp;</div>
 					<div class="col-md-9">
 						{!! Form::submit('Simpan', ['class' => 'btn btn-success']) !!}
 						<a href="{{ action($baseClass.'@index') }}" class="btn btn-default">Batal</a>
 					</div>
 				</div>
+				@endif
 
 				{!! Form::close() !!}
 		  	</div><!-- /.box-body -->

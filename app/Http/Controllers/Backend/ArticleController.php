@@ -23,6 +23,7 @@ class ArticleController extends PostableController
         $this->category = $category;
         $this->tag = $tag;
 
+        $this->formLeftWidth = 2;
         $this->breadcrumb2Icon  = 'files-o';
         
         $this->view->share();

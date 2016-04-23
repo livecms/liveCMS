@@ -37,7 +37,6 @@ class User extends BaseModel implements UserModelContract
         'password', 'remember_token',
     ];
 
-
     protected $dependencies = ['roles'];
 
     protected $credentials = ['username', 'email', 'password'];
@@ -47,6 +46,13 @@ class User extends BaseModel implements UserModelContract
         $request = request();
 
         if ($request->has('credentials')) {
+
+            if ($request->has('unban') || $request->has('admin_yes') || $request->has('admin_no')) {
+
+                return [
+                    'passwordprivilege' => $this->validPrivilege('passwordprivilege'),
+                ];
+            }
 
             $password = bcrypt($request->get('newpassword'));
             $request->merge(compact('password'));
@@ -60,7 +66,7 @@ class User extends BaseModel implements UserModelContract
         return [
             'name' => 'required',
             'username' => $this->uniqify('username', 'required|max:255'),
-            'email' => $this->uniqify('email', 'required|max:255'),
+            'email' => $this->uniqify('email', 'required|email|max:255'),
             'password' => 'required|confirmed|min:6',
         ];
     }
@@ -76,15 +82,18 @@ class User extends BaseModel implements UserModelContract
 
     public function createUser(array $attributes = [])
     {
-        $credentials = array_only($attributes, $this->credentials);
+        return static::create($attributes);
+    }
 
-        $user = new static;
-        $user->fill($attributes);
+    public static function create(array $attributes = [])
+    {
+        $user = parent::create($attributes);
+        $credentials = array_only($attributes, $user->credentials);
+        
         $user->site_id = $user->site_id ? $user->site_id : site()->id;
         $user->save();
 
         $user->makeCredentials($credentials);
-
         return $user;
     }
 

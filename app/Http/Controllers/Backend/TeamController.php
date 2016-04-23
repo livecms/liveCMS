@@ -21,9 +21,8 @@ class TeamController extends PostableController
         parent::__construct($model, $base);
 
         $this->mediasocial = $mediasocial;
-
+        $this->formLeftWidth = 2;
         $this->socials = array_combine($mediasocial->socials(), array_map('title_case', $mediasocial->socials()));
-
         $this->breadcrumb2Icon  = 'user-plus';
 
         $this->view->share();

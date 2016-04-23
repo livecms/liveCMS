@@ -23,6 +23,7 @@ class ContactController extends BackendController
     {
         $form = $this->create($request);
         
+        $this->formLeftWidth = 2;
         $this->breadcrumb3  = trans('backend.edit');
         $this->view->share();
         return $form;

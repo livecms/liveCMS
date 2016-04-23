@@ -14,6 +14,7 @@ class GalleryController extends PostableController
         parent::__construct($model, $base);
 
         $this->breadcrumb2Icon  = 'image';
+        $this->formLeftWidth = 2;
 
         $this->view->share();
     }

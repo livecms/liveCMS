@@ -12,6 +12,7 @@ class ClientController extends PostableController
         parent::__construct($model, $base);
 
         $this->breadcrumb2Icon  = 'user-plus';
+        $this->formLeftWidth = 2;
 
         $this->view->share();
     }
