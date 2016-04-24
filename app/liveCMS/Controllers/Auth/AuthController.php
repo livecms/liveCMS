@@ -41,8 +41,8 @@ class AuthController extends Controller
     {
         $this->middleware('guest', ['except' => 'logout']);
 
-        $adminSlug  = globalParams('slug_admin', config('livecms.slugs.admin'));
-        $this->redirectTo = '/'.$adminSlug;
+        $userSlug = globalParams('slug_userhome', config('livecms.slugs.userhome'));
+        $this->redirectTo = '/'.$userSlug;
     }
 
     /**
@@ -53,7 +53,7 @@ class AuthController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, UserModel::rules());
+        return Validator::make($data, app(UserModel::class)->rules());
     }
 
     /**
@@ -82,10 +82,18 @@ class AuthController extends Controller
 
     protected function authenticated($request, User $user)
     {
+        if ($user->is_banned) {
+            $this->logout();
+            alert()->error(trans('backend.userisbanned'), trans('backend.loginfailed'));
+            return redirect()->back();
+        }
+        
         if ($user->site_id != site()->getCurrent()->id) {
             $this->logout();
 
             $url = $user->site->getRootUrl().$this->redirectTo;
+
+
             return redirect()->away($url);
         }
 

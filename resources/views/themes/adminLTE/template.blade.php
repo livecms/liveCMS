@@ -7,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>{{ $title or 'Judul' }} | {{ globalParams('site_name') }}</title>
+  <title>{{ $title or '' }} | {{ globalParams('site_name', 'Live CMS') }}</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- CSRF -->
@@ -100,9 +100,9 @@ desired effect
     <!-- Logo -->
     <a href="{{url(globalParams('slug_admin', config('livecms.slugs.admin')))}}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini">{{ globalParams('site_initial') }}</span>
+      <span class="logo-mini">{{ globalParams('site_initial', 'LC') }}</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg">{{ globalParams('site_name') }}</span>
+      <span class="logo-lg">{{ globalParams('site_name', 'Live CMS') }}</span>
     </a>
 
     <!-- Header Navbar -->
@@ -246,10 +246,10 @@ desired effect
   <footer class="main-footer">
     <!-- To the right -->
     <div class="pull-right hidden-xs">
-      Anything you want
+      Made with <i class="fa fa-heart text-red"></i> in Jakarta, Indonesia
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2015 - {{ \Carbon\Carbon::now()->format('Y') }}. <a href="{{globalParams('site_name') ? url('/') : 'https://github.com/livecms/liveCMS'}}">{{ globalParams('site_name', 'Live CMS') }}</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2015 - {{ \Carbon\Carbon::now()->format('Y') }}. <a href="{{globalParams('site_name') ? url('/') : 'https://github.com/livecms/liveCMS'}}">{{ globalParams('site_name', 'Live CMS') }}</a>.</strong> {{ globalParams('site_slogan', 'Powered by Laravel Framework.') }}
   </footer>
 
   <!-- /.control-sidebar -->
@@ -457,6 +457,7 @@ desired effect
 
           $.post(action, obj, function (data) {
             table.draw(true);
+            swal('{{trans('livecms.success')}}', '', 'success');
           }, 'json').error(function (data) {
             error = $.parseJSON(data.responseText)[field][0];
             swal('{{trans('livecms.failed')}}', error.charAt(0).toUpperCase() + error.slice(1), 'error');

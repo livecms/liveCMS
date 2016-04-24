@@ -1,14 +1,16 @@
 @extends('themes.adminLTE.template')
 
+<?php $title = 'Login'; ?>
+
 @section('templateBody')
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" style="background-image: url(/background/{{globalParams('background_image', 'keyboard.jpg')}})">
 <div class="login-box">
   <div class="login-logo">
-    <a href="/">{{ globalParams('site_name') }}</a>
+    <a href="/">{{ globalParams('site_name', 'Live CMS') }}</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Sign in to start your session</p>
+    <p class="login-box-msg text-black">Sign in to start your session</p>
 
     {!! Form::open() !!}
         @if($errors->first('email')) <span class="lead label label-danger">{{ $errors->first('email') }}</span>@endif 
@@ -41,7 +43,6 @@
     <!-- /.social-auth-links -->
 
     <a href="{{ url('/password/reset') }}">I forgot my password</a><br>
-    <a href="{{ url('/register') }}" class="text-center">Register a new membership</a>
 
 
   </div>
@@ -58,6 +59,13 @@
 <script src="/backend/bootstrap/js/bootstrap.min.js"></script>
 <!-- iCheck -->
 <script src="/backend/plugins/iCheck/icheck.min.js"></script>
+<!-- Sweet Alert -->
+<script src="/backend/plugins/sweetalert/sweetalert.min.js"></script>
+@if (Session::has('sweet_alert.alert'))
+    <script>
+        swal({!! Session::get('sweet_alert.alert') !!});
+    </script>
+@endif
 <script>
   $(function () {
     $('input').iCheck({

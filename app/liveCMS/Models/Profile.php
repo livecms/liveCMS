@@ -20,7 +20,7 @@ class Profile extends User
 
     public function allowsUserRead($user)
     {
-        return true;
+        return ! $user->is_banned;
     }
 
     public function socialMedias()

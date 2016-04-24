@@ -18,6 +18,7 @@ return [
     'ifwanttochangeavatar'  => 'Jika Ingin ganti Avatar',
     'ifwanttochangebackground' => 'Jika Ingin ganti Foto Background',
     'viewall'               => 'Lihat Semua',
+    'loginfailed'           => 'Login Failed',
     'viewhierarchy'         => 'Secara Hierarki',
     'choose'                => 'Pilih',
     'administrators'        => 'Adminstrator',
@@ -33,5 +34,8 @@ return [
     'yourhomeprofile'       => 'Home Profile Anda',
     'updatesuccess'         => 'Update Success',
     'updateprofilesuccess'  => 'Profile berhasil diupdate.',
-    'updatecredentialsuccess'  => 'Password baru telah disimpan.',
+    'updateprofilesuccess'  => 'Profile berhasil diupdate.',
+    'userisbanned'          => 'User telah di-banned.',
+    'wanttobanuser'         => 'Ingin meng-ban user tersebut ?',
+    'wanttounbanuser'       => 'Batalkan ban user tersebut ?',
 ];

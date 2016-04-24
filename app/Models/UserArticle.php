@@ -5,9 +5,9 @@ namespace App\Models;
 class UserArticle extends Article
 {
     protected $table = 'articles';
-    
+
     public function allowsUserRead($user)
     {
-        return true;
+        return !$user->is_banned;
     }
 }
