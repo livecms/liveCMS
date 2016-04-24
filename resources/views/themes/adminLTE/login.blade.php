@@ -1,9 +1,14 @@
 @extends('themes.adminLTE.template')
 
-<?php $title = 'Login'; ?>
+<?php
+$title = 'Login';
+$userImages = App\liveCMS\Models\User::whereNotNull('background')->get()->random();
+$loginBackground = $userImages ? $userImages->background : '/background/'.globalParams('background_image', 'keyboard.jpg');
+?>
+
 
 @section('templateBody')
-<body class="hold-transition login-page" style="background-image: url(/background/{{globalParams('background_image', 'keyboard.jpg')}})">
+<body class="hold-transition login-page" style="background-image: url({{$loginBackground}})">
 <div class="login-box">
   <div class="login-logo">
     <a href="/">{{ globalParams('site_name', 'Live CMS') }}</a>

@@ -74,4 +74,8 @@ liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
     // AUTH
     $router->auth();
 
+    $router->get('register', function () {
+        return redirect()->route('user.home');
+    });
+
 });

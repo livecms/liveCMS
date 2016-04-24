@@ -64,7 +64,8 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return UserModel::createUser($data);
+        $user = UserModel::create($data);
+        return User::find($user->id);
     }
 
     /**
