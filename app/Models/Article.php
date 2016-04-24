@@ -10,7 +10,7 @@ use App\liveCMS\Models\User;
 class Article extends PostableModel
 {
     use AuthorModelTrait;
-
+    
     protected $mergesAfter = ['category' => 'Category', 'tag' => 'Tag'];
 
     protected $dependencies = ['author', 'categories', 'tags', 'permalink'];
@@ -29,12 +29,12 @@ class Article extends PostableModel
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'article_categories');
+        return $this->belongsToMany(Category::class, 'article_categories', 'article_id');
     }
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'article_tags');
+        return $this->belongsToMany(Tag::class, 'article_tags', 'article_id');
     }
 
     public function permalink()

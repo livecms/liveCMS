@@ -76,8 +76,14 @@ trait BaseModelTrait
         static::$usePolicy = false;
     }
 
-    public function useAuthorization()
+    public function useAuthorization($bool = null)
     {
+        if ($bool != null) {
+
+            $this->useAuthorization = $bool;
+            return $this;
+        }
+
         return $this->useAuthorization;
     }
 

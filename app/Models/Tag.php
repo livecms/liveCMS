@@ -9,6 +9,8 @@ class Tag extends BaseModel
 {
     use AuthorModelTrait;
 
+    protected $useAuthorization = false;
+    
     protected $fillable = ['tag', 'slug'];
 
     public function rules()

@@ -45,12 +45,19 @@ class User extends BaseModel implements UserModelContract
     {
         $request = request();
 
+        if ($request->isMethod('delete')) {
+
+            return [
+                'password' => $this->validPrivilege('password'),
+            ];
+        }
+
         if ($request->has('credentials')) {
 
             if ($request->has('unban') || $request->has('admin_yes') || $request->has('admin_no')) {
 
                 return [
-                    'passwordprivilege' => $this->validPrivilege('passwordprivilege'),
+                    'password' => $this->validPrivilege('password'),
                 ];
             }
 

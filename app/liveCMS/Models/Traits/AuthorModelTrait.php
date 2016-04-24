@@ -11,7 +11,7 @@ trait AuthorModelTrait
 
     public function allowsUserRead($user)
     {
-        return $user->is_author || $user->is_admin;
+        return $user->is_admin;
     }
 
     public function allowsUserCreate($user)

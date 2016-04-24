@@ -31,6 +31,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="/backend/plugins/sticky-table-headers/css/component.css">
   <!-- SweetAlert -->
   <link rel="stylesheet" href="/backend/plugins/sweetalert/sweetalert.css">
+  <!-- SweetAlert Forms -->
+  <link rel="stylesheet" href="/backend/plugins/swal-forms/swal-forms.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="/backend/dist/css/AdminLTE.dark.min.css">
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
@@ -283,6 +285,8 @@ desired effect
 <script src="/backend/plugins/tinymce/js/tinymce/tinymce.min.js"></script>
 <!-- Sweet Alert -->
 <script src="/backend/plugins/sweetalert/sweetalert.min.js"></script>
+<!-- Sweet Alert Form -->
+<script src="/backend/plugins/swal-forms/swal-forms.js"></script>
 <!-- Sticky Table Header -->
 <script src="/backend/plugins/sticky-table-headers/js/jquery.stickyheader.js"></script>
 <!-- AdminLTE for demo purposes -->
@@ -426,6 +430,43 @@ desired effect
       relative_urls: false,
      });
   @endif
+
+    $('.datatables').on('click', '.btn-need-auth', function () {
+      var title   = $(this).data('title') || 'title';
+      var method  = $(this).data('method');
+      var action  = $(this).data('action');
+      var button  = $(this).text() || 'Submit';
+      var field   = $(this).data('field') || 'password';
+      var obj     = $(this).data('hidden') || {};
+
+      swal.withFormAsync({
+        title: title,
+        text: '{{trans('backend.needyourpasswordtocontinue')}}',
+        showCancelButton: true,
+        confirmButtonColor: '#DD6B55',
+        confirmButtonText: button,
+        closeOnConfirm: true,
+        formFields: [
+          { id: field, name: field, type: 'password', placeholder: '{{trans('livecms.password')}}' }
+        ]
+      }).then(function (context) {
+        
+        if (context._isConfirm) {
+          obj[field] = context.swalForm[field];
+          obj['_method'] = method;
+
+          $.post(action, obj, function (data) {
+            table.draw(true);
+          }, 'json').error(function (data) {
+            error = $.parseJSON(data.responseText)[field][0];
+            swal('{{trans('livecms.failed')}}', error.charAt(0).toUpperCase() + error.slice(1), 'error');
+          });
+        }
+        console.log(context._isConfirm)
+        // do whatever you want with the form data
+        console.log(context.swalForm) // { name: 'user name', nickname: 'what the user sends' }
+      })
+    });
   
   })
 

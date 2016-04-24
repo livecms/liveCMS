@@ -4,7 +4,7 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Backend\ArticleController as Senior;
-use App\Models\Article as Model;
+use App\Models\UserArticle as Model;
 use App\Models\Category;
 use App\Models\Tag;
 

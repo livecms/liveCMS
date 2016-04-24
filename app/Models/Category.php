@@ -9,6 +9,8 @@ class Category extends BaseModel
 {
     use AuthorModelTrait;
 
+    protected $useAuthorization = false;
+
     protected $fillable = ['category', 'slug'];
 
     public function rules()

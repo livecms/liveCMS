@@ -3,7 +3,6 @@ $userSlug               = globalParams('slug_userhome', config('livecms.slugs.us
 $profileSlug            = globalParams('slug_profile', config('livecms.slugs.profile'));
 $articleSlug            = globalParams('slug_article', config('livecms.slugs.article'));
 $menus = [
-    ['uri' => 'permalink', 'title' => 'Permalink', 'icon' => 'link'],
     ['uri' => $profileSlug, 'title' => trans('livecms.profile'), 'icon' => 'user'],
     ['uri' => $articleSlug, 'title' => trans('livecms.article'), 'icon' => 'pencil'],
 ];

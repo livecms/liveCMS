@@ -27,7 +27,7 @@ class UserController extends BackendController
     {
         return $datatables
             ->editColumn('name', function ($data) {
-                return $data->is_banned ? '<span class="text-red" title="User is banned">'.$data->name.'</span>' : $data->name;
+                return ($data->is_banned ? '<span class="text-red" title="User is banned">'.$data->name.'</span>' : $data->name). ($data->is_admin ? ' <i class="fa fa-star text-yellow"></i>' : '');
             })
             ->editColumn('username', function ($data) {
                 return $data->is_banned ? '<span class="text-red" title="User is banned">'.$data->username.'</span>' : $data->username;
@@ -48,18 +48,18 @@ class UserController extends BackendController
                 class="btn btn-small btn-link">'.
                     ($data->is_banned ? '<span class="text-red" title="User is banned"> <i class="fa fa-xs fa-pencil"></i> Edit</span>' : ' <i class="fa fa-xs fa-pencil"></i> Edit').
             '</a> '.
-            Form::open(['style' => 'display: inline!important', 'method' => 'delete',
-                'action' => [$this->baseClass.'@destroy', $data->{$this->model->getKeyName()}]
-            ]).
-            (
-                ! $data->is_banned ?
-                '  <button type="submit" onClick="return confirm(\''.trans('backend.bannedconfirmation').'\');" 
-                    class="btn text-red btn-small btn-link">
-                        <i class="fa fa-xs fa-ban"></i> 
-                        Ban
-                </button>
-                </form>'
-                : '<span class="text-red" title="User is banned">Banned</span>'
+            (!$data->is_banned ?
+            '<a data-method="delete" data-title="'.trans('backend.wanttobanuser').'"
+                data-action="'.action($this->baseClass.'@destroy', [$data->{$this->model->getKeyName()}]).'"
+                class="btn btn-small btn-link btn-need-auth">
+                <i class="fa fa-xs fa-ban"></i>'.trans('livecms.ban').'
+            </a>' :
+            '<a data-method="put" data-title="'.trans('backend.wanttounbanuser').'"
+                data-action="'.action($this->baseClass.'@update', [$data->{$this->model->getKeyName()}]).'"
+                class="btn btn-small text-red btn-link btn-need-auth"
+                data-hidden=\''.json_encode(['credentials' => 'true', 'unban' => 'true']).'\'>
+                <i class="fa fa-xs fa-ban"></i>'.trans('livecms.unban').'
+            </a>'
             );
     }
 
@@ -84,11 +84,35 @@ class UserController extends BackendController
     {
         $this->model = $this->model->findOrFail($id);
 
+        $request = $this->processRequest($request);
+
+        if ($request === true) {
+            return $this->redirection();
+        }
+
         $banned = $this->role->where('role', Role::BANNED)->first()->id;
         $this->model->roles()->detach();
         $this->model->roles()->attach($banned);
 
         return $this->redirection();
+    }
+
+    protected function processRequest($request)
+    {
+        $request = parent::processRequest($request);
+
+        if ($request->isMethod('delete')) {
+
+            $this->validate($request, $this->model->rules());
+
+            $banned = $this->role->where('role', Role::BANNED)->first()->id;
+            $this->model->roles()->detach();
+            $this->model->roles()->attach($banned);
+
+            return true;
+        }
+
+        return $request;
     }
 
     protected function afterSaving($request)
@@ -118,8 +142,14 @@ class UserController extends BackendController
             return parent::afterSaving($request);
         }
 
-        $role = $this->role->where('role', Role::AUTHOR)->first()->id;
-        $this->model->roles()->attach($role);
+        
+        if ($request->isMethod('post')) {
+
+            $role = $this->role->where('role', Role::AUTHOR)->first()->id;
+            $this->model->roles()->attach($role);
+
+            return parent::afterSaving($request);
+        }
 
         return parent::afterSaving($request);
     }

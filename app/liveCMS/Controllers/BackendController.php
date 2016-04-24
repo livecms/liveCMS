@@ -63,6 +63,9 @@ class BackendController extends BaseController
 
     protected function redirection($method = 'index')
     {
+        if (request()->wantsJson()) {
+            return $this->data(request());
+        }
 
         if (method_exists($this, 'redirectTo')) {
             return $this->redirectTo();

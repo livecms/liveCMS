@@ -18,6 +18,11 @@ class Profile extends User
         'socials' => 'array',
     ];
 
+    public function allowsUserRead($user)
+    {
+        return true;
+    }
+
     public function socialMedias()
     {
         return $this->socialMedias;
