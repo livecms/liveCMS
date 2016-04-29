@@ -52,6 +52,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
         margin-top: -5px;
         margin-bottom: -5px;
         padding: 5px;
+        position: absolute;
+    }
+
+    .dropdown-toggle .user-label {
+        right: 0;
+        left: 0;
+    }
+
+    .user-block .user-label {
+        width: 40px;
+        height: 40px;
+        margin-top: 0;
+        padding: 10px;
     }
 
     .dark .user-label {
@@ -463,9 +476,6 @@ desired effect
             swal('{{trans('livecms.failed')}}', error.charAt(0).toUpperCase() + error.slice(1), 'error');
           });
         }
-        console.log(context._isConfirm)
-        // do whatever you want with the form data
-        console.log(context.swalForm) // { name: 'user name', nickname: 'what the user sends' }
       })
     });
   
