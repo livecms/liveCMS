@@ -39,6 +39,8 @@ class User extends BaseModel implements UserModelContract
 
     protected $dependencies = ['roles'];
 
+    protected $casts = ['socials' => 'array'];   
+
     protected $credentials = ['username', 'email', 'password'];
 
     public function rules()
