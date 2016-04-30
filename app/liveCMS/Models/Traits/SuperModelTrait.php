@@ -26,6 +26,6 @@ trait SuperModelTrait
 
     public function allowsUserDelete($user)
     {
-        return $this->is_super;
+        return $user->is_super;
     }
 }
