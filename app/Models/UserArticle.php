@@ -8,6 +8,6 @@ class UserArticle extends Article
 
     public function allowsUserRead($user)
     {
-        return !$user->is_banned;
+        return true;
     }
 }
