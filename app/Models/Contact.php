@@ -46,11 +46,9 @@ class Contact extends BaseModel
         $fillable = $contact->getFillable();
 
         foreach (array_only($attributes, $fillable) as $key => $value) {
-            
-            $row = Setting::firstOrNew(compact('key'));
 
-            $row->fill(compact('key', 'value', 'site_id'));
-
+            $row = Setting::privateOnly()->firstOrNew(compact('key', 'site_id'));
+            $row->fill(compact('value'));
             $row->save();
         }
 
