@@ -9,6 +9,8 @@ class PostableModel extends BaseModel
 {
     protected $fillable = ['title', 'site_id', 'slug', 'content', 'author_id', 'picture', 'published_at'];
 
+    protected $appends = ['url'];
+
     protected $dependencies = ['permalink', 'author'];
 
     protected $dates = ['published_at'];

@@ -120,7 +120,7 @@ if (! function_exists('theme')) {
 
 if (! function_exists('get')) {
 
-    function get($postType, $identifier = null, $number = 1, array $where = [], array $fields = ['*'])
+    function get($postType, $identifier = null, $number = 1, array $where = [], array $fields = ['*'], $order = 'DESC', $orderBy = 'published_at')
     {
         $namespace = 'App\\Models\\';
 
@@ -130,7 +130,7 @@ if (! function_exists('get')) {
 
         if ($identifier === null) {
 
-            return $instance->where($where)->take($number)->get($fields);
+            return $instance->where($where)->take($number)->orderBy($orderBy, $order)->get($fields);
         }
 
         $show = $instance->find($identifier);
