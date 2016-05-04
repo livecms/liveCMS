@@ -31,7 +31,9 @@ liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
 
         $post = $permalink->postable;
 
-        return view(theme('front', 'home'), compact('post'));
+        $title = globalParams('home_title', config('livecms.home_title', 'Home'));
+
+        return view(theme('front', 'home'), compact('post', 'title'));
     }]);
 
     $router->get('coming-soon', ['as' => 'coming-soon', function () {
