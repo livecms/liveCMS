@@ -120,7 +120,7 @@ if (! function_exists('theme')) {
 
 if (! function_exists('get')) {
 
-    function get($postType, $identifier = null, $number = 1, array $where = [], array $fields = ['*'], $order = 'DESC', $orderBy = 'published_at')
+    function get($postType, $identifier = null, $number = 1, array $where = [], array $fields = ['*'], $order = 'asc', $orderBy = 'id')
     {
         $namespace = 'App\\Models\\';
 
