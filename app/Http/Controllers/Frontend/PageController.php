@@ -20,16 +20,16 @@ class PageController extends FrontendController
 
         }
 
-        $article = Article::where('slug', $slug)->firstOrFail();
+        $post = $article = Article::where('slug', $slug)->firstOrFail();
 
-        return view(theme('front', 'article'), compact('article'));
+        return view(theme('front', 'article'), compact('post', 'article'));
     }
 
     public function getStatis($slug = null)
     {
-        $statis = StaticPage::where('slug', $slug)->firstOrFail();
+        $post = $statis = StaticPage::where('slug', $slug)->firstOrFail();
 
-        return view('staticpage', $statis);
+        return view(theme('front', 'staticpage'), compact('post', 'statis'));
     }
 
     public function getByPermalink($permalink)
