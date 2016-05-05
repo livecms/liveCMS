@@ -45,7 +45,7 @@ class PageController extends FrontendController
     {
         $parameters = func_get_args();
 
-        $articleSlug = globalParams('article_slug', config('livecms.slugs.article'));
+        $articleSlug = globalParams('slug_article', config('livecms.slugs.article'));
 
         if ($parameters[0] == $articleSlug) {
             $param = isset($parameters[1]) ? $parameters[1] : null;
@@ -53,7 +53,7 @@ class PageController extends FrontendController
         }
 
 
-        $statisSlug = globalParams('staticpage_slug', config('livecms.slugs.staticpage'));
+        $statisSlug = globalParams('slug_staticpage', config('livecms.slugs.staticpage'));
 
         if ($parameters[0] == $statisSlug) {
             return $this->getStatis($parameters[1]);
