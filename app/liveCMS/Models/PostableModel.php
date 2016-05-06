@@ -9,7 +9,7 @@ class PostableModel extends BaseModel
 {
     protected $fillable = ['title', 'site_id', 'slug', 'content', 'author_id', 'picture', 'published_at'];
 
-    protected $appends = ['url'];
+    protected $appends = ['url', 'highlight'];
 
     protected $dependencies = ['permalink', 'author'];
 
@@ -83,6 +83,11 @@ class PostableModel extends BaseModel
     public function getPictureAttribute($picture)
     {
         return $picture ? asset($this->getPicturePath().'/'.$picture) : null;
+    }
+
+    public function getHighlightAttribute()
+    {
+        return str_limit(strip_tags($this->content), 300);
     }
 
     public function getContent()
