@@ -39,7 +39,10 @@ liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
     $router->get('coming-soon', ['as' => 'coming-soon', function () {
         return view('coming-soon');
     }]);
-    
+
+    $router->get('redirect', ['as' => 'redirect', function () {
+        return redirect()->to(request()->get('to'));
+    }]);
 
     // ADMIN AREA
 
