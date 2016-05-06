@@ -45,7 +45,7 @@ class UrlGenerator extends BaseUrlGenerator
 
         $subfolder = $site->subfolder;
 
-        return Str::contains($root, $site->getDomain()) && $subfolder ? rtrim($root, '/'.$subfolder) : $root;
+        return Str::contains($root, $site->getDomain()) && $subfolder ? str_replace('/'.$subfolder, '', $root) : $root;
     }
 
     /**
