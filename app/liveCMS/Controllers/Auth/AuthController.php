@@ -89,13 +89,8 @@ class AuthController extends Controller
             return redirect()->back();
         }
         
-        if ($user->site_id != site()->getCurrent()->id) {
-            $this->logout();
-
-            $url = $user->site->getRootUrl().$this->redirectTo;
-
-
-            return redirect()->away($url);
+        if ($user->site_id != site()->id) {
+            return redirect()->to('logout');
         }
 
         return redirect()->intended($this->redirectTo);
