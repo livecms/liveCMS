@@ -22,11 +22,9 @@ class UrlGenerator extends BaseUrlGenerator
 
         $start = Str::startsWith($url, 'http://') ? 'http://' : 'https://';
 
-        $site = site()->getCurrent();
+        $subfolder = ($subfolder = site()->subfolder) ? '/'.$subfolder : '';
 
-        $subfolder = ($subfolder = $site->subfolder) ? '/'.$subfolder : '';
-
-        $this->cachedRoot = $this->forcedRoot = $start. $site->getHost().$subfolder;
+        $this->cachedRoot = $this->forcedRoot = $start. site()->getHost().$subfolder;
 
         return parent::getRootUrl($scheme, $root);
     }
@@ -41,11 +39,9 @@ class UrlGenerator extends BaseUrlGenerator
     {
         $root = parent::removeIndex($root);
 
-        $site = site()->getCurrent();
+        $subfolder = site()->subfolder;
 
-        $subfolder = $site->subfolder;
-
-        return Str::contains($root, $site->getDomain()) && $subfolder ? Str::replaceLast('/'.$subfolder, '', $root) : $root;
+        return Str::contains($root, site()->getDomain()) && $subfolder ? Str::replaceLast('/'.$subfolder, '', $root) : $root;
     }
 
     /**
@@ -65,7 +61,9 @@ class UrlGenerator extends BaseUrlGenerator
             return $path;
         }
 
-        $path = Str::replaceFirst('/'.site()->getCurrent()->subfolder, '', $path);
+        $subfolder = site()->subfolder;
+
+        $path = $subfolder ? Str::replaceFirst('/'.$subfolder, '', $path) : $path;
 
         return parent::to($path, $extra, $secure);
     }
