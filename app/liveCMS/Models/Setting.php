@@ -47,7 +47,7 @@ class Setting extends BaseModel
     {
         Cache::forget('global_params');
 
-        $global_params = static::get();
+        $global_params = GenericSetting::get();
 
         Cache::forever('global_params', $global_params);
     }
