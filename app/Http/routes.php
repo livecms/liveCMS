@@ -51,6 +51,7 @@ liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
 
     // FRONTEND
     $router->group(['namespace' => 'Frontend'], function ($router) {
+        $router->get('/', ['as' => 'home', 'uses' => 'PageController@home']);
         $router->get('{arg0?}/{arg1?}/{arg2?}/{arg3?}/{arg4?}/{arg5?}', 'PageController@routes');
     });
 });
