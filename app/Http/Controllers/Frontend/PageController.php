@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use Carbon\Carbon;
 use App\Models\Article;
 use App\Models\StaticPage;
 use App\liveCMS\Models\Permalink;
@@ -10,6 +11,28 @@ use Illuminate\Http\Request;
 
 class PageController extends FrontendController
 {
+    public function home()
+    {
+        // if set launching time
+        $launchingDateTime = globalParams('launching_datetime') ?
+        new Carbon(globalParams('launching_datetime')) : Carbon::now();
+
+
+        // check if has home permalink
+        $permalink = Permalink::withDependencies()->whereIn('permalink', ['/', ''])->first();
+
+        // if home exist or not yet launch
+        if ($permalink == null || $launchingDateTime->isFuture()) {
+            return redirect('coming-soon');
+        }
+
+        $post = $permalink->postable;
+
+        $title = globalParams('home_title', config('livecms.home_title', 'Home'));
+
+        return view(theme('front', 'home'), compact('post', 'title'));
+    }
+
     public function getArticle($slug = null)
     {
         if ($slug == null) {

@@ -14,28 +14,6 @@ use App\liveCMS\Models\Permalink;
 */
 liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
 
-    $router->get('/', ['as' => 'home', function () use ($adminSlug, $subDomain, $subFolder) {
-        
-        // if set launching time
-        $launchingDateTime = globalParams('launching_datetime') ?
-            new Carbon\Carbon(globalParams('launching_datetime')) : Carbon\Carbon::now();
-
-
-        // check if has home permalink
-        $permalink = Permalink::withDependencies()->whereIn('permalink', ['/', ''])->first();
-
-        // if home exist or not yet launch
-        if ($permalink == null || $launchingDateTime->isFuture()) {
-            return redirect('coming-soon');
-        }
-
-        $post = $permalink->postable;
-
-        $title = globalParams('home_title', config('livecms.home_title', 'Home'));
-
-        return view(theme('front', 'home'), compact('post', 'title'));
-    }]);
-
     $router->get('coming-soon', ['as' => 'coming-soon', function () {
         return view('coming-soon');
     }]);
