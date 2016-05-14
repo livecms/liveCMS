@@ -135,7 +135,7 @@ if (! function_exists('get')) {
             return $instance->where($where)->take($number)->orderBy($orderBy, $order)->get($fields);
         }
 
-        $show = is_array($identifier) ? $instance->whereIn($instance->getKeyName(), $identifier)->get() : $instance->find($identifier);
+        $show = is_array($identifier) ? $instance->whereIn($instance->getKeyName(), $identifier)->take($number)->orderBy($orderBy, $order)->get($fields) : $instance->find($identifier);
 
         if (!$show) {
             $show = $instance->where('slug', $identifier)->first($fields);
