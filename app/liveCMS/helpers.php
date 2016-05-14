@@ -3,6 +3,7 @@
 use App\liveCMS\Models\GenericSetting as Setting;
 use App\liveCMS\Models\Site;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Database\Eloquent\Collection;
 
 if (! function_exists('globalParams')) {
 
@@ -128,24 +129,65 @@ if (! function_exists('get')) {
 
         $instance = app($class);
 
+
         if ($identifier === null) {
 
             return $instance->where($where)->take($number)->orderBy($orderBy, $order)->get($fields);
         }
 
-        $show = $instance->find($identifier);
+        $show = is_array($identifier) ? $instance->whereIn($instance->getKeyName(), $identifier)->get() : $instance->find($identifier);
 
-        if ($show == null) {
-
+        if (!$show) {
             $show = $instance->where('slug', $identifier)->first($fields);
         }
 
         if ($show instanceof App\liveCMS\Models\PostableModel) {
-            
             return $show->getContent();
         }
 
+        if ($show instanceof Collection) {
+            return $show;
+        }
+
         return null;
+    }
+}
+
+if (! function_exists('getCategory')) {
+
+    function getCategory($category, $postType = 'article', $number = 10, array $fields = ['*'], $order = 'asc', $orderBy = 'id')
+    {
+        $namespace = 'App\\Models\\';
+
+        $class = $namespace.studly_case(snakeToStr($postType));
+
+        $ids = app($class)->whereHas('categories', function ($query) use ($category) {
+            $query->where(function ($query) use ($category) {
+                $table = $query->getModel()->getTable();
+                $query->where($table.'.category', $category)->orWhere($table.'.slug', $category);
+            });
+        })->pluck('id')->toArray();
+
+        return get($postType, $ids, $number, [], $fields, $order, $orderBy);
+    }
+}
+
+if (! function_exists('getTag')) {
+
+    function getTag($tag, $postType = 'article', $number = 10, array $fields = ['*'], $order = 'asc', $orderBy = 'id')
+    {
+        $namespace = 'App\\Models\\';
+
+        $class = $namespace.studly_case(snakeToStr($postType));
+
+        $ids = app($class)->whereHas('tags', function ($query) use ($tag) {
+            $query->where(function ($query) use ($tag) {
+                $table = $query->getModel()->getTable();
+                $query->where($table.'.tag', $tag)->orWhere($table.'.slug', $tag);
+            });
+        })->pluck('id')->toArray();
+
+        return get($postType, $ids, $number, [], $fields, $order, $orderBy);
     }
 }
 
