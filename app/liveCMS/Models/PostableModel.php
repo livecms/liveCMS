@@ -3,10 +3,13 @@
 namespace App\liveCMS\Models;
 
 use App\liveCMS\Models\Users\User as UserModel;
+use App\liveCMS\Models\Traits\ImagableTrait;
 use Carbon\Carbon;
 
 class PostableModel extends BaseModel
 {
+    use ImagableTrait;
+
     protected $fillable = ['title', 'site_id', 'slug', 'content', 'author_id', 'picture', 'published_at'];
 
     protected $appends = ['url', 'highlight'];

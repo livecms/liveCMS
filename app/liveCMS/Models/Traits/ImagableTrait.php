@@ -10,7 +10,7 @@ trait ImagableTrait
 
     protected function getImageAttributes()
     {
-        return property_exists($this, 'images') ? (array) $this->images : $imageAttributes;
+        return property_exists($this, 'images') ? (array) $this->images : $this->imageAttributes;
     }
 
     public function toArray()
@@ -41,6 +41,7 @@ trait ImagableTrait
     {
         $images = $this->getImageAttributes();
 
+
         $profiles = config('imagemax.profiles', []);
 
         $array = [];
@@ -49,8 +50,10 @@ trait ImagableTrait
             
             foreach ($profiles as $profile => $options) {
                 
-                $array[str_slug($image.'_'.$profile)] = ($url = $this->getAttribute($image)) ? ImageMax::make($url, $options) : null;
+                $array[str_slug($image.'_'.$profile)] = ($url = $this->attributes[$image]) ? ImageMax::make($url, $options) : null;
             }
         }
+
+        return $array;
     }
 }
