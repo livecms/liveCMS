@@ -162,6 +162,7 @@ return [
         App\liveCMS\Collective\Html\HtmlServiceProvider::class,
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
         LiveCMS\Support\Thumbnailer\ThumbnailerServiceProvider::class,
+        RoketId\ImageMax\ImageMaxServiceProvider::class,
 
     ],
 
@@ -215,6 +216,7 @@ return [
         'Html'      => Collective\Html\HtmlFacade::class,
         'Alert'     => UxWeb\SweetAlert\SweetAlert::class,
         'Thumb'     => LiveCMS\Support\Thumbnailer\Facades\Thumbnailer::class,
+        'ImageMax'  => RoketId\ImageMax\ImageMaxFacade::class,
 
     ],
 

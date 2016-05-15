@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "322f2dc42a28f7fa0873a437d807d234",
-    "content-hash": "d0b45253d95f699935a6c688269602ea",
+    "hash": "3edba2e356d224139aa61bb89d54fbf5",
+    "content-hash": "7823324a91fa07f7384388c0fa3e97d1",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -1419,6 +1419,43 @@
                 "shell"
             ],
             "time": "2016-03-09 05:03:14"
+        },
+        {
+            "name": "roketid/imagemax",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/roketID/php-imagemax.git",
+                "reference": "d5a6da0de87e9cf7b38bb0d98598e02decde1f0c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/roketID/php-imagemax/zipball/d5a6da0de87e9cf7b38bb0d98598e02decde1f0c",
+                "reference": "d5a6da0de87e9cf7b38bb0d98598e02decde1f0c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "RoketId\\ImageMax\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mokhamad Rofiudin",
+                    "email": "mokh.rofiudin@gmail.com"
+                }
+            ],
+            "description": "Simple helper to generate ImageMax URL",
+            "homepage": "https://github.com/roketID/php-imagemax",
+            "time": "2016-05-15 22:05:42"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -3246,16 +3283,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.24",
+            "version": "4.8.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "a1066c562c52900a142a0e2bbf0582994671385e"
+                "reference": "6d1588a6542a52ed89636e5a9876bc7502bbb853"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a1066c562c52900a142a0e2bbf0582994671385e",
-                "reference": "a1066c562c52900a142a0e2bbf0582994671385e",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/6d1588a6542a52ed89636e5a9876bc7502bbb853",
+                "reference": "6d1588a6542a52ed89636e5a9876bc7502bbb853",
                 "shasum": ""
             },
             "require": {
@@ -3269,7 +3306,7 @@
                 "phpunit/php-code-coverage": "~2.1",
                 "phpunit/php-file-iterator": "~1.4",
                 "phpunit/php-text-template": "~1.2",
-                "phpunit/php-timer": ">=1.0.6",
+                "phpunit/php-timer": "^1.0.6",
                 "phpunit/phpunit-mock-objects": "~2.3",
                 "sebastian/comparator": "~1.1",
                 "sebastian/diff": "~1.2",
@@ -3314,7 +3351,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-03-14 06:16:08"
+            "time": "2016-05-10 18:47:12"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -3796,7 +3833,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "livecms/support": 20
+        "livecms/support": 20,
+        "roketid/imagemax": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
