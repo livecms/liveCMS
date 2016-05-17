@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use Carbon\Carbon;
 use App\Models\Article;
+use App\Models\Category;
 use App\Models\StaticPage;
 use App\liveCMS\Models\Permalink;
 use App\liveCMS\Controllers\FrontendController;
@@ -33,17 +34,28 @@ class PageController extends FrontendController
         return view(theme('front', 'home'), compact('post', 'title'));
     }
 
-    public function getArticle($slug = null)
+    public function getArticle($slug = null, $with = [])
     {
+        $article = new Article;
+
+        view()->share($with);
+
+        foreach ($with as $key => $value) {
+            
+            $article = $article->whereHas($key, function ($query) use ($value) {
+                $query->where($query->getModel()->getKeyName(), $value);
+            });
+        }
+
         if ($slug == null) {
 
-            $articles = Article::orderBy('published_at', 'DESC')->simplePaginate(1);
+            $articles = $article->orderBy('published_at', 'DESC')->simplePaginate(1);
 
             return view(theme('front', (request()->ajax() ? 'partials.articles' : 'articles')), compact('articles'));
 
         }
 
-        $post = $article = Article::where('slug', $slug)->firstOrFail();
+        $post = $article = $article->where('slug', $slug)->firstOrFail();
         $title = $post->title;
 
         if ($post->permalink) {
@@ -80,18 +92,40 @@ class PageController extends FrontendController
     {
         $parameters = func_get_args();
 
+        // get article
         $articleSlug = globalParams('slug_article', config('livecms.slugs.article'));
 
         if ($parameters[0] == $articleSlug) {
+            view()->share('routeBy', 'article');
             $param = isset($parameters[1]) ? $parameters[1] : null;
             return $this->getArticle($param);
         }
 
-
+        // get static
         $statisSlug = globalParams('slug_staticpage', config('livecms.slugs.staticpage'));
 
         if ($parameters[0] == $statisSlug) {
+            view()->share('routeBy', 'static');
             return $this->getStatis($parameters[1]);
+        }
+
+        // get article category
+        $category = Category::where('slug', $parameters[0])->first();
+        if ($category || $parameters[0] == 'category') {
+            view()->share('routeBy', 'category');
+            $param = isset($parameters[1]) ? $parameters[1] : null;
+            if (!$category) {
+                $category = Category::where('slug', $param)->first();
+                $param = null;
+            }
+            return $this->getArticle($param, $category ? ['categories' => $category->id] : []);
+        }
+
+        // get article tag
+        if ($parameters[0] == 'tag') {
+            view()->share('routeBy', 'tag');
+            $tag = Tag::where('slug', $param)->first();
+            return $this->getArticle(null, $tag ? ['tags' => $tag->id] : []);
         }
 
         $permalink = implode('/', $parameters);
