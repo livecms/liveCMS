@@ -44,25 +44,27 @@ class PageController extends FrontendController
         }
 
         $post = $article = Article::where('slug', $slug)->firstOrFail();
+        $title = $post->title;
 
         if ($post->permalink) {
             
             return redirect($post->url);
         }
 
-        return view(theme('front', 'article'), compact('post', 'article'));
+        return view(theme('front', 'article'), compact('post', 'article', 'title'));
     }
 
     public function getStatis($slug = null)
     {
         $post = $statis = StaticPage::where('slug', $slug)->firstOrFail();
+        $title = $post->title;
 
         if ($post->permalink) {
             
             return redirect($post->url);
         }
 
-        return view(theme('front', 'staticpage'), compact('post', 'statis'));
+        return view(theme('front', 'staticpage'), compact('post', 'statis', 'title'));
     }
 
     public function getByPermalink($permalink)
