@@ -9,6 +9,7 @@ use App\Models\Tag;
 use App\Models\StaticPage;
 use App\liveCMS\Models\Permalink;
 use App\liveCMS\Controllers\FrontendController;
+use ReflectionClass;
 use Illuminate\Http\Request;
 
 class PageController extends FrontendController
@@ -35,7 +36,7 @@ class PageController extends FrontendController
         return view(theme('front', 'home'), compact('post', 'title'));
     }
 
-    public function getArticle($slug = null, $with = [])
+    public function getArticle($redirect = true, $slug = null, $with = [])
     {
         $article = new Article;
 
@@ -59,7 +60,7 @@ class PageController extends FrontendController
         $post = $article = $article->where('slug', $slug)->firstOrFail();
         $title = $post->title;
 
-        if ($post->permalink) {
+        if ($redirect && $post->permalink) {
             
             return redirect($post->url);
         }
@@ -67,12 +68,12 @@ class PageController extends FrontendController
         return view(theme('front', 'article'), compact('post', 'article', 'title'));
     }
 
-    public function getStatis($slug = null)
+    public function getStaticPage($redirect = true, $slug = null)
     {
         $post = $statis = StaticPage::where('slug', $slug)->firstOrFail();
         $title = $post->title;
 
-        if ($post->permalink) {
+        if ($redirect && $post->permalink) {
             
             return redirect($post->url);
         }
@@ -84,9 +85,9 @@ class PageController extends FrontendController
     {
         $page = Permalink::where('permalink', $permalink)->firstOrFail();
 
-        $type = strtolower(basename($page->portable_type));
+        $type = (new ReflectionClass($post = $page->postable))->getShortName();
 
-        return view(theme('front', $permalink), ['post' => $page->postable]);
+        return view()->exists(theme('front', $permalink)) ? view(theme('front', $permalink), compact('post')) : $this->{'get'.$type}(false, $post->slug);
     }
 
     public function routes()
@@ -99,7 +100,7 @@ class PageController extends FrontendController
         if ($parameters[0] == $articleSlug) {
             view()->share('routeBy', 'article');
             $param = isset($parameters[1]) ? $parameters[1] : null;
-            return $this->getArticle($param);
+            return $this->getArticle(true, $param);
         }
 
         // get static
@@ -107,7 +108,7 @@ class PageController extends FrontendController
 
         if ($parameters[0] == $statisSlug) {
             view()->share('routeBy', 'static');
-            return $this->getStatis($parameters[1]);
+            return $this->getStaticPage(true, $parameters[1]);
         }
 
         // get article category
@@ -119,14 +120,14 @@ class PageController extends FrontendController
                 $category = Category::where('slug', $param)->first();
                 $param = null;
             }
-            return $this->getArticle($param, $category ? ['categories' => $category->id] : []);
+            return $this->getArticle(true, $param, $category ? ['categories' => $category->id] : []);
         }
 
         // get article tag
         if ($parameters[0] == 'tag') {
             view()->share('routeBy', 'tag');
             $tag = Tag::where('slug', $param)->first();
-            return $this->getArticle(null, $tag ? ['tags' => $tag->id] : []);
+            return $this->getArticle(true, null, $tag ? ['tags' => $tag->id] : []);
         }
 
         $permalink = implode('/', $parameters);
