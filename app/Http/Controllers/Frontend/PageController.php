@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use Carbon\Carbon;
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Tag;
 use App\Models\StaticPage;
 use App\liveCMS\Models\Permalink;
 use App\liveCMS\Controllers\FrontendController;
