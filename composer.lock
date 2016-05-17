@@ -1426,12 +1426,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/roketID/php-imagemax.git",
-                "reference": "a68f6da45b745e568c8bd443286841966c5e6983"
+                "reference": "6e4d2fd2cd0bb98447f430e3776e49319a6d7e93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/roketID/php-imagemax/zipball/a68f6da45b745e568c8bd443286841966c5e6983",
-                "reference": "a68f6da45b745e568c8bd443286841966c5e6983",
+                "url": "https://api.github.com/repos/roketID/php-imagemax/zipball/6e4d2fd2cd0bb98447f430e3776e49319a6d7e93",
+                "reference": "6e4d2fd2cd0bb98447f430e3776e49319a6d7e93",
                 "shasum": ""
             },
             "require": {
@@ -1455,7 +1455,7 @@
             ],
             "description": "Simple helper to generate ImageMax URL",
             "homepage": "https://github.com/roketID/php-imagemax",
-            "time": "2016-05-17 17:09:56"
+            "time": "2016-05-17 18:10:57"
         },
         {
             "name": "swiftmailer/swiftmailer",
