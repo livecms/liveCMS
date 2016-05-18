@@ -120,6 +120,7 @@ class PageController extends FrontendController
                 $category = Category::where('slug', $param)->first();
                 $param = null;
             }
+            view()->share('title', $category->category);
             return $this->getArticle(true, $param, $category ? ['categories' => $category->id] : []);
         }
 
