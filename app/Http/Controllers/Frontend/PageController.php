@@ -51,7 +51,7 @@ class PageController extends FrontendController
 
         if ($slug == null) {
 
-            $articles = $article->orderBy('published_at', 'DESC')->simplePaginate(10);
+            $articles = $article->orderBy('published_at', 'DESC')->simplePaginate(12);
 
             return view(theme('front', (request()->ajax() ? 'partials.articles' : 'articles')), compact('articles'));
 
