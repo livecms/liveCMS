@@ -27,7 +27,7 @@ class Site extends Model
             return static::setCurrent(new Site);
         };
         
-        static::$domain = $domain = config('livecms.domain');
+        static::$domain = $domain = rtrim(config('livecms.domain'), '/');
 
         static::$host = $host = request()->server('HTTP_HOST');
 
