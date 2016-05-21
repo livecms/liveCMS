@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\liveCMS\Controllers\BackendController;
+use App\liveCMS\Models\Contracts\UserModelInterface;
 use App\liveCMS\Models\PostableModel as Model;
 use App\liveCMS\Models\Permalink;
 
@@ -83,22 +84,25 @@ abstract class PostableController extends BackendController
 
     protected function afterSaving($request)
     {
-        if ($request->has('permalink')) {
+        if (!in_array('App\liveCMS\Models\Contracts\UserOnlyInterface', class_implements($this->model))) {
+
+            if ($request->has('permalink')) {
+                
+                $permalink = $this->model->permalink;
+
+                if ($permalink == null) {
+                    $permalink = new Permalink();
+                    $permalink->postable()->associate($this->model);
+                    $permalink->save();
+                }
+
+                $permalink->update(['permalink' => $request->get('permalink')]);
             
-            $permalink = $this->model->permalink;
+            } else {
 
-            if ($permalink == null) {
-                $permalink = new Permalink();
-                $permalink->postable()->associate($this->model);
-                $permalink->save();
-            }
-
-            $permalink->update(['permalink' => $request->get('permalink')]);
-        
-        } else {
-
-            if ($this->model->permalink) {
-                $this->model->permalink->delete();
+                if ($this->model->permalink) {
+                    $this->model->permalink->delete();
+                }
             }
         }
 

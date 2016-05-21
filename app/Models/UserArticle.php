@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
-class UserArticle extends Article
+use App\liveCMS\Models\Contracts\UserOnlyInterface as UserContract;
+
+class UserArticle extends Article implements UserContract
 {
     protected $table = 'articles';
 
