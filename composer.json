@@ -14,7 +14,8 @@
         "symfony/dom-crawler": "2.8.*|3.0.*",
         "livecms/support": "dev-master",
         "roketid/imagemax": "dev-master",
-        "doctrine/dbal": "^2.5"
+        "doctrine/dbal": "^2.5",
+        "mrofi/videoinfo": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
