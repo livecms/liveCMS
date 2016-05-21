@@ -5,6 +5,9 @@ namespace App\liveCMS\Models;
 use App\liveCMS\Models\Users\User as UserModel;
 use App\liveCMS\Models\Traits\ImagableTrait;
 use Carbon\Carbon;
+use Mrofi\VideoInfo\VideoInfo;
+use Mrofi\VideoInfo\Youtube;
+use Symfony\Component\DomCrawler\Crawler;
 
 class PostableModel extends BaseModel
 {
@@ -96,5 +99,25 @@ class PostableModel extends BaseModel
     public function getContent()
     {
         return $this->content;
+    }
+
+    public function getVideoContent()
+    {
+        if (! $this->content) {
+            return null;
+        }
+
+        $crawler = new Crawler($this->content);
+        // scan embeded
+        Youtube::setApi(env('YOUTUBE_API'));
+        $videos = $crawler->filter('iframe')->each(function (Crawler $node, $i) {
+            $src = $node->attr('src');
+            $video = new VideoInfo($src);
+            if ($video && $video->id) {
+                return $video->getVideo();
+            }
+        });
+
+        return $videos;
     }
 }
