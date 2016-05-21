@@ -118,6 +118,6 @@ class PostableModel extends BaseModel
             }
         });
 
-        return $videos;
+        return collect($videos);
     }
 }
