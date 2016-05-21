@@ -41,7 +41,6 @@ trait ImagableTrait
     {
         $images = $this->getImageAttributes();
 
-
         $profiles = config('imagemax.profiles', []);
 
         $array = [];
@@ -50,7 +49,7 @@ trait ImagableTrait
             
             foreach ($profiles as $profile => $options) {
                 
-                $array[str_slug($image.'_'.$profile)] = ($url = $this->attributes[$image]) ? ImageMax::make($url, $options) : null;
+                $array[str_slug($image.'_'.$profile)] = ($url = isset($this->attributes[$image]) ? $this->attributes[$image] : null) ? ImageMax::make($url, $options) : null;
             }
         }
 
