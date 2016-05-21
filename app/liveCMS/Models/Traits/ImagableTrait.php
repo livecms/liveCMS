@@ -3,56 +3,66 @@
 namespace App\liveCMS\Models\Traits;
 
 use ImageMax;
+use Illuminate\Support\Str;
 
 trait ImagableTrait
 {
     protected $imageAttributes = ['picture'];
 
-    protected function getImageAttributes()
+    protected function getImagableAttributes()
     {
         return property_exists($this, 'images') ? (array) $this->images : $this->imageAttributes;
     }
 
     public function toArray()
     {
-        $array = array_merge(parent::toArray(), $this->getImagesArray());
+        $array = parent::toArray();
 
-        return $array;
+        return $this->getImagesArray($array);
     }
 
     public function getAttribute($key)
     {
-        $array = $this->getImagesArray();
-
-        if (array_key_exists($key, $array)) {
-            return $array[$key];
-        }
+        $attribute = parent::getAttribute($key);
         
-        $get = parent::getAttribute($key);
-        
-        if ($get != null) {
-            return $get;
-        }
+        if (!$attribute) {
 
-        return null;
-    }
-
-    protected function getImagesArray()
-    {
-        $images = $this->getImageAttributes();
-
-        $profiles = config('imagemax.profiles', []);
-
-        $array = [];
-
-        foreach ($images as $image) {
+            $profiles = config('imagemax.profiles', []);
             
             foreach ($profiles as $profile => $options) {
-                
-                $array[str_slug($image.'_'.$profile)] = ($url = isset($this->attributes[$image]) ? $this->attributes[$image] : null) ? ImageMax::make($url, $options) : null;
+            
+                if (Str::endsWith($key, $last = '_'.str_slug($profile, '_')))
+                {
+                    $image = Str::replaceLast($last, '', $key);
+
+                    if (in_array($image, $this->getImagableAttributes()) && $this->getAttribute($image)) {
+
+                        return ImageMax::make($this->getAttribute($image), $options);
+                    }
+                }
             }
         }
 
-        return $array;
+        return $attribute;
+    }
+
+    protected function getImagesArray($attributes)
+    {
+        $images = $this->getImagableAttributes();
+
+        $profiles = config('imagemax.profiles', []);
+
+        foreach ($images as $image) {
+
+            foreach ($profiles as $profile => $options) {
+                
+                if (isset($attributes[$image])) {
+
+                    $attributes[str_slug($image.'_'.$profile, '_')] = ImageMax::make($attributes[$image], $options);
+                }
+            }
+        }
+
+        return $attributes;
     }
 }
