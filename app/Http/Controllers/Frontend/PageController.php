@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use Carbon\Carbon;
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Gallery;
 use App\Models\Tag;
 use App\Models\StaticPage;
 use App\liveCMS\Models\Permalink;
@@ -68,6 +69,38 @@ class PageController extends FrontendController
         return view(theme('front', 'article'), compact('post', 'article', 'title'));
     }
 
+    public function getGallery($redirect = true, $slug = null, $with = [])
+    {
+        $gallery = new Gallery;
+
+        view()->share($with);
+
+        foreach ($with as $key => $value) {
+            
+            $gallery = $gallery->whereHas($key, function ($query) use ($value) {
+                $query->where($query->getModel()->getKeyName(), $value);
+            });
+        }
+
+        if ($slug == null) {
+
+            $galleries = $gallery->orderBy('published_at', 'DESC')->simplePaginate(12);
+
+            return view(theme('front', (request()->ajax() ? 'partials.galleries' : 'galleries')), compact('galleries'));
+
+        }
+
+        $post = $gallery = $gallery->where('slug', $slug)->firstOrFail();
+        $title = $post->title;
+
+        if ($redirect && $post->permalink) {
+            
+            return redirect($post->url);
+        }
+
+        return view(theme('front', 'gallery'), compact('post', 'gallery', 'title'));
+    }
+
     public function getStaticPage($redirect = true, $slug = null)
     {
         $post = $statis = StaticPage::where('slug', $slug)->firstOrFail();
@@ -93,15 +126,6 @@ class PageController extends FrontendController
     public function routes()
     {
         $parameters = func_get_args();
-
-        // get article
-        $articleSlug = globalParams('slug_article', config('livecms.slugs.article'));
-
-        if ($parameters[0] == $articleSlug) {
-            view()->share('routeBy', 'article');
-            $param = isset($parameters[1]) ? $parameters[1] : null;
-            return $this->getArticle(true, $param);
-        }
 
         // get static
         $statisSlug = globalParams('slug_staticpage', config('livecms.slugs.staticpage'));
@@ -129,6 +153,24 @@ class PageController extends FrontendController
             view()->share('routeBy', 'tag');
             $tag = Tag::where('slug', $param)->first();
             return $this->getArticle(true, null, $tag ? ['tags' => $tag->id] : []);
+        }
+
+        // get article
+        $articleSlug = globalParams('slug_article', config('livecms.slugs.article'));
+
+        if ($parameters[0] == $articleSlug) {
+            view()->share('routeBy', 'article');
+            $param = isset($parameters[1]) ? $parameters[1] : null;
+            return $this->getArticle(true, $param);
+        }
+
+        // get gallery
+        $gallerySlug = globalParams('slug_gallery', config('livecms.slugs.gallery'));
+
+        if ($parameters[0] == $gallerySlug) {
+            view()->share('routeBy', 'gallery');
+            $param = isset($parameters[1]) ? $parameters[1] : null;
+            return $this->getGallery(true, $param);
         }
 
         $permalink = implode('/', $parameters);
