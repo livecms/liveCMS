@@ -424,7 +424,7 @@ desired effect
         // window.location.hash='';
         var t = $(this);
         setTimeout(function() {
-          t.DataTable().search(decodeURI(h[1])).draw();
+          t.DataTable().search(decodeURIComponent(h[1])).draw();
         }, 100)
       }
     });
