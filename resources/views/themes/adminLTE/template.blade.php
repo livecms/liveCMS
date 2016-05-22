@@ -111,7 +111,7 @@ desired effect
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="{{url(globalParams('slug_admin', config('livecms.slugs.admin')))}}" class="logo">
+    <a href="{{url('/')}}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini">{{ globalParams('site_initial', 'LC') }}</span>
       <!-- logo for regular state and mobile devices -->
@@ -418,7 +418,17 @@ desired effect
              'none' :
              'block'
       );
+    }).one( 'draw.dt', function () {
+      var h = window.location.hash.substr(1).split('=');
+      if (h[0] == 'search') {
+        // window.location.hash='';
+        var t = $(this);
+        setTimeout(function() {
+          t.DataTable().search(decodeURI(h[1])).draw();
+        }, 100)
+      }
     });
+
   @endif
 
   @if(isset($useCKEditor) || isset($useTinyMCE))
