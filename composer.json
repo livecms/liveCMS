@@ -1,12 +1,12 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "livecms/livecms",
+    "description": "Awesome CMS powered by Larave Framework.",
+    "keywords": ["cms", "livecms", "framework", "laravel"],
     "license": "MIT",
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "laravel/framework": "5.2.*"
+        "livecms/core": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -33,7 +33,11 @@
             "php -r \"copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
-            "php artisan key:generate"
+            "php artisan key:generate",
+            "php artisan vendor:publish --force",
+            "chmod +w -R public/files/",
+            "chmod +w -R public/uploads/",
+            "chmod +w -R public/users/"
         ],
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
@@ -44,7 +48,6 @@
             "php artisan optimize"
         ]
     },
-    "config": {
-        "preferred-install": "dist"
-    }
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

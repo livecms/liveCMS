@@ -152,9 +152,17 @@ return [
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
+        LiveCMS\Providers\LiveCMSServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        Yajra\Datatables\DatatablesServiceProvider::class,
+        LiveCMS\Collective\Html\HtmlServiceProvider::class,
+        UxWeb\SweetAlert\SweetAlertServiceProvider::class,
+        LiveCMS\Support\Thumbnailer\ThumbnailerServiceProvider::class,
+        RoketId\ImageMax\ImageMaxServiceProvider::class,
 
     ],
 
@@ -201,6 +209,14 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        'Debugbar'  => Barryvdh\Debugbar\Facade::class,
+        'Datatables'=> Yajra\Datatables\Datatables::class,
+        'Form'      => Collective\Html\FormFacade::class,
+        'Html'      => Collective\Html\HtmlFacade::class,
+        'Alert'     => UxWeb\SweetAlert\SweetAlert::class,
+        'Thumb'     => LiveCMS\Support\Thumbnailer\Facades\Thumbnailer::class,
+        'ImageMax'  => RoketId\ImageMax\ImageMaxFacade::class,
 
     ],
 

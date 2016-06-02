@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => LiveCMS\Models\Users\User::class,
         ],
 
         // 'users' => [
@@ -98,7 +98,7 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'email' => 'auth.emails.password',
+            'email' => 'livecms::auth.emails.password',
             'table' => 'password_resets',
             'expire' => 60,
         ],
