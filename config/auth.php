@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\liveCMS\Models\Users\User::class,
+            'model' => App\User::class,
         ],
 
         // 'users' => [

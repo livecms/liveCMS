@@ -1,5 +1,6 @@
 /vendor
 /node_modules
+/LiveCMS
 Homestead.yaml
 Homestead.json
 .env

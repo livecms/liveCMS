@@ -1,1 +1,0 @@
-@extends('themes.adminLTE.login')
