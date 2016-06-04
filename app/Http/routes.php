@@ -10,3 +10,12 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+
+liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
+
+    // Frontend, keep in top
+    frontendRoute($router);
+
+    // your routes after this
+
+});
