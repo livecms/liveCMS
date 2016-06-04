@@ -35,6 +35,7 @@
         "post-create-project-cmd": [
             "php artisan key:generate",
             "php artisan vendor:publish --force",
+            "php artisan optimize",
             "chmod +w -R public/files/",
             "chmod +w -R public/uploads/",
             "chmod +w -R public/users/"
