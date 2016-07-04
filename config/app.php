@@ -151,18 +151,19 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        LiveCMS\Providers\LiveCMSServiceProvider::class,
+        Mrofi\LaravelSharedHostingPackage\LaravelSharedHostingPackageServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        Yajra\Datatables\DatatablesServiceProvider::class,
+        UxWeb\SweetAlert\SweetAlertServiceProvider::class,
+        LiveCMS\Support\Thumbnailer\ThumbnailerServiceProvider::class,
+        RoketId\ImageMax\ImageMaxServiceProvider::class,
+        LiveCMS\Providers\LiveCMSServiceProvider::class,
+    
+        App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        Yajra\Datatables\DatatablesServiceProvider::class,
-        LiveCMS\Collective\Html\HtmlServiceProvider::class,
-        UxWeb\SweetAlert\SweetAlertServiceProvider::class,
-        LiveCMS\Support\Thumbnailer\ThumbnailerServiceProvider::class,
-        RoketId\ImageMax\ImageMaxServiceProvider::class,
 
     ],
 
