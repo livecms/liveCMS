@@ -1,12 +1,12 @@
 {
     "name": "livecms/livecms",
-    "description": "Awesome CMS powered by Larave Framework.",
+    "description": "Awesome CMS powered by Laravel Framework.",
     "keywords": ["cms", "livecms", "framework", "laravel"],
     "license": "MIT",
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "livecms/core": "dev-master"
+        "livecms/core": "~0.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
