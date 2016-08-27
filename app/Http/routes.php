@@ -13,9 +13,6 @@
 
 liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
 
+    // your routes here
 
-
-    // your routes before this line =============
-    // Frontend, keep it at bottom
-    frontendRoute($router);
 });
