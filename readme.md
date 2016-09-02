@@ -4,7 +4,7 @@
 
 1. Create Composer Project
     ````
-         composer create-project livecms/livecms --stability=dev --prefer-dist
+         composer create-project livecms/livecms --prefer-dist
     ````
 
 2. Edit .env in folder **livecms**
