@@ -55,7 +55,10 @@ class RouteServiceProvider extends ServiceProvider
         $router->group([
             'namespace' => $this->namespace, 'middleware' => 'web',
         ], function ($router) {
-            require app_path('Http/routes.php');
+            liveCMSRouter($router, function ($router, $adminSlug, $subDomain, $subFolder) {
+                require app_path('Http/routes.php');
+                frontendRoute($router);
+            });
         });
     }
 }
